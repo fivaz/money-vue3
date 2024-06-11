@@ -1,72 +1,81 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div class="text-blue-500">hello world</div>
+  <div class="p-4">
+    <header class="flex justify-between items-center">
+      <button @click="prevMonth">&lt;</button>
+      <h1>{{ currentMonth }}</h1>
+      <button @click="nextMonth">&gt;</button>
+    </header>
+    <h2 class="text-2xl">{{ balance }}</h2>
+    <div v-if="budgets.length === 0" class="text-center p-4">
+      <p>No budgets found. Click the button below to create your first budget.</p>
+      <button @click="addRandomBudget" class="mt-2 bg-blue-500 text-white p-2 rounded">Create Budget</button>
+    </div>
+    <Budget
+      v-for="budget in budgets"
+      :key="budget.id"
+      :budget="budget"
+      @update-transactions="fetchBudgets"
+    />
+    <TransactionForm
+      v-if="showTransactionForm"
+      :budgetId="currentBudgetId"
+      :transactionId="currentTransactionId"
+      @close="showTransactionForm = false"
+      @update="fetchBudgets"
+    />
+    <BudgetForm
+      v-if="showBudgetForm"
+      :budgetId="currentBudgetId"
+      @close="showBudgetForm = false"
+      @update="fetchBudgets"
+    />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import Budget from './components/Budget.vue';
+import TransactionForm from './components/TransactionForm.vue';
+import BudgetForm from './components/BudgetForm.vue';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const currentMonth = ref('June');
+const showTransactionForm = ref(false);
+const showBudgetForm = ref(false);
+const currentBudgetId = ref('');
+const currentTransactionId = ref('');
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+const budgets = ref([]);
+const transactions = ref([]);
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+const balance = computed(() => {
+  return transactions.value.reduce((sum, tx) => sum + tx.amount, 0);
+});
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
+const fetchBudgets = () => {
+  budgets.value = Array.from({ length: 3 }, (_, i) => ({
+    id: i + 1,
+    name: `Budget ${i + 1}`,
+    total: Math.floor(Math.random() * 1000) + 100,
+  }));
+};
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
+const prevMonth = () => {
+  // Logic to go to the previous month
+};
 
-nav a:first-of-type {
-  border: 0;
-}
+const nextMonth = () => {
+  // Logic to go to the next month
+};
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+const addRandomBudget = () => {
+  // Simulate adding a random budget
+  const newBudget = {
+    id: budgets.value.length + 1,
+    name: `Budget ${budgets.value.length + 1}`,
+    total: Math.floor(Math.random() * 1000) + 100,
+  };
+  budgets.value.push(newBudget);
+};
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+fetchBudgets(); // Fetch budgets when the component is mounted
+</script>
