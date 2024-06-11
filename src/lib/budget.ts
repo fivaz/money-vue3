@@ -3,3 +3,5 @@ export type Budget = {
   name: string
   value: number
 }
+
+export type BudgetIn = Omit<Budget, 'id'> & { id?: string }

@@ -44,26 +44,64 @@
 import { defineEmits, ref, onMounted } from 'vue'
 import type { Budget } from '@/lib/budget'
 import TransactionForm from '@/components/TransactionForm.vue'
-import type { Transaction } from '@/lib/transactions'
-import { addDoc, collection } from 'firebase/firestore'
+import type { Transaction, TransactionIn } from '@/lib/transactions'
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
-const { transaction, budgetId } = defineProps<{ budgetId: string; transaction: Transaction }>()
+const { transaction, budgetId } = defineProps<{ budgetId: string; transaction: TransactionIn }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const transactionIn = ref<Transaction>(transaction)
+const transactionIn = ref<TransactionIn>(transaction)
+
 const user = useCurrentUser()
-function submitForm() {
+const db = useFirestore()
+
+function addTransaction(
+  db: ReturnType<typeof useFirestore>,
+  transaction: TransactionIn,
+  budgetId: string,
+  userId: string
+): void {
   const transactionCollectionRef = collection(
-    useFirestore(),
+    db,
     'users',
-    user.value!.uid,
+    userId,
     'budgets',
     budgetId,
     'transactions'
   )
-  void addDoc(transactionCollectionRef, transactionIn.value)
+
+  addDoc(transactionCollectionRef, transaction)
+}
+function editTransaction(
+  db: ReturnType<typeof useFirestore>,
+  transaction: Transaction,
+  budgetId: string,
+  userId: string
+): void {
+  const transactionDocRef = doc(
+    db,
+    'users',
+    userId,
+    'budgets',
+    budgetId,
+    'transactions',
+    transaction.id
+  )
+  updateDoc(transactionDocRef, transaction)
+}
+
+function hasId(transactionIn: TransactionIn): transactionIn is Transaction {
+  return !!transaction.id
+}
+
+function submitForm() {
+  if (hasId(transactionIn.value)) {
+    void editTransaction(db, transactionIn.value, budgetId, user.value!.uid)
+  } else {
+    void addTransaction(db, transactionIn.value, budgetId, user.value!.uid)
+  }
   emit('close')
 }
 </script>
