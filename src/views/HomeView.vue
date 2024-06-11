@@ -1,24 +1,26 @@
 <template>
   <div class="p-4">
-    <header
-      class="flex flex-col justify-between text-base items-center font-semibold leading-6 text-gray-900"
-    >
+    <header class="flex flex-col justify-between items-center mb-2">
       <div class="w-full flex justify-between items-center">
         <button @click="prevMonth"><ChevronLeft /></button>
-        <h1 class="">
+        <h1
+          class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+        >
           {{ format(currentDate, 'MMMM') }}
         </h1>
         <button @click="nextMonth"><ChevronRight /></button>
       </div>
-      <h2 class="">{{ parseAmount(balance) }}</h2>
+      <h2 class="mt-1 text-base font-semibold leading-6 text-gray-900">
+        ${{ parseAmount(balance) }}
+      </h2>
     </header>
 
-    <ul>
+    <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
       <BudgetItem
         v-for="budget in budgets"
         :key="budget.id"
         :budget="budget"
-        @edit-budget="(budget) => editBudget(budget)"
+        @edit-budget="(b) => editBudget(b)"
       />
     </ul>
 
