@@ -34,6 +34,9 @@
 <script setup lang="ts">
 import { defineEmits, ref, onMounted } from 'vue'
 import type { Budget } from '@/budget'
+import { useFirestore } from 'vuefire'
+
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 
 const { budget } = defineProps<{ budget: Budget }>()
 
@@ -43,6 +46,8 @@ const budgetIn = ref<Budget>(budget)
 
 function submitForm() {
   console.log('submit')
-  console.log(budgetIn)
+  console.log(budgetIn.value)
+  const budgetCollectionRef = collection(useFirestore(), 'budgets')
+  return addDoc(budgetCollectionRef, budgetIn.value)
 }
 </script>

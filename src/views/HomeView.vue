@@ -23,6 +23,13 @@
         @edit-budget="(b) => editBudget(b)"
       />
     </ul>
+    <button
+      type="button"
+      @click="addBudget"
+      class="absolute bottom-0 right-0 m-4 rounded bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >
+      Button text
+    </button>
 
     <!--    <TransactionForm-->
     <!--      v-if="showTransactionForm"-->
@@ -46,6 +53,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/transactions'
 import type { Budget } from '@/budget'
 import { parseAmount } from '@/utils'
+import { getFirestore, collection } from 'firebase/firestore'
 
 const currentDate = ref(new Date())
 const showBudgetForm = ref(false)
@@ -56,36 +64,36 @@ const editedBudget = ref<Budget>({
   value: 0
 })
 
-const budgets = ref<Budget[]>([
-  {
-    id: '1',
-    name: 'Shopping',
-    value: 10000
-  },
-  {
-    id: '2',
-    name: 'Insurance',
-    value: 50000
-  }
-])
+// const budgets = ref<Budget[]>([
+//   {
+//     id: '1',
+//     name: 'Shopping',
+//     value: 10000
+//   },
+//   {
+//     id: '2',
+//     name: 'Insurance',
+//     value: 50000
+//   }
+// ])
 
 const transactions = ref<Transaction[]>([
   {
     id: '1',
     description: '',
-    date: new Date().toLocaleDateString(),
+    date: new Date().toISOString(),
     amount: 10099
   },
   {
     id: '2',
     description: '',
-    date: new Date().toLocaleDateString(),
+    date: new Date().toISOString(),
     amount: 20099
   },
   {
     id: '3',
     description: '',
-    date: new Date().toLocaleDateString(),
+    date: new Date().toISOString(),
     amount: 30099
   }
 ])
@@ -99,6 +107,15 @@ function editBudget(budget: Budget) {
   editedBudget.value = budget
 }
 
+function addBudget() {
+  showBudgetForm.value = true
+  editedBudget.value = {
+    id: '',
+    name: '',
+    value: 0
+  }
+}
+
 const prevMonth = () => {
   currentDate.value = subMonths(currentDate.value, 1)
 }
@@ -106,4 +123,9 @@ const prevMonth = () => {
 const nextMonth = () => {
   currentDate.value = addMonths(currentDate.value, 1)
 }
+
+import { useCollection, useFirestore } from 'vuefire'
+const db = useFirestore()
+
+const budgets = useCollection<Budget>(collection(db, 'budgets'))
 </script>
