@@ -4,16 +4,23 @@
       class="flex flex-col justify-between text-base items-center font-semibold leading-6 text-gray-900"
     >
       <div class="w-full flex justify-between items-center">
-        <button @click="prevMonth">&lt;</button>
+        <button @click="prevMonth"><ChevronLeft /></button>
         <h1 class="">
           {{ format(currentDate, 'MMMM') }}
         </h1>
-        <button @click="nextMonth">&gt;</button>
+        <button @click="nextMonth"><ChevronRight /></button>
       </div>
       <h2 class="">{{ parseAmount(balance) }}</h2>
     </header>
 
-    <!--    <BudgetItem v-for="budget in budgets" :key="budget.id" :budget="budget" />-->
+    <ul>
+      <BudgetItem
+        v-for="budget in budgets"
+        :key="budget.id"
+        :budget="budget"
+        @edit-budget="(budget) => editBudget(budget)"
+      />
+    </ul>
 
     <!--    <TransactionForm-->
     <!--      v-if="showTransactionForm"-->
@@ -23,7 +30,7 @@
     <!--      @update="fetchBudgets"-->
     <!--    />-->
 
-    <!--    <BudgetForm v-if="showBudgetForm" @close="showBudgetForm = false" :budget="budget" />-->
+    <BudgetForm v-if="showBudgetForm" @close="showBudgetForm = false" :budget="editedBudget" />
   </div>
 </template>
 
@@ -33,7 +40,7 @@ import BudgetItem from '@/components/BudgetItem.vue'
 import TransactionForm from '@/components/TransactionForm.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
 import { addMonths, format, subMonths } from 'date-fns'
-import { ChevronLeft, ChevronRight } from 'lucide-vue'
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/transactions'
 import type { Budget } from '@/budget'
 import { parseAmount } from '@/utils'
@@ -41,7 +48,7 @@ import { parseAmount } from '@/utils'
 const currentDate = ref(new Date())
 const showBudgetForm = ref(false)
 
-const budget = ref<Budget>({
+const editedBudget = ref<Budget>({
   id: '',
   name: '',
   value: 0
@@ -84,6 +91,11 @@ const transactions = ref<Transaction[]>([
 const balance = computed(() => {
   return transactions.value.reduce((sum, tx) => sum + tx.amount, 0)
 })
+
+function editBudget(budget: Budget) {
+  showBudgetForm.value = true
+  editedBudget.value = budget
+}
 
 const prevMonth = () => {
   currentDate.value = subMonths(currentDate.value, 1)

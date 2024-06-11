@@ -4,14 +4,26 @@
       <form @submit.prevent="submitForm">
         <div>
           <label for="name">Name</label>
-          <input id="name" v-model="budget.name" type="text" class="border p-2 rounded w-full" required>
+          <input
+            id="name"
+            v-model="budgetIn.name"
+            type="text"
+            class="border p-2 rounded w-full"
+            required
+          />
         </div>
         <div>
           <label for="total">Total</label>
-          <input id="total" v-model="budget.total" type="number" class="border p-2 rounded w-full" required>
+          <input
+            id="total"
+            v-model="budgetIn.value"
+            type="number"
+            class="border p-2 rounded w-full"
+            required
+          />
         </div>
         <div class="flex justify-end mt-4">
-          <button type="button" @click="closeForm" class="mr-2">Cancel</button>
+          <button type="button" @click="$emit('close')" class="mr-2">Cancel</button>
           <button type="submit">Save</button>
         </div>
       </form>
@@ -20,25 +32,17 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref, onMounted } from 'vue';
+import { defineEmits, ref, onMounted } from 'vue'
+import type { Budget } from '@/budget'
 
-const props = defineProps<{
-  budgetId?: string;
-}>();
+const { budget } = defineProps<{ budget: Budget }>()
 
-const emit = defineEmits(['close', 'update']);
-const budget = ref( {
-  name: '',
-  total: 0,
-});
+defineEmits<{ (e: 'close'): void }>()
 
-const closeForm = () => {
-  emit('close');
-};
+const budgetIn = ref<Budget>(budget)
 
-const submitForm = async () => {
-  emit('update');
-  closeForm();
-};
-
+function submitForm() {
+  console.log('submit')
+  console.log(budgetIn)
+}
 </script>
