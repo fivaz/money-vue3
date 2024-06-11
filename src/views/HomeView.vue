@@ -125,10 +125,12 @@ const nextMonth = () => {
   currentDate.value = addMonths(currentDate.value, 1)
 }
 
-import { useCollection, useFirebaseAuth, useFirestore } from 'vuefire'
+import { useCollection, useCurrentUser, useFirebaseAuth, useFirestore } from 'vuefire'
 const db = useFirestore()
 
-const budgets = useCollection<Budget>(collection(db, 'budgets'))
+const user = useCurrentUser()
+
+const budgets = useCollection<Budget>(collection(db, 'users', user.value!.uid, 'budgets'))
 
 const auth = useFirebaseAuth()!
 

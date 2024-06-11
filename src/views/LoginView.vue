@@ -100,6 +100,9 @@ import { ref } from 'vue'
 
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useFirebaseAuth } from 'vuefire'
+import { useRoute, useRouter } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
 
 const password = ref('')
 const email = ref('')
@@ -107,5 +110,6 @@ const auth = useFirebaseAuth()!
 async function handleSubmit() {
   console.log('Form submitted with:', { password: password.value, email: email.value })
   await signInWithEmailAndPassword(auth, email.value, password.value)
+  void router.push(route.query.redirect || '/')
 }
 </script>
