@@ -1,4 +1,5 @@
 <template>
+  <pre v-if="error">{{ error }}</pre>
   <div class="p-4">
     <header class="flex flex-col justify-between items-center mb-2">
       <div class="w-full flex justify-between items-center">
@@ -44,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import TransactionForm from '@/components/TransactionForm.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
@@ -124,8 +125,21 @@ const nextMonth = () => {
   currentDate.value = addMonths(currentDate.value, 1)
 }
 
-import { useCollection, useFirestore } from 'vuefire'
+import { useCollection, useFirebaseAuth, useFirestore } from 'vuefire'
 const db = useFirestore()
 
 const budgets = useCollection<Budget>(collection(db, 'budgets'))
+
+const auth = useFirebaseAuth()!
+
+const error = ref(null)
+
+import { getRedirectResult, signInWithRedirect, signOut } from 'firebase/auth'
+
+onMounted(() => {
+  getRedirectResult(auth).catch((reason) => {
+    console.error('Failed redirect result', reason)
+    error.value = reason
+  })
+})
 </script>
