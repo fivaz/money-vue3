@@ -33,10 +33,11 @@
 
 <script setup lang="ts">
 import { defineEmits, ref, onMounted } from 'vue'
-import type { Budget } from '@/lib/budget'
+import { addBudget, type Budget, editBudget, hasId } from '@/lib/budget'
 import { getCurrentUser, useCurrentUser, useFirestore } from 'vuefire'
 
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { addTransaction, editTransaction } from '@/lib/transactions'
 
 const { budget } = defineProps<{ budget: Budget }>()
 
@@ -45,10 +46,14 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 const budgetIn = ref<Budget>(budget)
 
 const user = useCurrentUser()
+const db = useFirestore()
 
 function submitForm() {
-  const budgetCollectionRef = collection(useFirestore(), 'users', user.value!.uid, 'budgets')
-  addDoc(budgetCollectionRef, budgetIn.value)
+  if (hasId(budgetIn.value)) {
+    void editBudget(db, budgetIn.value, user.value!.uid)
+  } else {
+    void addBudget(db, budgetIn.value, user.value!.uid)
+  }
   emit('close')
 }
 </script>

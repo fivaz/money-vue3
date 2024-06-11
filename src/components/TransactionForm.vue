@@ -44,7 +44,13 @@
 import { defineEmits, ref, onMounted } from 'vue'
 import type { Budget } from '@/lib/budget'
 import TransactionForm from '@/components/TransactionForm.vue'
-import type { Transaction, TransactionIn } from '@/lib/transactions'
+import {
+  addTransaction,
+  editTransaction,
+  hasId,
+  type Transaction,
+  type TransactionIn
+} from '@/lib/transactions'
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
@@ -56,45 +62,6 @@ const transactionIn = ref<TransactionIn>(transaction)
 
 const user = useCurrentUser()
 const db = useFirestore()
-
-function addTransaction(
-  db: ReturnType<typeof useFirestore>,
-  transaction: TransactionIn,
-  budgetId: string,
-  userId: string
-): void {
-  const transactionCollectionRef = collection(
-    db,
-    'users',
-    userId,
-    'budgets',
-    budgetId,
-    'transactions'
-  )
-
-  addDoc(transactionCollectionRef, transaction)
-}
-function editTransaction(
-  db: ReturnType<typeof useFirestore>,
-  transaction: Transaction,
-  budgetId: string,
-  userId: string
-): void {
-  const transactionDocRef = doc(
-    db,
-    'users',
-    userId,
-    'budgets',
-    budgetId,
-    'transactions',
-    transaction.id
-  )
-  updateDoc(transactionDocRef, transaction)
-}
-
-function hasId(transactionIn: TransactionIn): transactionIn is Transaction {
-  return !!transaction.id
-}
 
 function submitForm() {
   if (hasId(transactionIn.value)) {

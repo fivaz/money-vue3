@@ -97,6 +97,7 @@ const addTransaction = () => {
   editedTransaction.value = emptyTransaction()
   showTransactionForm.value = true
 }
+
 const editTransaction = (transaction: Transaction) => {
   editedTransaction.value = transaction
   showTransactionForm.value = true
