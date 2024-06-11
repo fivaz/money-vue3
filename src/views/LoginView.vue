@@ -103,8 +103,9 @@ import { useFirebaseAuth } from 'vuefire'
 
 const password = ref('')
 const email = ref('')
+const auth = useFirebaseAuth()!
 async function handleSubmit() {
   console.log('Form submitted with:', { password: password.value, email: email.value })
-  await signInWithEmailAndPassword(useFirebaseAuth()!, email.value, password.value)
+  await signInWithEmailAndPassword(auth, email.value, password.value)
 }
 </script>
