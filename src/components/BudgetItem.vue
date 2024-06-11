@@ -18,7 +18,7 @@
     <button @click="toggleExpanded">{{ showTransactions ? '⬆️' : '⬇️' }}</button>
     <TransactionForm
       v-if="showTransactionForm"
-      :budgetId="budget.id"
+      :transaction="editedTransaction"
       @close="showTransactionForm = false"
     />
   </li>
