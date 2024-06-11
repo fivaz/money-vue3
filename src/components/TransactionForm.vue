@@ -45,15 +45,25 @@ import { defineEmits, ref, onMounted } from 'vue'
 import type { Budget } from '@/lib/budget'
 import TransactionForm from '@/components/TransactionForm.vue'
 import type { Transaction } from '@/lib/transactions'
+import { addDoc, collection } from 'firebase/firestore'
+import { useCurrentUser, useFirestore } from 'vuefire'
 
-const { transaction } = defineProps<{ transaction: Transaction }>()
+const { transaction, budgetId } = defineProps<{ budgetId: string; transaction: Transaction }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
 const transactionIn = ref<Transaction>(transaction)
-
-const submitForm = async () => {
-  console.log(transactionIn)
+const user = useCurrentUser()
+function submitForm() {
+  const transactionCollectionRef = collection(
+    useFirestore(),
+    'users',
+    user.value!.uid,
+    'budgets',
+    budgetId,
+    'transactions'
+  )
+  void addDoc(transactionCollectionRef, transactionIn.value)
   emit('close')
 }
 </script>

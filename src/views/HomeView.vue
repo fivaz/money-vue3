@@ -1,5 +1,4 @@
 <template>
-  <pre v-if="error">{{ error }}</pre>
   <div class="p-4">
     <header class="flex flex-col justify-between items-center mb-2">
       <div class="w-full flex justify-between items-center">
@@ -7,7 +6,7 @@
         <h1
           class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
         >
-          {{ format(currentDate, 'MMMM') }}
+          {{ currentMonth }}
         </h1>
         <button @click="nextMonth"><ChevronRight /></button>
       </div>
@@ -45,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import TransactionForm from '@/components/TransactionForm.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
@@ -57,6 +56,8 @@ import { parseAmount } from '@/lib/utils'
 import { getFirestore, collection } from 'firebase/firestore'
 
 const currentDate = ref(new Date())
+const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
+
 const showBudgetForm = ref(false)
 
 const editedBudget = ref<Budget>({
@@ -65,39 +66,7 @@ const editedBudget = ref<Budget>({
   value: 0
 })
 
-// const budgets = ref<Budget[]>([
-//   {
-//     id: '1',
-//     name: 'Shopping',
-//     value: 10000
-//   },
-//   {
-//     id: '2',
-//     name: 'Insurance',
-//     value: 50000
-//   }
-// ])
-
-const transactions = ref<Transaction[]>([
-  {
-    id: '1',
-    description: '',
-    date: new Date().toISOString(),
-    amount: 10099
-  },
-  {
-    id: '2',
-    description: '',
-    date: new Date().toISOString(),
-    amount: 20099
-  },
-  {
-    id: '3',
-    description: '',
-    date: new Date().toISOString(),
-    amount: 30099
-  }
-])
+const transactions = ref<Transaction[]>([])
 
 const balance = computed(() => {
   return transactions.value.reduce((sum, tx) => sum + tx.amount, 0)
@@ -131,17 +100,4 @@ const db = useFirestore()
 const user = useCurrentUser()
 
 const budgets = useCollection<Budget>(collection(db, 'users', user.value!.uid, 'budgets'))
-
-const auth = useFirebaseAuth()!
-
-const error = ref(null)
-
-import { getRedirectResult, signInWithRedirect, signOut } from 'firebase/auth'
-
-onMounted(() => {
-  getRedirectResult(auth).catch((reason) => {
-    console.error('Failed redirect result', reason)
-    error.value = reason
-  })
-})
 </script>

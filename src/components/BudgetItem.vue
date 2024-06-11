@@ -45,6 +45,7 @@
     v-if="showTransactionForm"
     :transaction="editedTransaction"
     @close="showTransactionForm = false"
+    :budget-id="budget.id"
   />
 </template>
 
@@ -55,62 +56,21 @@ import BudgetForm from './BudgetForm.vue'
 import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transactions'
 import { Plus, Settings2 } from 'lucide-vue-next'
+import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
+import { collection } from 'firebase/firestore'
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { EllipsisHorizontalIcon } from '@heroicons/vue/20/solid'
-
-const statuses = {
-  Paid: 'text-green-700 bg-green-50 ring-green-600/20',
-  Withdraw: 'text-gray-600 bg-gray-50 ring-gray-500/10',
-  Overdue: 'text-red-700 bg-red-50 ring-red-600/10'
-}
-const budgets = [
-  {
-    id: 1,
-    name: 'Tuple',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/tuple.svg',
-    lastInvoice: {
-      date: 'December 13, 2022',
-      dateTime: '2022-12-13',
-      amount: '$2,000.00',
-      status: 'Overdue'
-    }
-  },
-  {
-    id: 2,
-    name: 'SavvyCal',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/savvycal.svg',
-    lastInvoice: {
-      date: 'January 22, 2023',
-      dateTime: '2023-01-22',
-      amount: '$14,000.00',
-      status: 'Paid'
-    }
-  },
-  {
-    id: 3,
-    name: 'Reform',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/reform.svg',
-    lastInvoice: {
-      date: 'January 23, 2023',
-      dateTime: '2023-01-23',
-      amount: '$7,600.00',
-      status: 'Paid'
-    }
-  }
-]
-
-defineProps<{ budget: Budget }>()
+const { budget } = defineProps<{ budget: Budget }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
+const db = useFirestore()
 
-const transactions = ref<Transaction[]>([
-  { id: '1', date: '2024-06-01', description: 'Transaction 1', amount: 100 },
-  { id: '2', date: '2024-06-03', description: 'Transaction 2', amount: 50 },
-  { id: '3', date: '2024-06-05', description: 'Transaction 3', amount: 75 }
-])
+const user = useCurrentUser()
 
-const showTransactions = ref(false)
+const transactions = useCollection<Transaction>(
+  collection(db, 'users', user.value!.uid, 'budgets', budget.id, 'transactions')
+)
+
+const showTransactions = ref(true)
 
 const showTransactionForm = ref(false)
 
