@@ -52,8 +52,8 @@
 import { ref, computed } from 'vue'
 import TransactionForm from './TransactionForm.vue'
 import BudgetForm from './BudgetForm.vue'
-import type { Budget } from '@/budget'
-import type { Transaction } from '@/transactions'
+import type { Budget } from '@/lib/budget'
+import type { Transaction } from '@/lib/transactions'
 import { Plus, Settings2 } from 'lucide-vue-next'
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'

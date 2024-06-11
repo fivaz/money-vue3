@@ -51,9 +51,9 @@ import TransactionForm from '@/components/TransactionForm.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
 import { addMonths, format, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
-import type { Transaction } from '@/transactions'
-import type { Budget } from '@/budget'
-import { parseAmount } from '@/utils'
+import type { Transaction } from '@/lib/transactions'
+import type { Budget } from '@/lib/budget'
+import { parseAmount } from '@/lib/utils'
 import { getFirestore, collection } from 'firebase/firestore'
 
 const currentDate = ref(new Date())

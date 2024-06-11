@@ -42,9 +42,9 @@
 
 <script setup lang="ts">
 import { defineEmits, ref, onMounted } from 'vue'
-import type { Budget } from '@/budget'
+import type { Budget } from '@/lib/budget'
 import TransactionForm from '@/components/TransactionForm.vue'
-import type { Transaction } from '@/transactions'
+import type { Transaction } from '@/lib/transactions'
 
 const { transaction } = defineProps<{ transaction: Transaction }>()
 

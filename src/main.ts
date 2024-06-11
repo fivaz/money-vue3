@@ -6,7 +6,7 @@ import { getCurrentUser, VueFire, VueFireAuth } from 'vuefire'
 
 import App from './App.vue'
 import router from './router'
-import { firebaseApp } from '@/firebaseConfig'
+import { firebaseApp } from '@/lib/firebaseConfig'
 
 const app = createApp(App)
 
