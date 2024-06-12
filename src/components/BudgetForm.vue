@@ -40,7 +40,7 @@ const { budget } = defineProps<{ budget: BudgetIn }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const budgetIn = ref<BudgetIn>(budget)
+const budgetIn = ref<BudgetIn>({ ...budget })
 
 const user = useCurrentUser()
 const db = useFirestore()
