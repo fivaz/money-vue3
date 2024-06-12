@@ -1,4 +1,7 @@
 <template>
+	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
+		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
+	</DialogTitle>
 	<form @submit.prevent="submitForm">
 		<div class="space-y-12">
 			<div class="border-b border-gray-900/10 pb-12">
@@ -68,7 +71,7 @@
 				type="button"
 				class="text-sm font-semibold leading-6 text-gray-900"
 			>
-				Cancel
+				Delete
 			</button>
 			<button
 				type="submit"
@@ -90,6 +93,7 @@ import {
 	type TransactionIn,
 } from '@/lib/transactions'
 import { useCurrentUser, useFirestore } from 'vuefire'
+import { DialogTitle } from '@headlessui/vue'
 
 const { transaction, budgetId } = defineProps<{
 	budgetId: string

@@ -27,9 +27,6 @@
 						<DialogPanel
 							class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
 						>
-							<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-								Update transaction
-							</DialogTitle>
 							<slot />
 						</DialogPanel>
 					</TransitionChild>
@@ -40,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 
 defineProps<{ show: boolean }>()
 </script>
