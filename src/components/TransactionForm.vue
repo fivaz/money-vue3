@@ -1,6 +1,6 @@
 <template>
   <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-    <div class="bg-white p-4 rounded shadow">
+    <div class="rounded bg-white p-4 shadow">
       <form @submit.prevent="submitForm">
         <div>
           <label for="date">Date</label>
@@ -8,7 +8,7 @@
             id="date"
             v-model="transactionIn.date"
             type="date"
-            class="border p-2 rounded w-full"
+            class="w-full rounded border p-2"
             required
           />
         </div>
@@ -18,7 +18,7 @@
             id="description"
             v-model="transactionIn.description"
             type="text"
-            class="border p-2 rounded w-full"
+            class="w-full rounded border p-2"
           />
         </div>
         <div>
@@ -27,11 +27,11 @@
             id="amount"
             v-model="transactionIn.amount"
             type="number"
-            class="border p-2 rounded w-full"
+            class="w-full rounded border p-2"
             required
           />
         </div>
-        <div class="flex justify-end mt-4">
+        <div class="mt-4 flex justify-end">
           <button type="button" @click="$emit('close')" class="mr-2">Cancel</button>
           <button type="submit">Save</button>
         </div>
@@ -42,12 +42,7 @@
 
 <script setup lang="ts">
 import { defineEmits, ref } from 'vue'
-import {
-  addTransaction,
-  editTransaction,
-  hasId,
-  type TransactionIn
-} from '@/lib/transactions'
+import { addTransaction, editTransaction, hasId, type TransactionIn } from '@/lib/transactions'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
 const { transaction, budgetId } = defineProps<{ budgetId: string; transaction: TransactionIn }>()

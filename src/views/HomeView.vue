@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
-    <header class="flex flex-col justify-between items-center mb-2">
-      <div class="w-full flex justify-between items-center">
+    <header class="mb-2 flex flex-col items-center justify-between">
+      <div class="flex w-full items-center justify-between">
         <button @click="prevMonth"><ChevronLeft /></button>
         <h1
           class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"

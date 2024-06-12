@@ -1,7 +1,7 @@
 <template>
   <li class="overflow-hidden rounded-xl border border-gray-200">
     <div
-      class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6 justify-between"
+      class="flex items-center justify-between gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6"
     >
       <div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
       <div class="flex gap-2">
@@ -29,7 +29,7 @@
         v-if="showTransactions"
       >
         <li class="py-3 text-gray-500" v-for="transaction in transactions" :key="transaction.id">
-          <button class="w-full flex justify-between gap-x-4" @click="editTransaction(transaction)">
+          <button class="flex w-full justify-between gap-x-4" @click="editTransaction(transaction)">
             <span>{{ transaction.date }}</span>
             <span>{{ transaction.description }}</span>
             <span>{{ transaction.amount }}</span>
