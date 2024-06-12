@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { minidenticon } from 'minidenticons'
 import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { useFirebaseApp, useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
+import { useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
 import { doc, setDoc } from 'firebase/firestore'
 const name = ref('')
 const email = ref('')

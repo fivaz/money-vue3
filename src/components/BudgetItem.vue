@@ -52,7 +52,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import TransactionForm from './TransactionForm.vue'
-import BudgetForm from './BudgetForm.vue'
 import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transactions'
 import { Plus, Settings2 } from 'lucide-vue-next'

@@ -32,12 +32,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref, onMounted } from 'vue'
+import { defineEmits, ref } from 'vue'
 import { addBudget, type Budget, editBudget, hasId } from '@/lib/budget'
-import { getCurrentUser, useCurrentUser, useFirestore } from 'vuefire'
+import { useCurrentUser, useFirestore } from 'vuefire'
 
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
-import { addTransaction, editTransaction } from '@/lib/transactions'
 
 const { budget } = defineProps<{ budget: Budget }>()
 

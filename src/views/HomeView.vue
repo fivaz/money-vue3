@@ -31,29 +31,20 @@
       Button text
     </button>
 
-    <!--    <TransactionForm-->
-    <!--      v-if="showTransactionForm"-->
-    <!--      :budgetId="currentBudgetId"-->
-    <!--      :transactionId="currentTransactionId"-->
-    <!--      @close="showTransactionForm = false"-->
-    <!--      @update="fetchBudgets"-->
-    <!--    />-->
-
     <BudgetForm v-if="showBudgetForm" @close="showBudgetForm = false" :budget="editedBudget" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
-import TransactionForm from '@/components/TransactionForm.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
 import { addMonths, format, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
 import type { Budget } from '@/lib/budget'
 import { parseAmount } from '@/lib/utils'
-import { getFirestore, collection } from 'firebase/firestore'
+import { collection } from 'firebase/firestore'
 
 const currentDate = ref(new Date())
 const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
@@ -94,7 +85,7 @@ const nextMonth = () => {
   currentDate.value = addMonths(currentDate.value, 1)
 }
 
-import { useCollection, useCurrentUser, useFirebaseAuth, useFirestore } from 'vuefire'
+import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 const db = useFirestore()
 
 const user = useCurrentUser()

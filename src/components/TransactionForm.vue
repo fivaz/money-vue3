@@ -41,17 +41,13 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref, onMounted } from 'vue'
-import type { Budget } from '@/lib/budget'
-import TransactionForm from '@/components/TransactionForm.vue'
+import { defineEmits, ref } from 'vue'
 import {
   addTransaction,
   editTransaction,
   hasId,
-  type Transaction,
   type TransactionIn
 } from '@/lib/transactions'
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
 const { transaction, budgetId } = defineProps<{ budgetId: string; transaction: TransactionIn }>()
