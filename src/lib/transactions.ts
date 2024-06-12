@@ -1,7 +1,8 @@
 import { useFirestore } from 'vuefire'
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { BUDGETS, DATETIME, TRANSACTIONS, USERS } from '@/lib/consts'
+import { parse } from 'date-fns'
 
 export type Transaction = {
 	id: string
@@ -12,6 +13,13 @@ export type Transaction = {
 }
 
 export type TransactionIn = Omit<Transaction, 'id'> & { id?: string }
+
+export function parseTransaction(transaction: TransactionIn): TransactionIn {
+	return {
+		...transaction,
+		date: parse(transaction.date, DATETIME, new Date()).toISOString(),
+	}
+}
 
 function addTransactionTopLevel(
 	db: ReturnType<typeof useFirestore>,
@@ -42,9 +50,8 @@ export function addTransaction(
 	budgetId: string,
 	userId: string,
 ) {
-	const formattedData = { ...data, amount: data.amount * 100 }
-	const id = addTransactionTopLevel(db, formattedData, userId)
-	addBudgetTransaction(db, formattedData, id, budgetId, userId)
+	const id = addTransactionTopLevel(db, data, userId)
+	addBudgetTransaction(db, data, id, budgetId, userId)
 }
 
 export function editTransactionTopLevel(
@@ -76,9 +83,8 @@ export function editTransaction(
 	budgetId: string,
 	userId: string,
 ) {
-	const formattedTransaction = { ...transaction, amount: transaction.amount * 100 }
-	editTransactionTopLevel(db, formattedTransaction, userId)
-	editBudgetTransactionTopLevel(db, formattedTransaction, budgetId, userId)
+	editTransactionTopLevel(db, transaction, userId)
+	editBudgetTransactionTopLevel(db, transaction, budgetId, userId)
 }
 
 export function hasId(transactionIn: TransactionIn): transactionIn is Transaction {

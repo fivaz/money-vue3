@@ -41,12 +41,13 @@
 			<ChevronUp v-else />
 		</button>
 	</li>
-	<TransactionForm
-		:show="showTransactionForm"
-		:transaction="editedTransaction"
-		@close="showTransactionForm = false"
-		:budget-id="budget.id"
-	/>
+	<Modal :show="showTransactionForm" @close="showTransactionForm = false">
+		<TransactionForm
+			:transaction="editedTransaction"
+			@close="showTransactionForm = false"
+			:budget-id="budget.id"
+		/>
+	</Modal>
 </template>
 
 <script setup lang="ts">
@@ -61,6 +62,7 @@ import { BUDGETS, DATETIME, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import TransactionItem from '@/components/TransactionItem.vue'
 import { format } from 'date-fns'
+import Modal from '@/components/Modal.vue'
 
 const { budget } = defineProps<{ budget: Budget }>()
 

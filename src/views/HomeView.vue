@@ -31,7 +31,9 @@
 			Button text
 		</button>
 
-		<BudgetForm v-if="showBudgetForm" @close="showBudgetForm = false" :budget="editedBudget" />
+		<Modal :show="showBudgetForm" @close="showBudgetForm = false">
+			<BudgetForm @close="showBudgetForm = false" :budget="editedBudget" />
+		</Modal>
 	</div>
 </template>
 
@@ -39,14 +41,18 @@
 import { computed, ref } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
+import Modal from '@/components/Modal.vue'
 import { addMonths, format, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
 import type { Budget, BudgetIn } from '@/lib/budget'
 import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
+import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
+import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 
 const currentDate = ref(new Date())
+
 const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
 
 const showBudgetForm = ref(false)
@@ -55,6 +61,16 @@ const editedBudget = ref<BudgetIn>(buildBudgetIn())
 
 const balance = computed(() =>
 	transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
+)
+
+const db = useFirestore()
+
+const user = useCurrentUser()
+
+const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
+
+const transactions = useCollection<Transaction>(
+	collection(db, USERS, user.value!.uid, TRANSACTIONS),
 )
 
 function editBudget(budget: Budget) {
@@ -81,15 +97,4 @@ function prevMonth() {
 function nextMonth() {
 	currentDate.value = addMonths(currentDate.value, 1)
 }
-
-import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-const db = useFirestore()
-
-const user = useCurrentUser()
-
-const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
-const transactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, TRANSACTIONS),
-)
 </script>
