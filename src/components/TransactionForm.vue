@@ -7,7 +7,7 @@
           <input
             id="date"
             v-model="transactionIn.date"
-            type="date"
+            type="datetime-local"
             class="w-full rounded border p-2"
             required
           />

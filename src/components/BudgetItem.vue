@@ -53,7 +53,7 @@
 import { ref, computed } from 'vue'
 import TransactionForm from './TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
-import type { Transaction } from '@/lib/transactions'
+import type { Transaction, TransactionIn } from '@/lib/transactions'
 import { Plus, Settings2 } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
@@ -73,9 +73,8 @@ const showTransactions = ref(true)
 
 const showTransactionForm = ref(false)
 
-function emptyTransaction() {
+function buildTransactionIn(): TransactionIn {
   return {
-    id: '',
     date: new Date().toISOString(),
     description: '',
     amount: 0,
@@ -83,7 +82,7 @@ function emptyTransaction() {
   }
 }
 
-const editedTransaction = ref<Transaction>(emptyTransaction())
+const editedTransaction = ref<TransactionIn>(buildTransactionIn())
 
 const spent = computed(() => {
   return transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)
@@ -94,7 +93,7 @@ function toggleExpanded() {
 }
 
 function addTransaction() {
-  editedTransaction.value = emptyTransaction()
+  editedTransaction.value = buildTransactionIn()
   showTransactionForm.value = true
 }
 

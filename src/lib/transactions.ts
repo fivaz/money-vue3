@@ -1,5 +1,5 @@
 import { useFirestore } from 'vuefire'
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
 
 export type Transaction = {
@@ -12,22 +12,46 @@ export type Transaction = {
 
 export type TransactionIn = Omit<Transaction, 'id'> & { id?: string }
 
-export function addTransaction(
+function addTransactionTopLevel(
   db: ReturnType<typeof useFirestore>,
-  transaction: TransactionIn,
+  data: Omit<Transaction, 'id'>,
+  userId: string
+) {
+  const newTransactionRef = doc(collection(db, 'users', userId, 'transactions'))
+
+  void setDoc(newTransactionRef, data)
+
+  return newTransactionRef.id
+}
+
+function addBudgetTransaction(
+  db: ReturnType<typeof useFirestore>,
+  data: Omit<Transaction, 'id'>,
+  id: string,
   budgetId: string,
   userId: string
 ) {
-  const transactionCollectionRef = collection(
+  console.log('data', data)
+  const budgetTransactionCollectionRef = doc(
     db,
     'users',
     userId,
     'budgets',
     budgetId,
-    'transactions'
+    'transactions',
+    id
   )
+  void setDoc(budgetTransactionCollectionRef, data)
+}
 
-  void addDoc(transactionCollectionRef, transaction)
+export function addTransaction(
+  db: ReturnType<typeof useFirestore>,
+  data: Omit<Transaction, 'id'>,
+  budgetId: string,
+  userId: string
+) {
+  const id = addTransactionTopLevel(db, data, userId)
+  addBudgetTransaction(db, data, id, budgetId, userId)
 }
 export function editTransaction(
   db: ReturnType<typeof useFirestore>,
