@@ -15,7 +15,7 @@
 			</h2>
 		</header>
 
-		<ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
+		<ul role="list" class="flex flex-col gap-5">
 			<BudgetItem
 				v-for="budget in budgets"
 				:key="budget.id"

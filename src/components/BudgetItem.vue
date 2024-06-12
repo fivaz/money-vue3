@@ -33,7 +33,7 @@
 				leave-from-class="transform scale-100 opacity-100"
 				leave-to-class="transform scale-95 opacity-0"
 			>
-				<DisclosurePanel as="ul" class="-my-3 divide-y divide-gray-100 p-3 text-sm leading-6">
+				<DisclosurePanel as="ul" class="-my-3 divide-y divide-gray-100 py-3 text-sm leading-6">
 					<TransactionItem
 						v-for="transaction in transactions"
 						:key="transaction.id"
@@ -42,7 +42,7 @@
 					/>
 				</DisclosurePanel>
 			</transition>
-			<DisclosureButton class="flex w-full justify-center p-2">
+			<DisclosureButton class="flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700">
 				<ChevronDown :class="open && 'rotate-180 transform'" />
 			</DisclosureButton>
 		</Disclosure>
