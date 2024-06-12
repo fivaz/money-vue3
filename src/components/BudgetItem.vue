@@ -6,7 +6,7 @@
 			<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
 			<div class="flex gap-2">
 				<div class="text-sm font-medium leading-6 text-gray-900">
-					{{ spent }} / {{ parseMoney(budget.value) }}
+					{{ spent }} / {{ formatMoney(budget.value) }}
 				</div>
 				<button
 					type="button"
@@ -57,7 +57,7 @@ import { Plus, Settings2 } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import { parseMoney } from '@/lib/utils'
+import { formatMoney } from '@/lib/utils'
 import TransactionItem from '@/components/TransactionItem.vue'
 
 const { budget } = defineProps<{ budget: Budget }>()
@@ -79,7 +79,7 @@ const showTransactionForm = ref(false)
 const editedTransaction = ref<TransactionIn>(buildTransactionIn())
 
 const spent = computed(() =>
-	parseMoney(transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)),
+	formatMoney(transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)),
 )
 
 function buildTransactionIn(): TransactionIn {
