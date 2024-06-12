@@ -77,11 +77,11 @@ function addBudget() {
   }
 }
 
-const prevMonth = () => {
+function prevMonth() {
   currentDate.value = subMonths(currentDate.value, 1)
 }
 
-const nextMonth = () => {
+function nextMonth() {
   currentDate.value = addMonths(currentDate.value, 1)
 }
 

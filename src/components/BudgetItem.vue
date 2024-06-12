@@ -73,31 +73,32 @@ const showTransactions = ref(true)
 
 const showTransactionForm = ref(false)
 
+function emptyTransaction() {
+  return {
+    id: '',
+    date: new Date().toISOString(),
+    description: '',
+    amount: 0,
+    budget
+  }
+}
+
 const editedTransaction = ref<Transaction>(emptyTransaction())
 
 const spent = computed(() => {
   return transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)
 })
 
-function emptyTransaction() {
-  return {
-    id: '',
-    date: new Date().toISOString(),
-    description: '',
-    amount: 0
-  }
-}
-
-const toggleExpanded = () => {
+function toggleExpanded() {
   showTransactions.value = !showTransactions.value
 }
 
-const addTransaction = () => {
+function addTransaction() {
   editedTransaction.value = emptyTransaction()
   showTransactionForm.value = true
 }
 
-const editTransaction = (transaction: Transaction) => {
+function editTransaction(transaction: Transaction) {
   editedTransaction.value = transaction
   showTransactionForm.value = true
 }
