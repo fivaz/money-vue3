@@ -3,7 +3,7 @@
 		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
-				<div class="flex gap-2">
+				<div class="flex items-center gap-2">
 					<div class="text-sm font-medium leading-6 text-gray-900">
 						{{ formatMoney(budget.value) }}
 					</div>

@@ -22,6 +22,9 @@
 				</div>
 
 				<div class="mt-5">
+					<Alert v-if="!!errorMessage">
+						{{ errorMessage }}
+					</Alert>
 					<div class="mt-5">
 						<form class="space-y-6" @submit.prevent="handleSubmit">
 							<div>
@@ -78,7 +81,12 @@
 							</div>
 
 							<div>
-								<button class="w-full leading-6" type="submit">Sign in</button>
+								<button
+									type="submit"
+									class="w-full rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+								>
+									Sign in
+								</button>
 							</div>
 						</form>
 					</div>
@@ -101,14 +109,33 @@ import { ref } from 'vue'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useFirebaseAuth } from 'vuefire'
 import { useRoute, useRouter } from 'vue-router'
+import { FirebaseError } from 'firebase/app'
+import Alert from '@/components/Alert.vue'
+
 const router = useRouter()
 const route = useRoute()
 
-const password = ref('')
+const errorMessage = ref('')
 const email = ref('')
+const password = ref('')
 const auth = useFirebaseAuth()!
 async function handleSubmit() {
-	await signInWithEmailAndPassword(auth, email.value, password.value)
+	try {
+		await signInWithEmailAndPassword(auth, email.value, password.value)
+	} catch (error) {
+		if (error instanceof FirebaseError) {
+			if (error.code === 'auth/invalid-credential') {
+				errorMessage.value = 'login or password are incorrect'
+			} else if (error.code === 'auth/network-request-failed') {
+				errorMessage.value = "you can't login if you're not connected to the internet"
+			} else {
+				errorMessage.value = error.message
+			}
+		} else {
+			errorMessage.value = error as unknown as string
+		}
+	}
+
 	void router.push(route.query.redirect?.toString() || '/')
 }
 </script>
