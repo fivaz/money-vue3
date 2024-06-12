@@ -1,7 +1,7 @@
 import { useFirestore } from 'vuefire'
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
-import { BUDGETS, DATETIME, TRANSACTIONS, USERS } from '@/lib/consts'
+import { BUDGETS, DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { parse } from 'date-fns'
 
 export type Transaction = {
@@ -17,7 +17,7 @@ export type TransactionIn = Omit<Transaction, 'id'> & { id?: string }
 export function parseTransaction(transaction: TransactionIn): TransactionIn {
 	return {
 		...transaction,
-		date: parse(transaction.date, DATETIME, new Date()).toISOString(),
+		date: parse(transaction.date, DATETIME_OUT, new Date()).toISOString(),
 	}
 }
 

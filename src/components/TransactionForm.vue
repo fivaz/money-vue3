@@ -69,6 +69,8 @@ import {
 } from '@/lib/transactions'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
+import { format, parseISO } from 'date-fns'
+import { DATETIME_OUT } from '@/lib/consts'
 
 const { transaction, budgetId } = defineProps<{
 	budgetId: string
@@ -77,7 +79,10 @@ const { transaction, budgetId } = defineProps<{
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const transactionIn = ref<TransactionIn>({ ...transaction })
+const transactionIn = ref<TransactionIn>({
+	...transaction,
+	date: format(parseISO(transaction.date), DATETIME_OUT),
+})
 
 const user = useCurrentUser()
 const db = useFirestore()

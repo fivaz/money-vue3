@@ -1,7 +1,7 @@
 <template>
 	<li class="overflow-hidden rounded-xl border border-gray-200">
 		<div
-			class="flex items-center justify-between gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6"
+			class="flex items-center justify-between gap-x-4 border-b border-gray-900/5 bg-gray-50 p-3"
 		>
 			<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
 			<div class="flex gap-2">
@@ -16,6 +16,7 @@
 					<Plus :size="18" />
 				</button>
 				<button
+					type="button"
 					class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 					@click="$emit('editBudget', budget)"
 				>
@@ -32,7 +33,7 @@
 				leave-from-class="transform scale-100 opacity-100"
 				leave-to-class="transform scale-95 opacity-0"
 			>
-				<DisclosurePanel as="ul" class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+				<DisclosurePanel as="ul" class="-my-3 divide-y divide-gray-100 p-3 text-sm leading-6">
 					<TransactionItem
 						v-for="transaction in transactions"
 						:key="transaction.id"
@@ -41,15 +42,16 @@
 					/>
 				</DisclosurePanel>
 			</transition>
-			<DisclosureButton class="flex w-full justify-center">
+			<DisclosureButton class="flex w-full justify-center p-2">
 				<ChevronDown :class="open && 'rotate-180 transform'" />
 			</DisclosureButton>
 		</Disclosure>
 	</li>
-	<Modal :show="showTransactionForm" @close="showTransactionForm = false">
+
+	<Modal :show="showForm" @close="showForm = false">
 		<TransactionForm
 			:transaction="editedTransaction"
-			@close="showTransactionForm = false"
+			@close="showForm = false"
 			:budget-id="budget.id"
 		/>
 	</Modal>
@@ -63,10 +65,9 @@ import type { Transaction, TransactionIn } from '@/lib/transactions'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
-import { BUDGETS, DATETIME, TRANSACTIONS, USERS } from '@/lib/consts'
+import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import TransactionItem from '@/components/TransactionItem.vue'
-import { format } from 'date-fns'
 import Modal from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 
@@ -82,7 +83,7 @@ const transactions = useCollection<Transaction>(
 	collection(db, USERS, user.value!.uid, BUDGETS, budget.id, TRANSACTIONS),
 )
 
-const showTransactionForm = ref(false)
+const showForm = ref(false)
 
 const editedTransaction = ref<TransactionIn>(buildTransactionIn())
 
@@ -92,7 +93,7 @@ const spent = computed(() =>
 
 function buildTransactionIn(): TransactionIn {
 	return {
-		date: format(new Date(), DATETIME),
+		date: new Date().toISOString(),
 		description: '',
 		amount: 0,
 		budget,
@@ -101,11 +102,11 @@ function buildTransactionIn(): TransactionIn {
 
 function addTransaction() {
 	editedTransaction.value = buildTransactionIn()
-	showTransactionForm.value = true
+	showForm.value = true
 }
 
 function editTransaction(transaction: Transaction) {
 	editedTransaction.value = transaction
-	showTransactionForm.value = true
+	showForm.value = true
 }
 </script>

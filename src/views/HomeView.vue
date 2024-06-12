@@ -10,7 +10,7 @@
 				</h1>
 				<button @click="nextMonth"><ChevronRight /></button>
 			</div>
-			<h2 class="mt-1 text-base font-semibold leading-6 text-gray-900">
+			<h2 class="text-sm font-semibold leading-6 text-gray-900">
 				{{ formatMoney(balance) }}
 			</h2>
 		</header>
@@ -24,15 +24,15 @@
 			/>
 		</ul>
 		<button
-			type="button"
 			@click="addBudget"
-			class="absolute bottom-0 right-0 m-4 rounded bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+			type="button"
+			class="absolute bottom-0 right-0 z-10 m-3 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 		>
-			Button text
+			Add Budget
 		</button>
 
-		<Modal :show="showBudgetForm" @close="showBudgetForm = false">
-			<BudgetForm @close="showBudgetForm = false" :budget="editedBudget" />
+		<Modal :show="showForm" @close="showForm = false">
+			<BudgetForm @close="showForm = false" :budget="editedBudget" />
 		</Modal>
 	</div>
 </template>
@@ -55,7 +55,7 @@ const currentDate = ref(new Date())
 
 const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
 
-const showBudgetForm = ref(false)
+const showForm = ref(false)
 
 const editedBudget = ref<BudgetIn>(buildBudgetIn())
 
@@ -74,7 +74,7 @@ const transactions = useCollection<Transaction>(
 )
 
 function editBudget(budget: Budget) {
-	showBudgetForm.value = true
+	showForm.value = true
 	editedBudget.value = budget
 }
 
@@ -86,7 +86,7 @@ function buildBudgetIn(): BudgetIn {
 }
 
 function addBudget() {
-	showBudgetForm.value = true
+	showForm.value = true
 	editedBudget.value = buildBudgetIn()
 }
 
