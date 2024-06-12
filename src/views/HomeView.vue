@@ -36,13 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
 import { addMonths, format, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
-import type { Budget } from '@/lib/budget'
+import type { Budget, BudgetIn } from '@/lib/budget'
 import { parseAmount } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 
@@ -51,30 +51,29 @@ const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
 
 const showBudgetForm = ref(false)
 
-const editedBudget = ref<Budget>({
-  id: '',
-  name: '',
-  value: 0
-})
+const editedBudget = ref<BudgetIn>(buildBudgetIn())
 
 const transactions = ref<Transaction[]>([])
 
-const balance = computed(() => {
-  return transactions.value.reduce((sum, tx) => sum + tx.amount, 0)
-})
+const balance = computed(() =>
+  transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)
+)
 
 function editBudget(budget: Budget) {
   showBudgetForm.value = true
   editedBudget.value = budget
 }
 
-function addBudget() {
-  showBudgetForm.value = true
-  editedBudget.value = {
-    id: '',
+function buildBudgetIn(): BudgetIn {
+  return {
     name: '',
     value: 0
   }
+}
+
+function addBudget() {
+  showBudgetForm.value = true
+  editedBudget.value = buildBudgetIn()
 }
 
 function prevMonth() {

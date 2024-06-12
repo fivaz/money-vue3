@@ -32,16 +32,8 @@ function addBudgetTransaction(
   userId: string
 ) {
   console.log('data', data)
-  const budgetTransactionCollectionRef = doc(
-    db,
-    'users',
-    userId,
-    'budgets',
-    budgetId,
-    'transactions',
-    id
-  )
-  void setDoc(budgetTransactionCollectionRef, data)
+  const budgetTransactionDocRef = doc(db, 'users', userId, 'budgets', budgetId, 'transactions', id)
+  void setDoc(budgetTransactionDocRef, data)
 }
 
 export function addTransaction(
@@ -53,22 +45,38 @@ export function addTransaction(
   const id = addTransactionTopLevel(db, data, userId)
   addBudgetTransaction(db, data, id, budgetId, userId)
 }
+
+export function editTransactionTopLevel(
+  db: ReturnType<typeof useFirestore>,
+  transaction: Transaction,
+  userId: string
+) {
+  const { id, ...data } = transaction
+
+  const transactionDocRef = doc(db, 'users', userId, 'transactions', id)
+  void updateDoc(transactionDocRef, data)
+}
+
+export function editBudgetTransactionTopLevel(
+  db: ReturnType<typeof useFirestore>,
+  transaction: Transaction,
+  budgetId: string,
+  userId: string
+) {
+  const { id, ...data } = transaction
+
+  const budgetTransactionDocRef = doc(db, 'users', userId, 'budgets', budgetId, 'transactions', id)
+  void updateDoc(budgetTransactionDocRef, data)
+}
+
 export function editTransaction(
   db: ReturnType<typeof useFirestore>,
   transaction: Transaction,
   budgetId: string,
   userId: string
 ) {
-  const transactionDocRef = doc(
-    db,
-    'users',
-    userId,
-    'budgets',
-    budgetId,
-    'transactions',
-    transaction.id
-  )
-  void updateDoc(transactionDocRef, transaction)
+  editTransactionTopLevel(db, transaction, userId)
+  editBudgetTransactionTopLevel(db, transaction, budgetId, userId)
 }
 
 export function hasId(transactionIn: TransactionIn): transactionIn is Transaction {

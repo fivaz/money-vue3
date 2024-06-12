@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import TransactionForm from './TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
 import type { Transaction, TransactionIn } from '@/lib/transactions'

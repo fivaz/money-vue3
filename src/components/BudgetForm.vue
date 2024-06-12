@@ -33,14 +33,14 @@
 
 <script setup lang="ts">
 import { defineEmits, ref } from 'vue'
-import { addBudget, type Budget, editBudget, hasId } from '@/lib/budget'
+import { type BudgetIn, addBudget, editBudget, hasId } from '@/lib/budget'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
-const { budget } = defineProps<{ budget: Budget }>()
+const { budget } = defineProps<{ budget: BudgetIn }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const budgetIn = ref<Budget>(budget)
+const budgetIn = ref<BudgetIn>(budget)
 
 const user = useCurrentUser()
 const db = useFirestore()
