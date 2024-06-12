@@ -6,7 +6,7 @@
 			<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
 			<div class="flex gap-2">
 				<div class="text-sm font-medium leading-6 text-gray-900">
-					{{ spent }} / {{ budget.value }}
+					{{ spent }} / {{ parseMoney(budget.value) }}
 				</div>
 				<button
 					type="button"
@@ -28,13 +28,12 @@
 				class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6"
 				v-if="showTransactions"
 			>
-				<li class="py-3 text-gray-500" v-for="transaction in transactions" :key="transaction.id">
-					<button class="flex w-full justify-between gap-x-4" @click="editTransaction(transaction)">
-						<span>{{ transaction.date }}</span>
-						<span>{{ transaction.description }}</span>
-						<span>{{ transaction.amount }}</span>
-					</button>
-				</li>
+				<TransactionItem
+					v-for="transaction in transactions"
+					:key="transaction.id"
+					:transaction="transaction"
+					@edit="editTransaction"
+				/>
 			</ul>
 		</div>
 		<button class="w-full" @click="toggleExpanded">
@@ -58,10 +57,13 @@ import { Plus, Settings2 } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { parseMoney } from '@/lib/utils'
+import TransactionItem from '@/components/TransactionItem.vue'
 
 const { budget } = defineProps<{ budget: Budget }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
+
 const db = useFirestore()
 
 const user = useCurrentUser()
@@ -74,6 +76,12 @@ const showTransactions = ref(true)
 
 const showTransactionForm = ref(false)
 
+const editedTransaction = ref<TransactionIn>(buildTransactionIn())
+
+const spent = computed(() =>
+	parseMoney(transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)),
+)
+
 function buildTransactionIn(): TransactionIn {
 	return {
 		date: new Date().toISOString(),
@@ -82,12 +90,6 @@ function buildTransactionIn(): TransactionIn {
 		budget,
 	}
 }
-
-const editedTransaction = ref<TransactionIn>(buildTransactionIn())
-
-const spent = computed(() => {
-	return transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)
-})
 
 function toggleExpanded() {
 	showTransactions.value = !showTransactions.value

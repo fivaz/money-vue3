@@ -1,3 +1,3 @@
-export function parseAmount(amount: number) {
-	return (amount / 100).toFixed(2)
+export function parseMoney(cents: number) {
+	return `$${(cents / 100).toFixed(2)}`
 }

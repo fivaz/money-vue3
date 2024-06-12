@@ -11,7 +11,7 @@
 				<button @click="nextMonth"><ChevronRight /></button>
 			</div>
 			<h2 class="mt-1 text-base font-semibold leading-6 text-gray-900">
-				${{ parseAmount(balance) }}
+				{{ parseMoney(balance) }}
 			</h2>
 		</header>
 
@@ -43,7 +43,7 @@ import { addMonths, format, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
 import type { Budget, BudgetIn } from '@/lib/budget'
-import { parseAmount } from '@/lib/utils'
+import { parseMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 
 const currentDate = ref(new Date())
