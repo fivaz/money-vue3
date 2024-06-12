@@ -98,7 +98,7 @@ function submitForm() {
 
 function handleDelete() {
 	if (id) {
-		deleteTransaction(db, user.value!.uid, transactionData.value, id)
+		deleteTransaction(db, user.value!.uid, budgetId, id)
 		emit('close')
 	}
 }

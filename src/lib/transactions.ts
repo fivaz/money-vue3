@@ -98,22 +98,21 @@ export function deleteTransactionTopLevel(
 export function deleteBudgetTransaction(
 	db: ReturnType<typeof useFirestore>,
 	userId: string,
-	data: TransactionData,
+	budgetId: string,
 	id: string,
 ) {
-	const transactionDocRef = doc(db, USERS, userId, BUDGETS, data.budget.id, TRANSACTIONS, id)
-
+	const transactionDocRef = doc(db, USERS, userId, BUDGETS, budgetId, TRANSACTIONS, id)
 	void deleteDoc(transactionDocRef)
 }
 
 export function deleteTransaction(
 	db: ReturnType<typeof useFirestore>,
 	userId: string,
-	data: TransactionData,
+	budgetId: string,
 	id: string,
 ) {
 	deleteTransactionTopLevel(db, userId, id)
-	deleteBudgetTransaction(db, userId, data, id)
+	deleteBudgetTransaction(db, userId, budgetId, id)
 }
 
 export function formatDateIn(transaction: TransactionData): TransactionData {
