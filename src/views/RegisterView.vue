@@ -23,7 +23,6 @@ async function storeAvatar(userId: string, file: Blob): Promise<string> {
 const auth = useFirebaseAuth()!
 
 async function handleSubmit() {
-	console.log(name.value, email.value, password.value, codedAvatar.value)
 	const { user } = await createUserWithEmailAndPassword(auth, email.value, password.value)
 
 	const photoURL = await storeAvatar(

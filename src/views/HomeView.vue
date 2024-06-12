@@ -45,7 +45,7 @@ import Modal from '@/components/Modal.vue'
 import { addMonths, format, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
-import type { Budget, BudgetIn } from '@/lib/budget'
+import type { Budget } from '@/lib/budget'
 import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
@@ -57,7 +57,7 @@ const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
 
 const showForm = ref(false)
 
-const editedBudget = ref<BudgetIn>(buildBudgetIn())
+const editedBudget = ref<Budget>(getEmptyBudget())
 
 const balance = computed(() =>
 	transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
@@ -78,8 +78,9 @@ function editBudget(budget: Budget) {
 	editedBudget.value = budget
 }
 
-function buildBudgetIn(): BudgetIn {
+function getEmptyBudget(): Budget {
 	return {
+		id: '',
 		name: '',
 		value: 0,
 	}
@@ -87,7 +88,7 @@ function buildBudgetIn(): BudgetIn {
 
 function addBudget() {
 	showForm.value = true
-	editedBudget.value = buildBudgetIn()
+	editedBudget.value = getEmptyBudget()
 }
 
 function prevMonth() {

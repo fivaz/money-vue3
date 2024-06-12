@@ -2,7 +2,7 @@ import { useFirestore } from 'vuefire'
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
 import { BUDGETS, DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
-import { parse } from 'date-fns'
+import { format, parse, parseISO } from 'date-fns'
 
 export type Transaction = {
 	id: string
@@ -12,16 +12,16 @@ export type Transaction = {
 	budget: Budget
 }
 
-export type TransactionIn = Omit<Transaction, 'id'> & { id?: string }
+export type TransactionData = Omit<Transaction, 'id'> & { id?: string }
 
-export function parseTransaction(transaction: TransactionIn): TransactionIn {
+export function formatDateOut(transaction: TransactionData): TransactionData {
 	return {
 		...transaction,
 		date: parse(transaction.date, DATETIME_OUT, new Date()).toISOString(),
 	}
 }
 
-export function hasId(transactionIn: TransactionIn): transactionIn is Transaction {
+export function hasId(transactionIn: TransactionData): transactionIn is Transaction {
 	return !!transactionIn.id
 }
 
@@ -60,35 +60,34 @@ export function addTransaction(
 
 export function editTransactionTopLevel(
 	db: ReturnType<typeof useFirestore>,
-	transaction: Transaction,
+	data: TransactionData,
+	id: string,
 	userId: string,
 ) {
-	const { id, ...data } = transaction
-
 	const transactionDocRef = doc(db, USERS, userId, TRANSACTIONS, id)
 	void updateDoc(transactionDocRef, data)
 }
 
 export function editBudgetTransaction(
 	db: ReturnType<typeof useFirestore>,
-	transaction: Transaction,
+	data: TransactionData,
+	id: string,
 	budgetId: string,
 	userId: string,
 ) {
-	const { id, ...data } = transaction
-
 	const budgetTransactionDocRef = doc(db, USERS, userId, BUDGETS, budgetId, TRANSACTIONS, id)
 	void updateDoc(budgetTransactionDocRef, data)
 }
 
 export function editTransaction(
 	db: ReturnType<typeof useFirestore>,
-	transaction: Transaction,
+	data: TransactionData,
+	id: string,
 	budgetId: string,
 	userId: string,
 ) {
-	editTransactionTopLevel(db, transaction, userId)
-	editBudgetTransaction(db, transaction, budgetId, userId)
+	editTransactionTopLevel(db, data, id, userId)
+	editBudgetTransaction(db, data, id, budgetId, userId)
 }
 
 export function deleteTransactionTopLevel(
@@ -125,4 +124,11 @@ export function deleteTransaction(
 ) {
 	deleteTransactionTopLevel(db, userId, transaction.id)
 	deleteBudgetTransaction(db, userId, transaction)
+}
+
+export function formatDateIn(transaction: TransactionData): TransactionData {
+	return {
+		...transaction,
+		date: format(parseISO(transaction.date), DATETIME_OUT),
+	}
 }

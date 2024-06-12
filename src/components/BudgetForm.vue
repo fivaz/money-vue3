@@ -8,7 +8,7 @@
 			<input
 				type="text"
 				name="name"
-				v-model="budgetIn.name"
+				v-model="budgetData.name"
 				required
 				id="name"
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -19,7 +19,7 @@
 			<input
 				id="total"
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-				v-model="budgetIn.value"
+				v-model="budgetData.value"
 				type="number"
 				required
 			/>
@@ -45,24 +45,25 @@
 
 <script setup lang="ts">
 import { defineEmits, ref } from 'vue'
-import { type BudgetIn, addBudget, editBudget, hasId, deleteBudget } from '@/lib/budget'
+import { type BudgetData, addBudget, editBudget, deleteBudget, type Budget } from '@/lib/budget'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
 
-const { budget } = defineProps<{ budget: BudgetIn }>()
+const { budget } = defineProps<{ budget: Budget }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const budgetIn = ref<BudgetIn>({ ...budget })
+const { id, ...data } = budget
+const budgetData = ref<BudgetData>(data)
 
 const user = useCurrentUser()
 const db = useFirestore()
 
 function submitForm() {
-	if (hasId(budgetIn.value)) {
-		editBudget(db, budgetIn.value, user.value!.uid)
+	if (budget.id) {
+		editBudget(db, budgetData.value, budget.id, user.value!.uid)
 	} else {
-		addBudget(db, budgetIn.value, user.value!.uid)
+		addBudget(db, budgetData.value, user.value!.uid)
 	}
 	emit('close')
 }

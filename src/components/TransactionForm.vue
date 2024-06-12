@@ -9,7 +9,7 @@
 				type="number"
 				name="amount"
 				id="amount"
-				v-model="transactionIn.amount"
+				v-model="transactionData.amount"
 				required
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 			/>
@@ -23,7 +23,7 @@
 				id="date"
 				required
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-				v-model="transactionIn.date"
+				v-model="transactionData.date"
 			/>
 		</div>
 		<div>
@@ -31,7 +31,7 @@
 				Description
 			</label>
 			<textarea
-				v-model="transactionIn.description"
+				v-model="transactionData.description"
 				id="description"
 				name="description"
 				rows="3"
@@ -41,6 +41,7 @@
 
 		<div class="flex justify-between">
 			<button
+				v-if="transaction.id"
 				@click="handleDelete"
 				type="button"
 				class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -63,37 +64,35 @@ import {
 	addTransaction,
 	deleteTransaction,
 	editTransaction,
+	formatDateIn,
 	hasId,
-	parseTransaction,
-	type TransactionIn,
+	formatDateOut,
+	type TransactionData,
+	type Transaction,
 } from '@/lib/transactions'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
-import { format, parseISO } from 'date-fns'
-import { DATETIME_OUT } from '@/lib/consts'
 
 const { transaction, budgetId } = defineProps<{
 	budgetId: string
-	transaction: TransactionIn
+	transaction: Transaction
 }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const transactionIn = ref<TransactionIn>({
-	...transaction,
-	date: format(parseISO(transaction.date), DATETIME_OUT),
-})
+const { id, ...data } = transaction
+const transactionData = ref<TransactionData>(formatDateIn(data))
 
 const user = useCurrentUser()
 const db = useFirestore()
 
 function submitForm() {
-	const parsedTransaction = parseTransaction(transactionIn.value)
+	const formattedTransactionData = formatDateOut(transactionData.value)
 
-	if (hasId(parsedTransaction)) {
-		void editTransaction(db, parsedTransaction, budgetId, user.value!.uid)
+	if (transaction.id) {
+		void editTransaction(db, formattedTransactionData, transaction.id, budgetId, user.value!.uid)
 	} else {
-		void addTransaction(db, parsedTransaction, budgetId, user.value!.uid)
+		void addTransaction(db, formattedTransactionData, budgetId, user.value!.uid)
 	}
 	emit('close')
 }
