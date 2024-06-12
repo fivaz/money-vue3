@@ -1,4 +1,5 @@
 <template>
+	<Navbar />
 	<div class="p-4">
 		<header class="mb-2 flex flex-col items-center justify-between">
 			<div class="flex w-full items-center justify-between">
@@ -50,6 +51,7 @@ import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import Navbar from '@/components/Navbar.vue'
 
 const currentDate = ref(new Date())
 
