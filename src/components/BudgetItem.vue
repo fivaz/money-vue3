@@ -1,28 +1,29 @@
 <template>
 	<li class="overflow-hidden rounded-xl border border-gray-200">
-		<div
-			class="flex items-center justify-between gap-x-4 border-b border-gray-900/5 bg-gray-50 p-3"
-		>
-			<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
-			<div class="flex gap-2">
-				<div class="text-sm font-medium leading-6 text-gray-900">
-					{{ spent }} / {{ formatMoney(budget.value) }}
+		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
+			<div class="flex items-center justify-between gap-x-4">
+				<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
+				<div class="flex gap-2">
+					<div class="text-sm font-medium leading-6 text-gray-900">
+						{{ formatMoney(budget.value) }}
+					</div>
+					<button
+						type="button"
+						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+						@click="addTransaction"
+					>
+						<Plus :size="18" />
+					</button>
+					<button
+						type="button"
+						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+						@click="$emit('editBudget', budget)"
+					>
+						<Settings2 :size="18" />
+					</button>
 				</div>
-				<button
-					type="button"
-					class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					@click="addTransaction"
-				>
-					<Plus :size="18" />
-				</button>
-				<button
-					type="button"
-					class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					@click="$emit('editBudget', budget)"
-				>
-					<Settings2 :size="18" />
-				</button>
 			</div>
+			<ProgressBar :budget="budget" :spent="spent" />
 		</div>
 		<Disclosure v-slot="{ open }">
 			<transition
@@ -70,6 +71,7 @@ import { formatMoney } from '@/lib/utils'
 import TransactionItem from '@/components/TransactionItem.vue'
 import Modal from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import ProgressBar from '@/components/ProgressBar.vue'
 
 const { budget } = defineProps<{ budget: Budget }>()
 
@@ -83,13 +85,13 @@ const transactions = useCollection<Transaction>(
 	collection(db, USERS, user.value!.uid, BUDGETS, budget.id, TRANSACTIONS),
 )
 
+const spent = computed(() =>
+	transactions.value.reduce((sum, transaction) => sum - transaction.amount, 0),
+)
+
 const showForm = ref(false)
 
 const editedTransaction = ref<Transaction>(getEmptyTransaction())
-
-const spent = computed(() =>
-	formatMoney(transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0)),
-)
 
 function getEmptyTransaction(): Transaction {
 	return {

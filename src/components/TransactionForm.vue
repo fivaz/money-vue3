@@ -65,7 +65,6 @@ import {
 	deleteTransaction,
 	editTransaction,
 	formatDateIn,
-	hasId,
 	formatDateOut,
 	type TransactionData,
 	type Transaction,
@@ -89,8 +88,8 @@ const db = useFirestore()
 function submitForm() {
 	const formattedTransactionData = formatDateOut(transactionData.value)
 
-	if (transaction.id) {
-		void editTransaction(db, formattedTransactionData, transaction.id, budgetId, user.value!.uid)
+	if (id) {
+		void editTransaction(db, formattedTransactionData, id, budgetId, user.value!.uid)
 	} else {
 		void addTransaction(db, formattedTransactionData, budgetId, user.value!.uid)
 	}
@@ -98,8 +97,8 @@ function submitForm() {
 }
 
 function handleDelete() {
-	if (hasId(transaction)) {
-		deleteTransaction(db, user.value!.uid, transaction)
+	if (id) {
+		deleteTransaction(db, user.value!.uid, transactionData.value, id)
 		emit('close')
 	}
 }

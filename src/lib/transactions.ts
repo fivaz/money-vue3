@@ -21,10 +21,6 @@ export function formatDateOut(transaction: TransactionData): TransactionData {
 	}
 }
 
-export function hasId(transactionIn: TransactionData): transactionIn is Transaction {
-	return !!transactionIn.id
-}
-
 function addTransactionTopLevel(
 	db: ReturnType<typeof useFirestore>,
 	data: Omit<Transaction, 'id'>,
@@ -102,17 +98,10 @@ export function deleteTransactionTopLevel(
 export function deleteBudgetTransaction(
 	db: ReturnType<typeof useFirestore>,
 	userId: string,
-	transaction: Transaction,
+	data: TransactionData,
+	id: string,
 ) {
-	const transactionDocRef = doc(
-		db,
-		USERS,
-		userId,
-		BUDGETS,
-		transaction.budget.id,
-		TRANSACTIONS,
-		transaction.id,
-	)
+	const transactionDocRef = doc(db, USERS, userId, BUDGETS, data.budget.id, TRANSACTIONS, id)
 
 	void deleteDoc(transactionDocRef)
 }
@@ -120,10 +109,11 @@ export function deleteBudgetTransaction(
 export function deleteTransaction(
 	db: ReturnType<typeof useFirestore>,
 	userId: string,
-	transaction: Transaction,
+	data: TransactionData,
+	id: string,
 ) {
-	deleteTransactionTopLevel(db, userId, transaction.id)
-	deleteBudgetTransaction(db, userId, transaction)
+	deleteTransactionTopLevel(db, userId, id)
+	deleteBudgetTransaction(db, userId, data, id)
 }
 
 export function formatDateIn(transaction: TransactionData): TransactionData {
