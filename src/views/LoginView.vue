@@ -108,8 +108,7 @@ const password = ref('')
 const email = ref('')
 const auth = useFirebaseAuth()!
 async function handleSubmit() {
-  console.log('Form submitted with:', { password: password.value, email: email.value })
   await signInWithEmailAndPassword(auth, email.value, password.value)
-  void router.push(route.query.redirect || '/')
+  void router.push(route.query.redirect?.toString() || '/')
 }
 </script>
