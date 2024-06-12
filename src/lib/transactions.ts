@@ -42,8 +42,9 @@ export function addTransaction(
 	budgetId: string,
 	userId: string,
 ) {
-	const id = addTransactionTopLevel(db, data, userId)
-	addBudgetTransaction(db, data, id, budgetId, userId)
+	const formattedData = { ...data, amount: data.amount * 100 }
+	const id = addTransactionTopLevel(db, formattedData, userId)
+	addBudgetTransaction(db, formattedData, id, budgetId, userId)
 }
 
 export function editTransactionTopLevel(
@@ -75,8 +76,9 @@ export function editTransaction(
 	budgetId: string,
 	userId: string,
 ) {
-	editTransactionTopLevel(db, transaction, userId)
-	editBudgetTransactionTopLevel(db, transaction, budgetId, userId)
+	const formattedTransaction = { ...transaction, amount: transaction.amount * 100 }
+	editTransactionTopLevel(db, formattedTransaction, userId)
+	editBudgetTransactionTopLevel(db, formattedTransaction, budgetId, userId)
 }
 
 export function hasId(transactionIn: TransactionIn): transactionIn is Transaction {

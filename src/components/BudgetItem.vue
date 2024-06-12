@@ -36,12 +36,13 @@
 				/>
 			</ul>
 		</div>
-		<button class="w-full" @click="toggleExpanded">
-			{{ showTransactions ? '⬆️' : '⬇️' }}
+		<button class="flex w-full justify-center" @click="toggleExpanded">
+			<ChevronDown v-if="showTransactions" />
+			<ChevronUp v-else />
 		</button>
 	</li>
 	<TransactionForm
-		v-if="showTransactionForm"
+		:show="showTransactionForm"
 		:transaction="editedTransaction"
 		@close="showTransactionForm = false"
 		:budget-id="budget.id"
@@ -53,12 +54,13 @@ import { computed, ref } from 'vue'
 import TransactionForm from './TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
 import type { Transaction, TransactionIn } from '@/lib/transactions'
-import { Plus, Settings2 } from 'lucide-vue-next'
+import { Plus, Settings2, ChevronDown, ChevronUp } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { BUDGETS, DATETIME, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import TransactionItem from '@/components/TransactionItem.vue'
+import { format } from 'date-fns'
 
 const { budget } = defineProps<{ budget: Budget }>()
 
@@ -84,7 +86,7 @@ const spent = computed(() =>
 
 function buildTransactionIn(): TransactionIn {
 	return {
-		date: new Date().toISOString(),
+		date: format(new Date(), DATETIME),
 		description: '',
 		amount: 0,
 		budget,

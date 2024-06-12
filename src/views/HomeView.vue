@@ -4,7 +4,7 @@
 			<div class="flex w-full items-center justify-between">
 				<button @click="prevMonth"><ChevronLeft /></button>
 				<h1
-					class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+					class="text-base font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
 				>
 					{{ currentMonth }}
 				</h1>
