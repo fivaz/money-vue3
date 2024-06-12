@@ -1,5 +1,5 @@
 import { useFirestore } from 'vuefire'
-import { collection, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
 import { BUDGETS, DATETIME, TRANSACTIONS, USERS } from '@/lib/consts'
 import { parse } from 'date-fns'
@@ -19,6 +19,10 @@ export function parseTransaction(transaction: TransactionIn): TransactionIn {
 		...transaction,
 		date: parse(transaction.date, DATETIME, new Date()).toISOString(),
 	}
+}
+
+export function hasId(transactionIn: TransactionIn): transactionIn is Transaction {
+	return !!transactionIn.id
 }
 
 function addTransactionTopLevel(
@@ -65,7 +69,7 @@ export function editTransactionTopLevel(
 	void updateDoc(transactionDocRef, data)
 }
 
-export function editBudgetTransactionTopLevel(
+export function editBudgetTransaction(
 	db: ReturnType<typeof useFirestore>,
 	transaction: Transaction,
 	budgetId: string,
@@ -84,9 +88,41 @@ export function editTransaction(
 	userId: string,
 ) {
 	editTransactionTopLevel(db, transaction, userId)
-	editBudgetTransactionTopLevel(db, transaction, budgetId, userId)
+	editBudgetTransaction(db, transaction, budgetId, userId)
 }
 
-export function hasId(transactionIn: TransactionIn): transactionIn is Transaction {
-	return !!transactionIn.id
+export function deleteTransactionTopLevel(
+	db: ReturnType<typeof useFirestore>,
+	userId: string,
+	id: string,
+) {
+	const transactionDocRef = doc(db, USERS, userId, TRANSACTIONS, id)
+	void deleteDoc(transactionDocRef)
+}
+
+export function deleteBudgetTransaction(
+	db: ReturnType<typeof useFirestore>,
+	userId: string,
+	transaction: Transaction,
+) {
+	const transactionDocRef = doc(
+		db,
+		USERS,
+		userId,
+		BUDGETS,
+		transaction.budget.id,
+		TRANSACTIONS,
+		transaction.id,
+	)
+
+	void deleteDoc(transactionDocRef)
+}
+
+export function deleteTransaction(
+	db: ReturnType<typeof useFirestore>,
+	userId: string,
+	transaction: Transaction,
+) {
+	deleteTransactionTopLevel(db, userId, transaction.id)
+	deleteBudgetTransaction(db, userId, transaction)
 }

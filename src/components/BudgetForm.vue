@@ -2,20 +2,17 @@
 	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
 		{{ budget.id ? 'Edit Budget' : 'Add Budget' }}
 	</DialogTitle>
-	<form @submit.prevent="submitForm">
+	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
 		<div>
 			<label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-			<div class="mt-2">
-				<input
-					type="text"
-					name="name"
-					v-model="budgetIn.name"
-					required
-					id="name"
-					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-					placeholder="you@example.com"
-				/>
-			</div>
+			<input
+				type="text"
+				name="name"
+				v-model="budgetIn.name"
+				required
+				id="name"
+				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+			/>
 		</div>
 		<div>
 			<label for="total" class="block text-sm font-medium leading-6 text-gray-900">Total</label>
