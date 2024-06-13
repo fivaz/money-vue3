@@ -3,11 +3,13 @@ import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import TransactionsView from '@/views/TransactionsView.vue'
+import AccountsView from '@/views/AccountsView.vue'
 
 export const homeRoute = '/'
 export const loginRoute = '/login'
 export const registerRoute = '/register'
 export const transactionsRoute = '/transactions'
+export const accountsRoute = '/accounts'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +24,12 @@ const router = createRouter({
 			path: transactionsRoute,
 			name: 'transactions',
 			component: TransactionsView,
+			meta: { requiresAuth: true },
+		},
+		{
+			path: accountsRoute,
+			name: 'accounts',
+			component: AccountsView,
 			meta: { requiresAuth: true },
 		},
 		{

@@ -11,7 +11,7 @@
 import type { Budget } from '@/lib/budget'
 import { computed } from 'vue'
 import { formatMoney } from '@/lib/utils'
-import type { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transaction'
 
 const props = defineProps<{ transactions: Transaction[]; budget: Budget }>()
 

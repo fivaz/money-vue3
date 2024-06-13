@@ -1,5 +1,5 @@
 <template>
-	<NavBar>
+	<Navbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<div class="flex w-full items-center justify-between">
 				<button @click="prevMonth"><ChevronLeft /></button>
@@ -23,6 +23,7 @@
 				@edit-budget="(b) => editBudget(b)"
 				:currentDate="currentDate"
 				:budgets="budgets"
+				:accounts="accounts"
 			/>
 		</ul>
 		<button
@@ -36,23 +37,24 @@
 		<ModalDialog :show="showForm" @close="showForm = false">
 			<BudgetForm @close="showForm = false" :budget="editedBudget" />
 		</ModalDialog>
-	</NavBar>
+	</Navbar>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import BudgetItem from '@/components/BudgetItem.vue'
-import BudgetForm from '@/components/BudgetForm.vue'
+import BudgetItem from '@/components/budget/BudgetItem.vue'
+import BudgetForm from '@/components/budget/BudgetForm.vue'
 import { addMonths, format, isSameMonth, parseISO, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
-import type { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transaction'
 import type { Budget } from '@/lib/budget'
 import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import NavBar from '@/components/Nav.vue'
+import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import ModalDialog from '@/components/Modal.vue'
+import type { Account } from '@/lib/account'
+import Navbar from '@/components/Navbar.vue'
 
 const currentDate = ref(new Date())
 
@@ -64,6 +66,8 @@ const editedBudget = ref<Budget>(getEmptyBudget())
 
 const db = useFirestore()
 const user = useCurrentUser()
+
+const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, ACCOUNTS))
 
 const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 

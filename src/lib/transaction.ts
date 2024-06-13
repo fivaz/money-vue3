@@ -3,6 +3,7 @@ import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestor
 import type { Budget } from '@/lib/budget'
 import { BUDGETS, DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { format, parse, parseISO } from 'date-fns'
+import type { Account } from '@/lib/account'
 
 export type Transaction = {
 	id: string
@@ -10,6 +11,7 @@ export type Transaction = {
 	description: string
 	date: string
 	budget: Budget
+	account: Account
 }
 
 export type TransactionData = Omit<Transaction, 'id'>

@@ -94,11 +94,12 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { signOut } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
-import { homeRoute, loginRoute, transactionsRoute } from '@/router'
+import { accountsRoute, homeRoute, loginRoute, transactionsRoute } from '@/router'
 
 const navigation = [
 	{ name: 'Budgets', href: homeRoute },
 	{ name: 'Transactions', href: transactionsRoute },
+	{ name: 'Accounts', href: accountsRoute },
 ]
 
 const mobileMenuOpen = ref(false)

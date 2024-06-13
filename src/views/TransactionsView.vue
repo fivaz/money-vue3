@@ -1,5 +1,5 @@
 <template>
-	<NavBar>
+	<Navbar>
 		<div class="flex justify-center">
 			<h1 class="mb-2 text-2xl font-semibold leading-6 text-gray-900">
 				{{ formatMoney(balance) }}
@@ -18,26 +18,30 @@
 				:transaction="editedTransaction"
 				@close="showForm = false"
 				:budgets="budgets"
+				:accounts="accounts"
 			/>
 		</ModalDialog>
-	</NavBar>
+	</Navbar>
 </template>
 
 <script setup lang="ts">
-import NavBar from '@/components/Nav.vue'
-import TransactionItem from '@/components/TransactionItem.vue'
+import TransactionItem from '@/components/transaction/TransactionItem.vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import type { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transaction'
 import { collection } from 'firebase/firestore'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { computed, ref } from 'vue'
 import { formatMoney } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
-import TransactionForm from '@/components/TransactionForm.vue'
+import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
+import type { Account } from '@/lib/account'
+import Navbar from '@/components/Navbar.vue'
 
 const db = useFirestore()
 const user = useCurrentUser()
+
+const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, ACCOUNTS))
 
 const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 
@@ -63,6 +67,10 @@ function getEmptyTransaction(): Transaction {
 			id: '0',
 			name: 'no budget',
 			value: 0,
+		},
+		account: {
+			id: '0',
+			name: 'no account',
 		},
 	}
 }

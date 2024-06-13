@@ -54,6 +54,7 @@ const props = defineProps<{ budget: Budget }>()
 const emit = defineEmits<{ (e: 'close'): void }>()
 
 const { id, ...data } = props.budget
+
 const budgetData = ref<BudgetData>(data)
 
 const user = useCurrentUser()

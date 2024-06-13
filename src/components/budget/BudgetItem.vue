@@ -25,7 +25,7 @@
 			</div>
 			<ProgressBar :budget="budget" :transactions="currentTransactions" />
 		</div>
-		<Disclosure v-slot="{ open }">
+		<Disclosure v-slot="{ open }" default-open>
 			<transition
 				enter-active-class="transition duration-100 ease-out"
 				enter-from-class="transform scale-95 opacity-0"
@@ -54,16 +54,17 @@
 			:transaction="editedTransaction"
 			@close="showForm = false"
 			:budgets="budgets"
+			:accounts="accounts"
 		/>
 	</ModalDialog>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import TransactionForm from './TransactionForm.vue'
+import TransactionForm from '../transaction/TransactionForm.vue'
 import BudgetTransactionItem from './BudgetTransactionItem.vue'
 import type { Budget } from '@/lib/budget'
-import type { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
@@ -73,8 +74,14 @@ import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import ProgressBar from '@/components/ProgressBar.vue'
 import { isSameMonth, parseISO } from 'date-fns'
+import type { Account } from '@/lib/account'
 
-const props = defineProps<{ budget: Budget; currentDate: Date; budgets: Budget[] }>()
+const props = defineProps<{
+	budget: Budget
+	currentDate: Date
+	budgets: Budget[]
+	accounts: Account[]
+}>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
 
@@ -102,6 +109,7 @@ function getEmptyTransaction(): Transaction {
 		description: '',
 		amount: -1,
 		budget: props.budget,
+		account: props.accounts[0],
 	}
 }
 

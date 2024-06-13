@@ -55,6 +55,8 @@
 
 		<Select v-model="transactionData.budget" :list="budgets" />
 
+		<Select v-model="transactionData.account" :list="accounts" />
+
 		<div>
 			<label for="description" class="block text-sm font-medium leading-6 text-gray-900">
 				Description
@@ -97,14 +99,16 @@ import {
 	formatDateOut,
 	type TransactionData,
 	type Transaction,
-} from '@/lib/transactions'
+} from '@/lib/transaction'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import Select from '@/components/Select.vue'
+import type { Account } from '@/lib/account'
 
 const props = defineProps<{
 	budgets: Budget[]
+	accounts: Account[]
 	transaction: Transaction
 }>()
 
