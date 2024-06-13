@@ -64,7 +64,41 @@ export function editTransactionTopLevel(
 	void updateDoc(transactionDocRef, data)
 }
 
+export function removeTransactionFromBudget(
+	db: ReturnType<typeof useFirestore>,
+	id: string,
+	budgetId: string,
+	userId: string,
+) {
+	const transactionDocRef = doc(db, USERS, userId, BUDGETS, budgetId, TRANSACTIONS, id)
+	void deleteDoc(transactionDocRef)
+}
+
 export function editBudgetTransaction(
+	db: ReturnType<typeof useFirestore>,
+	data: TransactionData,
+	id: string,
+	formerBudgetId: string,
+	userId: string,
+) {
+	if (data.budget.id && data.budget.id !== formerBudgetId) {
+		removeTransactionFromBudget(db, id, formerBudgetId, userId)
+		addTransactionToBudget(db, data, id, data.budget.id, userId)
+	} else {
+		const budgetTransactionDocRef = doc(
+			db,
+			USERS,
+			userId,
+			BUDGETS,
+			formerBudgetId,
+			TRANSACTIONS,
+			id,
+		)
+		void updateDoc(budgetTransactionDocRef, data)
+	}
+}
+
+function addTransactionToBudget(
 	db: ReturnType<typeof useFirestore>,
 	data: TransactionData,
 	id: string,
@@ -72,18 +106,18 @@ export function editBudgetTransaction(
 	userId: string,
 ) {
 	const budgetTransactionDocRef = doc(db, USERS, userId, BUDGETS, budgetId, TRANSACTIONS, id)
-	void updateDoc(budgetTransactionDocRef, data)
+	void setDoc(budgetTransactionDocRef, data)
 }
 
 export function editTransaction(
 	db: ReturnType<typeof useFirestore>,
 	data: TransactionData,
 	id: string,
-	budgetId: string,
+	formerBudgetId: string,
 	userId: string,
 ) {
 	editTransactionTopLevel(db, data, id, userId)
-	editBudgetTransaction(db, data, id, budgetId, userId)
+	editBudgetTransaction(db, data, id, formerBudgetId, userId)
 }
 
 export function deleteTransactionTopLevel(

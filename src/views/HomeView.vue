@@ -1,5 +1,5 @@
 <template>
-	<Navbar />
+	<NavBar />
 	<div class="p-4">
 		<header class="mb-2 flex flex-col items-center justify-between">
 			<div class="flex w-full items-center justify-between">
@@ -34,9 +34,9 @@
 			Add Budget
 		</button>
 
-		<Modal :show="showForm" @close="showForm = false">
+		<ModalDialog :show="showForm" @close="showForm = false">
 			<BudgetForm @close="showForm = false" :budget="editedBudget" />
-		</Modal>
+		</ModalDialog>
 	</div>
 </template>
 
@@ -44,7 +44,6 @@
 import { computed, ref } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
-import Modal from '@/components/ModalDialog.vue'
 import { addMonths, format, isSameMonth, parseISO, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
@@ -53,7 +52,8 @@ import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import Navbar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'
+import ModalDialog from '@/components/ModalDialog.vue'
 
 const currentDate = ref(new Date())
 

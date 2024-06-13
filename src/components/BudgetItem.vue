@@ -49,14 +49,14 @@
 		</Disclosure>
 	</li>
 
-	<Modal :show="showForm" @close="showForm = false">
+	<ModalDialog :show="showForm" @close="showForm = false">
 		<TransactionForm
 			:transaction="editedTransaction"
 			@close="showForm = false"
 			:budget-id="budget.id"
 			:budgets="budgets"
 		/>
-	</Modal>
+	</ModalDialog>
 </template>
 
 <script setup lang="ts">
@@ -70,7 +70,7 @@ import { collection } from 'firebase/firestore'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import TransactionItem from '@/components/TransactionItem.vue'
-import Modal from '@/components/ModalDialog.vue'
+import ModalDialog from '@/components/ModalDialog.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import ProgressBar from '@/components/ProgressBar.vue'
 import { isSameMonth, parseISO } from 'date-fns'
