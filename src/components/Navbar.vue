@@ -62,9 +62,9 @@
 						/>
 					</a>
 					<div class="flex flex-1 justify-end">
-						<a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-							>Log in <span aria-hidden="true">&rarr;</span></a
-						>
+						<a href="#" class="text-sm font-semibold leading-6 text-gray-900">
+							Log in <span aria-hidden="true">&rarr;</span>
+						</a>
 					</div>
 				</div>
 				<div class="mt-6 space-y-2">
@@ -91,9 +91,8 @@ import { useRouter } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
 
 const navigation = [
-	{ name: 'Product', href: '#' },
-	{ name: 'Features', href: '#' },
-	{ name: 'Company', href: '#' },
+	{ name: 'Budgets', href: '/' },
+	{ name: 'Transactions', href: '/transactions' },
 ]
 
 const mobileMenuOpen = ref(false)
@@ -102,7 +101,7 @@ const router = useRouter()
 
 const auth = useFirebaseAuth()
 async function logout() {
-	await signOut(auth)
+	await signOut(auth!)
 	void router.push('/login')
 }
 </script>

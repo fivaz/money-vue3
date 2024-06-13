@@ -22,6 +22,7 @@
 				:key="budget.id"
 				:budget="budget"
 				@edit-budget="(b) => editBudget(b)"
+				:currentDate="currentDate"
 			/>
 		</ul>
 		<button
@@ -43,7 +44,7 @@ import { computed, ref } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
 import Modal from '@/components/Modal.vue'
-import { addMonths, format, subMonths } from 'date-fns'
+import { addMonths, format, isSameMonth, parseISO, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
 import type { Budget } from '@/lib/budget'
@@ -61,18 +62,23 @@ const showForm = ref(false)
 
 const editedBudget = ref<Budget>(getEmptyBudget())
 
-const balance = computed(() =>
-	transactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
-)
-
 const db = useFirestore()
-
 const user = useCurrentUser()
 
 const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 
-const transactions = useCollection<Transaction>(
+const allTransactions = useCollection<Transaction>(
 	collection(db, USERS, user.value!.uid, TRANSACTIONS),
+)
+
+const currentTransactions = computed(() =>
+	allTransactions.value.filter((transaction) =>
+		isSameMonth(currentDate.value, parseISO(transaction.date)),
+	),
+)
+
+const balance = computed(() =>
+	currentTransactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
 )
 
 function editBudget(budget: Budget) {

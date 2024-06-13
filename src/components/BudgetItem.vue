@@ -23,7 +23,7 @@
 					</button>
 				</div>
 			</div>
-			<ProgressBar :budget="budget" :spent="spent" />
+			<ProgressBar :budget="budget" :transactions="currentTransactions" />
 		</div>
 		<Disclosure v-slot="{ open }">
 			<transition
@@ -36,7 +36,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 divide-y divide-gray-100 py-3 text-sm leading-6">
 					<TransactionItem
-						v-for="transaction in transactions"
+						v-for="transaction in currentTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						@edit="editTransaction"
@@ -72,21 +72,23 @@ import TransactionItem from '@/components/TransactionItem.vue'
 import Modal from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import ProgressBar from '@/components/ProgressBar.vue'
+import { isSameMonth, parseISO } from 'date-fns'
 
-const { budget } = defineProps<{ budget: Budget }>()
+const props = defineProps<{ budget: Budget; currentDate: Date }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
 
 const db = useFirestore()
-
 const user = useCurrentUser()
 
-const transactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, BUDGETS, budget.id, TRANSACTIONS),
+const allTransactions = useCollection<Transaction>(
+	collection(db, USERS, user.value!.uid, BUDGETS, props.budget.id, TRANSACTIONS),
 )
 
-const spent = computed(() =>
-	transactions.value.reduce((sum, transaction) => sum - transaction.amount, 0),
+const currentTransactions = computed(() =>
+	allTransactions.value.filter((transaction) =>
+		isSameMonth(props.currentDate, parseISO(transaction.date)),
+	),
 )
 
 const showForm = ref(false)
@@ -99,7 +101,7 @@ function getEmptyTransaction(): Transaction {
 		date: new Date().toISOString(),
 		description: '',
 		amount: 0,
-		budget,
+		budget: props.budget,
 	}
 }
 

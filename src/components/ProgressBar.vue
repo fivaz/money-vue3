@@ -11,8 +11,13 @@
 import type { Budget } from '@/lib/budget'
 import { computed } from 'vue'
 import { formatMoney } from '@/lib/utils'
+import type { Transaction } from '@/lib/transactions'
 
-const { budget, spent } = defineProps<{ spent: number; budget: Budget }>()
+const props = defineProps<{ transactions: Transaction[]; budget: Budget }>()
 
-const percentage = computed(() => ((spent / budget.value) * 100).toFixed(0))
+const spent = computed(() =>
+	props.transactions.reduce((sum, transaction) => sum - transaction.amount, 0),
+)
+
+const percentage = computed(() => ((spent.value / props.budget.value) * 100).toFixed(0))
 </script>

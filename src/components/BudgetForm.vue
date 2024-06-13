@@ -49,19 +49,19 @@ import { type BudgetData, addBudget, editBudget, deleteBudget, type Budget } fro
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
 
-const { budget } = defineProps<{ budget: Budget }>()
+const props = defineProps<{ budget: Budget }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const { id, ...data } = budget
+const { id, ...data } = props.budget
 const budgetData = ref<BudgetData>(data)
 
 const user = useCurrentUser()
 const db = useFirestore()
 
 function submitForm() {
-	if (budget.id) {
-		editBudget(db, budgetData.value, budget.id, user.value!.uid)
+	if (id) {
+		editBudget(db, budgetData.value, id, user.value!.uid)
 	} else {
 		addBudget(db, budgetData.value, user.value!.uid)
 	}
@@ -69,8 +69,8 @@ function submitForm() {
 }
 
 function handleDelete() {
-	if (budget.id) {
-		deleteBudget(db, user.value!.uid, budget.id)
+	if (id) {
+		deleteBudget(db, user.value!.uid, id)
 		emit('close')
 	}
 }
