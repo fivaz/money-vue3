@@ -2,14 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import TransactionsView from '@/views/TransactionsView.vue'
-import AccountsView from '@/views/AccountsView.vue'
+import BudgetsView from '@/views/BudgetsView.vue'
 
 export const homeRoute = '/'
+export const budgetsRoute = '/budgets'
+export const transactionsRoute = '/transactions'
 export const loginRoute = '/login'
 export const registerRoute = '/register'
-export const transactionsRoute = '/transactions'
-export const accountsRoute = '/accounts'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,15 +20,9 @@ const router = createRouter({
 			meta: { requiresAuth: true },
 		},
 		{
-			path: transactionsRoute,
-			name: 'transactions',
-			component: TransactionsView,
-			meta: { requiresAuth: true },
-		},
-		{
-			path: accountsRoute,
-			name: 'accounts',
-			component: AccountsView,
+			path: budgetsRoute,
+			name: 'budgets',
+			component: BudgetsView,
 			meta: { requiresAuth: true },
 		},
 		{
