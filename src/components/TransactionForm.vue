@@ -1,7 +1,6 @@
 <template>
-	{{ transactionData.budget.id }}
 	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }} {{ operation }}
+		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
 		<div class="flex justify-center">
@@ -161,13 +160,15 @@ import type { Budget } from '@/lib/budget'
 
 const props = defineProps<{
 	budgets: Budget[]
-	budgetId: string
 	transaction: Transaction
 }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
 const { id, ...data } = props.transaction
+
+const firstBudgetId = props.transaction.budget.id
+
 const transactionData = ref<TransactionData>(formatDateIn(data))
 
 type Operation = 'expense' | 'income'
@@ -197,16 +198,16 @@ function submitForm() {
 	const formattedTransactionData = formatDateOut(transactionData.value)
 
 	if (id) {
-		void editTransaction(db, formattedTransactionData, id, props.budgetId, user.value!.uid)
+		void editTransaction(db, formattedTransactionData, id, firstBudgetId, user.value!.uid)
 	} else {
-		void addTransaction(db, formattedTransactionData, props.budgetId, user.value!.uid)
+		void addTransaction(db, formattedTransactionData, firstBudgetId, user.value!.uid)
 	}
 	emit('close')
 }
 
 function handleDelete() {
 	if (id) {
-		deleteTransaction(db, user.value!.uid, props.budgetId, id)
+		deleteTransaction(db, user.value!.uid, firstBudgetId, id)
 		emit('close')
 	}
 }

@@ -13,6 +13,13 @@
 				@edit="editTransaction"
 			/>
 		</ul>
+		<ModalDialog :show="showForm" @close="showForm = false">
+			<TransactionForm
+				:transaction="editedTransaction"
+				@close="showForm = false"
+				:budgets="budgets"
+			/>
+		</ModalDialog>
 	</NavBar>
 </template>
 
@@ -22,12 +29,17 @@ import TransactionItem from '@/components/TransactionItem.vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import type { Transaction } from '@/lib/transactions'
 import { collection } from 'firebase/firestore'
-import { TRANSACTIONS, USERS } from '@/lib/consts'
+import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { computed, ref } from 'vue'
-import { formatMoney } from '../lib/utils'
+import { formatMoney } from '@/lib/utils'
+import ModalDialog from '@/components/ModalDialog.vue'
+import TransactionForm from '@/components/TransactionForm.vue'
+import type { Budget } from '@/lib/budget'
 
 const db = useFirestore()
 const user = useCurrentUser()
+
+const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 
 const transactions = useCollection<Transaction>(
 	collection(db, USERS, user.value!.uid, TRANSACTIONS),

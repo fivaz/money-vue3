@@ -53,7 +53,6 @@
 		<TransactionForm
 			:transaction="editedTransaction"
 			@close="showForm = false"
-			:budget-id="budget.id"
 			:budgets="budgets"
 		/>
 	</ModalDialog>
