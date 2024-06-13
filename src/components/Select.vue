@@ -7,7 +7,7 @@
 			<ListboxButton
 				class="relative w-full cursor-default rounded-lg border-0 bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm sm:leading-6"
 			>
-				<span class="block truncate">{{ model.name }}</span>
+				<span class="block truncate">{{ model?.name || 'no budget selected' }}</span>
 				<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 					<ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				</span>
@@ -64,5 +64,5 @@ type UnknownItem = { id: string; name: string }
 
 defineProps<{ title: string; list: UnknownItem[] }>()
 
-const model = defineModel<UnknownItem>({ required: true })
+const model = defineModel<UnknownItem | undefined>({ required: true })
 </script>
