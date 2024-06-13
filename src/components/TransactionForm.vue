@@ -112,7 +112,7 @@ type Operation = 'expense' | 'income'
 
 const operations: Operation[] = ['expense', 'income']
 
-const operation = ref<Operation>(operations[0])
+const operation = ref<Operation>(data.amount >= 0 ? 'income' : 'expense')
 
 const user = useCurrentUser()
 const db = useFirestore()
