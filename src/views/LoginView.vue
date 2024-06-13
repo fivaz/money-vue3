@@ -15,9 +15,9 @@
 					</h2>
 					<p class="mt-2 text-sm leading-6 text-gray-500">
 						Not a member?
-						<a class="font-semibold text-indigo-600 hover:text-indigo-500" href="/register">
+						<RouterLink class="font-semibold text-indigo-600 hover:text-indigo-500" to="/register">
 							Register
-						</a>
+						</RouterLink>
 					</p>
 				</div>
 
