@@ -43,7 +43,7 @@
 import { computed, ref } from 'vue'
 import BudgetItem from '@/components/BudgetItem.vue'
 import BudgetForm from '@/components/BudgetForm.vue'
-import Modal from '@/components/Modal.vue'
+import Modal from '@/components/ModalDialog.vue'
 import { addMonths, format, isSameMonth, parseISO, subMonths } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transactions'
@@ -52,7 +52,7 @@ import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import Navbar from '@/components/Navbar.vue'
+import Navbar from '@/components/NavBar.vue'
 
 const currentDate = ref(new Date())
 

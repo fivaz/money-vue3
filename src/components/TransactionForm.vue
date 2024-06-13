@@ -96,8 +96,7 @@ import {
 	type Transaction,
 } from '@/lib/transactions'
 import { useCurrentUser, useFirestore } from 'vuefire'
-import { DialogTitle } from '@headlessui/vue'
-import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
+import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
 
 const props = defineProps<{
 	budgetId: string
