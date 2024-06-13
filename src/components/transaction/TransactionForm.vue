@@ -2,12 +2,12 @@
 	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
 		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
 	</DialogTitle>
-	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
+	<form @submit.prevent="submitForm" class="mt-2 flex w-[320px] flex-col gap-5">
 		<div class="flex justify-center">
-			<fieldset aria-label="Payment operation">
+			<fieldset aria-label="transaction operation">
 				<RadioGroup
 					v-model="operation"
-					class="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
+					class="grid grid-cols-3 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
 				>
 					<RadioGroupOption
 						as="template"
@@ -28,29 +28,32 @@
 				</RadioGroup>
 			</fieldset>
 		</div>
-		<div>
-			<label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
-			<input
-				type="number"
-				name="amount"
-				id="amount"
-				step=".01"
-				v-model="transactionData.amount"
-				required
-				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-			/>
-		</div>
 
-		<div>
-			<label for="date" class="block text-sm font-medium leading-6 text-gray-900"> Date </label>
-			<input
-				type="datetime-local"
-				name="date"
-				id="date"
-				required
-				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-				v-model="transactionData.date"
-			/>
+		<div class="grid grid-cols-5 gap-5">
+			<div class="col-span-2">
+				<label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
+				<input
+					type="number"
+					name="amount"
+					id="amount"
+					step=".01"
+					v-model="transactionData.amount"
+					required
+					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+				/>
+			</div>
+
+			<div class="col-span-3">
+				<label for="date" class="block text-sm font-medium leading-6 text-gray-900"> Date </label>
+				<input
+					type="datetime-local"
+					name="date"
+					id="date"
+					required
+					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+					v-model="transactionData.date"
+				/>
+			</div>
 		</div>
 
 		<Select
@@ -128,9 +131,9 @@ const formerAccountId = props.transaction.account.id
 
 const transactionData = ref<TransactionData>(formatDateIn(data))
 
-type Operation = 'expense' | 'income'
+type Operation = 'expense' | 'transfer' | 'income'
 
-const operations: Operation[] = ['expense', 'income']
+const operations: Operation[] = ['expense', 'transfer', 'income']
 
 const operation = ref<Operation>(data.amount >= 0 ? 'income' : 'expense')
 
@@ -147,7 +150,9 @@ watch(operation, () => {
 watch(
 	() => transactionData.value.amount,
 	(amount) => {
-		operation.value = amount >= 0 ? 'income' : 'expense'
+		if (operation.value !== 'transfer') {
+			operation.value = amount >= 0 ? 'income' : 'expense'
+		}
 	},
 )
 
