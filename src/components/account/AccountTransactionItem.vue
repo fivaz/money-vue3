@@ -5,18 +5,18 @@
 				<span>{{ format(transaction.date, SHORT_DATETIME_FR) }}</span>
 				<span>{{ transaction.description }}</span>
 			</span>
-			<span :class="transaction.amount >= 0 ? 'text-green-500' : 'text-red-500'">{{
-				formatMoney(transaction.amount)
-			}}</span>
+			<span :class="formatAmount(transaction, accountId) >= 0 ? 'text-green-500' : 'text-red-500'">
+				{{ formatMoney(formatAmount(transaction, accountId)) }}
+			</span>
 		</button>
 	</li>
 </template>
 
 <script setup lang="ts">
-import type { Transaction } from '@/lib/transaction'
-import { formatMoney } from '@/lib/utils'
+import { formatAmount, type Transaction } from '@/lib/transaction'
 import { SHORT_DATETIME_FR } from '@/lib/consts'
 import { format } from 'date-fns'
+import { formatMoney } from '@/lib/utils'
 
-defineProps<{ transaction: Transaction }>()
+defineProps<{ accountId: string; transaction: Transaction }>()
 </script>

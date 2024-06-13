@@ -59,7 +59,21 @@
 		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets" :list="budgets" />
 		<span v-else class="text-sm text-red-500">no budgets created yet</span>
 
-		<Select v-model="transactionIn.account" :list="accounts" title="Accounts" />
+		<div class="grid grid-cols-2 gap-5">
+			<Select
+				:class="operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
+				v-model="transactionIn.account"
+				:list="accounts"
+				title="Origin"
+			/>
+			<Select
+				class="grid-cols-1"
+				v-if="operation === 'transfer'"
+				v-model="transactionIn.destination"
+				:list="accounts"
+				title="Destination"
+			/>
+		</div>
 
 		<div>
 			<label for="description" class="block text-sm font-medium leading-6 text-gray-900">
@@ -123,16 +137,23 @@ type Operation = 'expense' | 'transfer' | 'income'
 
 const operations: Operation[] = ['expense', 'transfer', 'income']
 
-const operation = ref<Operation>(transactionIn.value.amount >= 0 ? 'income' : 'expense')
+function getOperation(): Operation {
+	if (props.transaction.destination?.id) {
+		return 'transfer'
+	}
+	return transactionIn.value.amount >= 0 ? 'income' : 'expense'
+}
 
-const user = useCurrentUser()
-const db = useFirestore()
+const operation = ref<Operation>(getOperation())
 
 watch(operation, () => {
-	transactionIn.value.amount =
-		operation.value === 'expense'
-			? -Math.abs(transactionIn.value.amount)
-			: Math.abs(transactionIn.value.amount)
+	if (operation.value !== 'transfer') {
+		transactionIn.value.destination = null
+		transactionIn.value.amount =
+			operation.value === 'expense'
+				? -Math.abs(transactionIn.value.amount)
+				: Math.abs(transactionIn.value.amount)
+	}
 })
 
 watch(
@@ -144,11 +165,14 @@ watch(
 	},
 )
 
+const user = useCurrentUser()
+const db = useFirestore()
+
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)
 
 	if (props.transaction.id) {
-		void editTransaction(db, formattedTransaction, user.value!.uid)
+		void editTransaction(db, formattedTransaction, props.transaction.id, user.value!.uid)
 	} else {
 		void addTransaction(db, formattedTransaction, user.value!.uid)
 	}

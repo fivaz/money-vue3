@@ -12,7 +12,14 @@ export type Transaction = {
 	date: string
 	budget: Budget | null
 	account: Account
-	destination?: Account
+	destination: Account | null
+}
+
+export function formatAmount(transaction: Transaction, accountId: string) {
+	if (transaction.destination?.id && accountId === transaction.account.id) {
+		return transaction.amount * -1
+	}
+	return transaction.amount
 }
 
 export function formatDateOut(transaction: Transaction): Transaction {
@@ -29,6 +36,12 @@ export function getData(transaction: Transaction): Omit<Transaction, 'id'> {
 			...transaction.account,
 			id: transaction.account.id,
 		},
+		destination: transaction.destination
+			? {
+					...transaction.destination,
+					id: transaction.destination.id,
+				}
+			: null,
 		budget: transaction.budget
 			? {
 					...transaction.budget,
@@ -52,9 +65,10 @@ export function addTransaction(
 export function editTransaction(
 	db: ReturnType<typeof useFirestore>,
 	transaction: Transaction,
+	id: string,
 	userId: string,
 ) {
-	const transactionDocRef = doc(db, USERS, userId, TRANSACTIONS, transaction.id)
+	const transactionDocRef = doc(db, USERS, userId, TRANSACTIONS, id)
 	void updateDoc(transactionDocRef, getData(transaction))
 }
 

@@ -114,6 +114,7 @@ function getEmptyTransaction(): Transaction {
 		amount: -1,
 		account: props.accounts[0],
 		budget: props.budget,
+		destination: null,
 	}
 }
 

@@ -38,6 +38,7 @@
 						v-for="transaction in transactions"
 						:key="transaction.id"
 						:transaction="transaction"
+						:account-id="account.id"
 						@edit="editTransaction"
 					/>
 				</DisclosurePanel>
@@ -63,7 +64,7 @@ import { computed, ref } from 'vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
-import type { Transaction } from '@/lib/transaction'
+import { formatAmount, type Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
 import { formatMoney } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
@@ -79,15 +80,18 @@ const props = defineProps<{
 
 defineEmits<{ (e: 'editAccount', value: Account): void }>()
 
-const balance = computed(() =>
-	props.currentTransactions.reduce((sum, transaction) => sum + transaction.amount, 0),
-)
-
 const transactions = computed(() =>
 	props.currentTransactions.filter(
 		(transaction) =>
 			transaction.account.id === props.account.id ||
 			transaction.destination?.id === props.account.id,
+	),
+)
+
+const balance = computed(() =>
+	transactions.value.reduce(
+		(sum, transaction) => sum + formatAmount(transaction, props.account.id),
+		0,
 	),
 )
 
@@ -103,6 +107,7 @@ function getEmptyTransaction(): Transaction {
 		amount: -1,
 		account: props.account,
 		budget: null,
+		destination: null,
 	}
 }
 
