@@ -1,15 +1,7 @@
 <template>
 	<Navbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
-			<div class="flex w-full items-center justify-between">
-				<button @click="prevMonth"><ChevronLeft /></button>
-				<h1
-					class="text-base font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
-				>
-					{{ currentMonth }}
-				</h1>
-				<button @click="nextMonth"><ChevronRight /></button>
-			</div>
+			<DateHeader v-model="currentDate"></DateHeader>
 			<h2 class="text-sm font-semibold leading-6 text-gray-900">
 				{{ formatMoney(balance) }}
 			</h2>
@@ -44,8 +36,7 @@
 import { computed, ref } from 'vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import BudgetForm from '@/components/budget/BudgetForm.vue'
-import { addMonths, format, isSameMonth, parseISO, subMonths } from 'date-fns'
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
+import { isSameMonth, parseISO } from 'date-fns'
 import type { Transaction } from '@/lib/transaction'
 import type { Budget } from '@/lib/budget'
 import { formatMoney } from '@/lib/utils'
@@ -55,10 +46,9 @@ import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import ModalDialog from '@/components/Modal.vue'
 import type { Account } from '@/lib/account'
 import Navbar from '@/components/Navbar.vue'
+import DateHeader from '@/components/DateHeader.vue'
 
 const currentDate = ref(new Date())
-
-const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
 
 const showForm = ref(false)
 
@@ -101,13 +91,5 @@ function getEmptyBudget(): Budget {
 function addBudget() {
 	showForm.value = true
 	editedBudget.value = getEmptyBudget()
-}
-
-function prevMonth() {
-	currentDate.value = subMonths(currentDate.value, 1)
-}
-
-function nextMonth() {
-	currentDate.value = addMonths(currentDate.value, 1)
 }
 </script>

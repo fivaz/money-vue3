@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import TransactionForm from '../transaction/TransactionForm.vue'
+import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import BudgetTransactionItem from './BudgetTransactionItem.vue'
 import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transaction'
