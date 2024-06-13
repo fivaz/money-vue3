@@ -23,6 +23,7 @@
 				:budget="budget"
 				@edit-budget="(b) => editBudget(b)"
 				:currentDate="currentDate"
+				:budgets="budgets"
 			/>
 		</ul>
 		<button

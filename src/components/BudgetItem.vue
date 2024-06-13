@@ -54,6 +54,7 @@
 			:transaction="editedTransaction"
 			@close="showForm = false"
 			:budget-id="budget.id"
+			:budgets="budgets"
 		/>
 	</Modal>
 </template>
@@ -74,7 +75,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import ProgressBar from '@/components/ProgressBar.vue'
 import { isSameMonth, parseISO } from 'date-fns'
 
-const props = defineProps<{ budget: Budget; currentDate: Date }>()
+const props = defineProps<{ budget: Budget; currentDate: Date; budgets: Budget[] }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
 
@@ -100,7 +101,7 @@ function getEmptyTransaction(): Transaction {
 		id: '',
 		date: new Date().toISOString(),
 		description: '',
-		amount: 0,
+		amount: -1,
 		budget: props.budget,
 	}
 }
