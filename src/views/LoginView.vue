@@ -113,7 +113,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useFirebaseAuth } from 'vuefire'
 import { useRoute, useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
-import Alert from '@/components/AlertMessage.vue'
+import Alert from '@/components/Alert.vue'
 import { homeRoute, registerRoute } from '@/router'
 
 const router = useRouter()

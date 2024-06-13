@@ -51,8 +51,8 @@ import { formatMoney } from '@/lib/utils'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import NavBar from '@/components/NavBar.vue'
-import ModalDialog from '@/components/ModalDialog.vue'
+import NavBar from '@/components/Nav.vue'
+import ModalDialog from '@/components/Modal.vue'
 
 const currentDate = ref(new Date())
 

@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/Nav.vue'
 import TransactionItem from '@/components/TransactionItem.vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import type { Transaction } from '@/lib/transactions'
@@ -32,7 +32,7 @@ import { collection } from 'firebase/firestore'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { computed, ref } from 'vue'
 import { formatMoney } from '@/lib/utils'
-import ModalDialog from '@/components/ModalDialog.vue'
+import ModalDialog from '@/components/Modal.vue'
 import TransactionForm from '@/components/TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
 
