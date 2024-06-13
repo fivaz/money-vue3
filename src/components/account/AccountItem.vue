@@ -35,7 +35,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<AccountTransactionItem
-						v-for="transaction in currentTransactions"
+						v-for="transaction in transactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						@edit="editTransaction"
@@ -50,7 +50,7 @@
 
 	<ModalDialog :show="showForm" @close="showForm = false">
 		<TransactionForm
-			:transaction="editingTranscration"
+			:transaction="editingTransaction"
 			@close="showForm = false"
 			:accounts="accounts"
 			:budgets="budgets"
@@ -65,44 +65,35 @@ import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
 import type { Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
-import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import { collection } from 'firebase/firestore'
-import { ACCOUNTS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import { isSameMonth, parseISO } from 'date-fns'
 import type { Budget } from '@/lib/budget'
 
 const props = defineProps<{
 	account: Account
-	currentDate: Date
 	accounts: Account[]
 	budgets: Budget[]
+	currentTransactions: Transaction[]
 }>()
 
 defineEmits<{ (e: 'editAccount', value: Account): void }>()
 
-const db = useFirestore()
-const user = useCurrentUser()
-
-const allTransactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, ACCOUNTS, props.account.id, TRANSACTIONS),
-)
-
-const currentTransactions = computed(() =>
-	allTransactions.value.filter((transaction) =>
-		isSameMonth(props.currentDate, parseISO(transaction.date)),
-	),
-)
-
 const balance = computed(() =>
-	currentTransactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
+	props.currentTransactions.reduce((sum, transaction) => sum + transaction.amount, 0),
+)
+
+const transactions = computed(() =>
+	props.currentTransactions.filter(
+		(transaction) =>
+			transaction.account.id === props.account.id ||
+			transaction.destination?.id === props.account.id,
+	),
 )
 
 const showForm = ref(false)
 
-const editingTranscration = ref<Transaction>(getEmptyTransaction())
+const editingTransaction = ref<Transaction>(getEmptyTransaction())
 
 function getEmptyTransaction(): Transaction {
 	return {
@@ -111,17 +102,17 @@ function getEmptyTransaction(): Transaction {
 		description: '',
 		amount: -1,
 		account: props.account,
-		budget: props.budgets[0] || null,
+		budget: null,
 	}
 }
 
 function addTransaction() {
-	editingTranscration.value = getEmptyTransaction()
+	editingTransaction.value = getEmptyTransaction()
 	showForm.value = true
 }
 
 function editTransaction(transaction: Transaction) {
-	editingTranscration.value = transaction
+	editingTransaction.value = transaction
 	showForm.value = true
 }
 </script>

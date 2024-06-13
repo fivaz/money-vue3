@@ -37,7 +37,7 @@
 					name="amount"
 					id="amount"
 					step=".01"
-					v-model="transactionData.amount"
+					v-model="transactionIn.amount"
 					required
 					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 				/>
@@ -51,27 +51,22 @@
 					id="date"
 					required
 					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-					v-model="transactionData.date"
+					v-model="transactionIn.date"
 				/>
 			</div>
 		</div>
 
-		<Select
-			v-if="budgets.length"
-			v-model="transactionData.budget"
-			title="Budgets"
-			:list="budgets"
-		/>
+		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets" :list="budgets" />
 		<span v-else class="text-sm text-red-500">no budgets created yet</span>
 
-		<Select v-model="transactionData.account" :list="accounts" title="Accounts" />
+		<Select v-model="transactionIn.account" :list="accounts" title="Accounts" />
 
 		<div>
 			<label for="description" class="block text-sm font-medium leading-6 text-gray-900">
 				Description
 			</label>
 			<textarea
-				v-model="transactionData.description"
+				v-model="transactionIn.description"
 				id="description"
 				name="description"
 				rows="3"
@@ -106,7 +101,6 @@ import {
 	editTransaction,
 	formatDateIn,
 	formatDateOut,
-	type TransactionData,
 	type Transaction,
 } from '@/lib/transaction'
 import { useCurrentUser, useFirestore } from 'vuefire'
@@ -123,32 +117,26 @@ const props = defineProps<{
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const { id, ...data } = props.transaction
-
-const formerBudgetId = props.transaction.budget?.id
-
-const formerAccountId = props.transaction.account.id
-
-const transactionData = ref<TransactionData>(formatDateIn(data))
+const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 
 type Operation = 'expense' | 'transfer' | 'income'
 
 const operations: Operation[] = ['expense', 'transfer', 'income']
 
-const operation = ref<Operation>(data.amount >= 0 ? 'income' : 'expense')
+const operation = ref<Operation>(transactionIn.value.amount >= 0 ? 'income' : 'expense')
 
 const user = useCurrentUser()
 const db = useFirestore()
 
 watch(operation, () => {
-	transactionData.value.amount =
+	transactionIn.value.amount =
 		operation.value === 'expense'
-			? -Math.abs(transactionData.value.amount)
-			: Math.abs(transactionData.value.amount)
+			? -Math.abs(transactionIn.value.amount)
+			: Math.abs(transactionIn.value.amount)
 })
 
 watch(
-	() => transactionData.value.amount,
+	() => transactionIn.value.amount,
 	(amount) => {
 		if (operation.value !== 'transfer') {
 			operation.value = amount >= 0 ? 'income' : 'expense'
@@ -157,32 +145,19 @@ watch(
 )
 
 function submitForm() {
-	const formattedTransactionData = formatDateOut(transactionData.value)
+	const formattedTransaction = formatDateOut(transactionIn.value)
 
-	if (id) {
-		void editTransaction(
-			db,
-			formattedTransactionData,
-			id,
-			formerAccountId,
-			formerBudgetId,
-			user.value!.uid,
-		)
+	if (props.transaction.id) {
+		void editTransaction(db, formattedTransaction, user.value!.uid)
 	} else {
-		void addTransaction(
-			db,
-			formattedTransactionData,
-			formerAccountId,
-			formerBudgetId,
-			user.value!.uid,
-		)
+		void addTransaction(db, formattedTransaction, user.value!.uid)
 	}
 	emit('close')
 }
 
 function handleDelete() {
-	if (id) {
-		deleteTransaction(db, user.value!.uid, formerAccountId, formerBudgetId, id)
+	if (props.transaction.id) {
+		deleteTransaction(db, props.transaction.id, user.value!.uid)
 		emit('close')
 	}
 }
