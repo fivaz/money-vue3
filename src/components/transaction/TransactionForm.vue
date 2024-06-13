@@ -53,7 +53,8 @@
 			/>
 		</div>
 
-		<Select v-model="transactionData.budget" :list="budgets" />
+		<Select v-if="budgets.length" v-model="transactionData.budget" :list="budgets" />
+		<span class="text-sm text-red-500">no budgets created yet</span>
 
 		<Select v-model="transactionData.account" :list="accounts" />
 
@@ -70,7 +71,7 @@
 			/>
 		</div>
 
-		<div class="flex justify-between">
+		<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
 			<button
 				v-if="transaction.id"
 				@click="handleDelete"
@@ -116,7 +117,9 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 
 const { id, ...data } = props.transaction
 
-const firstBudgetId = props.transaction.budget.id
+const formerBudgetId = props.transaction.budget?.id
+
+const formerAccountId = props.transaction.account.id
 
 const transactionData = ref<TransactionData>(formatDateIn(data))
 
@@ -147,16 +150,29 @@ function submitForm() {
 	const formattedTransactionData = formatDateOut(transactionData.value)
 
 	if (id) {
-		void editTransaction(db, formattedTransactionData, id, firstBudgetId, user.value!.uid)
+		void editTransaction(
+			db,
+			formattedTransactionData,
+			id,
+			formerAccountId,
+			formerBudgetId,
+			user.value!.uid,
+		)
 	} else {
-		void addTransaction(db, formattedTransactionData, firstBudgetId, user.value!.uid)
+		void addTransaction(
+			db,
+			formattedTransactionData,
+			formerAccountId,
+			formerBudgetId,
+			user.value!.uid,
+		)
 	}
 	emit('close')
 }
 
 function handleDelete() {
 	if (id) {
-		deleteTransaction(db, user.value!.uid, firstBudgetId, id)
+		deleteTransaction(db, user.value!.uid, formerAccountId, formerBudgetId, id)
 		emit('close')
 	}
 }

@@ -65,12 +65,12 @@ function getEmptyTransaction(): Transaction {
 		amount: -1,
 		budget: {
 			id: '0',
-			name: 'no budget',
+			name: 'no account',
 			value: 0,
 		},
 		account: {
 			id: '0',
-			name: 'no account',
+			name: 'no account-copy',
 		},
 	}
 }

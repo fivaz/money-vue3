@@ -9,7 +9,7 @@
 				<span class="truncate">{{ transaction.description }}</span>
 			</span>
 			<span class="flex gap-4">
-				<span>{{ transaction.budget.name }}</span>
+				<span>{{ transaction.budget?.name }}</span>
 				<span class="hidden md:block md:w-40">{{ transaction.account.name }}</span>
 				<span :class="transaction.amount >= 0 ? 'text-green-500' : 'text-red-500'">
 					{{ formatMoney(transaction.amount) }}

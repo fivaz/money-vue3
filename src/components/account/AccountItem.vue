@@ -2,10 +2,10 @@
 	<li class="overflow-hidden rounded-xl border border-gray-200">
 		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
 			<div class="flex items-center justify-between gap-x-4">
-				<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
+				<div class="text-sm font-medium leading-6 text-gray-900">{{ account.name }}</div>
 				<div class="flex items-center gap-2">
 					<div class="text-sm font-medium leading-6 text-gray-900">
-						{{ formatMoney(budget.value) }}
+						{{ formatMoney(balance) }}
 					</div>
 					<button
 						type="button"
@@ -17,13 +17,12 @@
 					<button
 						type="button"
 						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-						@click="$emit('editBudget', budget)"
+						@click="$emit('editAccount', account)"
 					>
 						<Settings2 :size="18" />
 					</button>
 				</div>
 			</div>
-			<ProgressBar :budget="budget" :transactions="currentTransactions" />
 		</div>
 		<Disclosure v-slot="{ open }" default-open>
 			<transition
@@ -35,7 +34,7 @@
 				leave-to-class="transform scale-95 opacity-0"
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
-					<BudgetTransactionItem
+					<AccountTransactionItem
 						v-for="transaction in currentTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
@@ -53,8 +52,8 @@
 		<TransactionForm
 			:transaction="editedTransaction"
 			@close="showForm = false"
-			:budgets="budgets"
 			:accounts="accounts"
+			:budgets="budgets"
 		/>
 	</ModalDialog>
 </template>
@@ -62,40 +61,43 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
-import BudgetTransactionItem from './BudgetTransactionItem.vue'
-import type { Budget } from '@/lib/budget'
+import AccountTransactionItem from './AccountTransactionItem.vue'
+import type { Account } from '@/lib/account'
 import type { Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { ACCOUNTS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import ProgressBar from '@/components/ProgressBar.vue'
 import { isSameMonth, parseISO } from 'date-fns'
-import type { Account } from '@/lib/account'
+import type { Budget } from '@/lib/budget'
 
 const props = defineProps<{
-	budget: Budget
+	account: Account
 	currentDate: Date
-	budgets: Budget[]
 	accounts: Account[]
+	budgets: Budget[]
 }>()
 
-defineEmits<{ (e: 'editBudget', value: Budget): void }>()
+defineEmits<{ (e: 'editAccount', value: Account): void }>()
 
 const db = useFirestore()
 const user = useCurrentUser()
 
 const allTransactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, BUDGETS, props.budget.id, TRANSACTIONS),
+	collection(db, USERS, user.value!.uid, ACCOUNTS, props.account.id, TRANSACTIONS),
 )
 
 const currentTransactions = computed(() =>
 	allTransactions.value.filter((transaction) =>
 		isSameMonth(props.currentDate, parseISO(transaction.date)),
 	),
+)
+
+const balance = computed(() =>
+	currentTransactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
 )
 
 const showForm = ref(false)
@@ -108,8 +110,8 @@ function getEmptyTransaction(): Transaction {
 		date: new Date().toISOString(),
 		description: '',
 		amount: -1,
-		budget: props.budget,
-		account: props.accounts[0],
+		account: props.account,
+		budget: props.budgets[0] || null,
 	}
 }
 

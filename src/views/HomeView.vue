@@ -2,94 +2,75 @@
 	<Navbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
-			<h2 class="text-sm font-semibold leading-6 text-gray-900">
-				{{ formatMoney(balance) }}
-			</h2>
+			<!--			<h2 class="text-sm font-semibold leading-6 text-gray-900">-->
+			<!--				{{ formatMoney(balance) }}-->
+			<!--			</h2>-->
 		</div>
 
 		<ul role="list" class="flex flex-col gap-5">
-			<BudgetItem
-				v-for="budget in budgets"
-				:key="budget.id"
-				:budget="budget"
-				@edit-budget="(b) => editBudget(b)"
+			<AccountItem
+				v-for="account in accounts"
+				:key="account.id"
+				:account="account"
+				@edit-account="(a) => editAccount(a)"
 				:currentDate="currentDate"
-				:budgets="budgets"
 				:accounts="accounts"
+				:budgets="budgets"
 			/>
 		</ul>
 		<button
-			@click="addBudget"
+			@click="addAccount"
 			type="button"
 			class="absolute bottom-0 right-0 z-10 m-3 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 		>
-			Add Budget
+			Add Account
 		</button>
 
 		<ModalDialog :show="showForm" @close="showForm = false">
-			<BudgetForm @close="showForm = false" :budget="editedBudget" />
+			<AccountForm @close="showForm = false" :account="editingAccount" />
 		</ModalDialog>
 	</Navbar>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import BudgetItem from '@/components/budget/BudgetItem.vue'
-import BudgetForm from '@/components/budget/BudgetForm.vue'
-import { isSameMonth, parseISO } from 'date-fns'
-import type { Transaction } from '@/lib/transaction'
-import type { Budget } from '@/lib/budget'
-import { formatMoney } from '@/lib/utils'
+import { ref } from 'vue'
+import AccountItem from '@/components/account/AccountItem.vue'
+import AccountForm from '@/components/account/AccountForm.vue'
+import type { Account } from '@/lib/account'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { ACCOUNTS, BUDGETS, USERS } from '@/lib/consts'
 import ModalDialog from '@/components/Modal.vue'
-import type { Account } from '@/lib/account'
 import Navbar from '@/components/Navbar.vue'
 import DateHeader from '@/components/DateHeader.vue'
+import type { Budget } from '@/lib/budget'
 
 const currentDate = ref(new Date())
 
 const showForm = ref(false)
 
-const editedBudget = ref<Budget>(getEmptyBudget())
+const editingAccount = ref<Account>(getEmptyAccount())
 
 const db = useFirestore()
 const user = useCurrentUser()
 
+const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, ACCOUNTS))
 
-const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
-
-const allTransactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, TRANSACTIONS),
-)
-
-const currentTransactions = computed(() =>
-	allTransactions.value.filter((transaction) =>
-		isSameMonth(currentDate.value, parseISO(transaction.date)),
-	),
-)
-
-const balance = computed(() =>
-	currentTransactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
-)
-
-function editBudget(budget: Budget) {
+function editAccount(account: Account) {
 	showForm.value = true
-	editedBudget.value = budget
+	editingAccount.value = account
 }
 
-function getEmptyBudget(): Budget {
+function getEmptyAccount(): Account {
 	return {
 		id: '',
 		name: '',
-		value: 0,
 	}
 }
 
-function addBudget() {
+function addAccount() {
 	showForm.value = true
-	editedBudget.value = getEmptyBudget()
+	editingAccount.value = getEmptyAccount()
 }
 </script>
