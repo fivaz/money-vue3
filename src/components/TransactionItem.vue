@@ -1,5 +1,5 @@
 <template>
-	<li class="p-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 hover:underline">
+	<li class="border-b p-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 hover:underline">
 		<button class="flex w-full justify-between" @click="$emit('edit', transaction)">
 			<span class="flex gap-4">
 				{{ transaction.budget.id }}

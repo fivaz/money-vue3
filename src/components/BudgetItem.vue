@@ -34,7 +34,7 @@
 				leave-from-class="transform scale-100 opacity-100"
 				leave-to-class="transform scale-95 opacity-0"
 			>
-				<DisclosurePanel as="ul" class="-my-3 divide-y divide-gray-100 py-3 text-sm leading-6">
+				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<TransactionItem
 						v-for="transaction in currentTransactions"
 						:key="transaction.id"
