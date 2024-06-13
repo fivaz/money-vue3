@@ -15,7 +15,10 @@
 					</h2>
 					<p class="mt-2 text-sm leading-6 text-gray-500">
 						Not a member?
-						<RouterLink class="font-semibold text-indigo-600 hover:text-indigo-500" to="/register">
+						<RouterLink
+							class="font-semibold text-indigo-600 hover:text-indigo-500"
+							:to="registerRoute"
+						>
 							Register
 						</RouterLink>
 					</p>
@@ -111,6 +114,7 @@ import { useFirebaseAuth } from 'vuefire'
 import { useRoute, useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
 import Alert from '@/components/AlertMessage.vue'
+import { homeRoute, registerRoute } from '@/router'
 
 const router = useRouter()
 const route = useRoute()
@@ -136,6 +140,6 @@ async function handleSubmit() {
 		}
 	}
 
-	void router.push(route.query.redirect?.toString() || '/')
+	void router.push(route.query.redirect?.toString() || homeRoute)
 }
 </script>

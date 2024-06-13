@@ -5,7 +5,7 @@ import { createPinia } from 'pinia'
 import { getCurrentUser, VueFire, VueFireAuth } from 'vuefire'
 
 import App from './App.vue'
-import router from './router'
+import router, { loginRoute } from './router'
 import { firebaseApp } from '@/lib/firebaseConfig'
 
 const app = createApp(App)
@@ -20,7 +20,7 @@ router.beforeEach(async (to) => {
 		// if the user is not logged in, redirect to the login page
 		if (!currentUser) {
 			return {
-				path: '/login',
+				path: loginRoute,
 				query: {
 					// we keep the current path in the query so we can
 					// redirect to it after login with

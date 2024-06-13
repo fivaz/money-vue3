@@ -1,7 +1,6 @@
 <template>
-	<NavBar />
-	<div class="p-4">
-		<header class="mb-2 flex flex-col items-center justify-between">
+	<NavBar>
+		<div class="mb-2 flex flex-col items-center justify-between">
 			<div class="flex w-full items-center justify-between">
 				<button @click="prevMonth"><ChevronLeft /></button>
 				<h1
@@ -14,7 +13,7 @@
 			<h2 class="text-sm font-semibold leading-6 text-gray-900">
 				{{ formatMoney(balance) }}
 			</h2>
-		</header>
+		</div>
 
 		<ul role="list" class="flex flex-col gap-5">
 			<BudgetItem
@@ -37,7 +36,7 @@
 		<ModalDialog :show="showForm" @close="showForm = false">
 			<BudgetForm @close="showForm = false" :budget="editedBudget" />
 		</ModalDialog>
-	</div>
+	</NavBar>
 </template>
 
 <script setup lang="ts">

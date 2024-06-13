@@ -35,7 +35,7 @@
 				leave-to-class="transform scale-95 opacity-0"
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
-					<TransactionItem
+					<BudgetTransactionItem
 						v-for="transaction in currentTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
@@ -62,6 +62,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import TransactionForm from './TransactionForm.vue'
+import BudgetTransactionItem from './BudgetTransactionItem.vue'
 import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transactions'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
@@ -69,7 +70,6 @@ import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
 import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
-import TransactionItem from '@/components/TransactionItem.vue'
 import ModalDialog from '@/components/ModalDialog.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import ProgressBar from '@/components/ProgressBar.vue'

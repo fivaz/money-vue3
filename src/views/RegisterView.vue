@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
 import { doc, setDoc } from 'firebase/firestore'
 import { USERS } from '@/lib/consts'
+import { loginRoute } from '@/router'
 const name = ref('')
 const email = ref('')
 const password = ref('')
@@ -125,7 +126,7 @@ async function handleSubmit() {
 				Already a member?
 				<RouterLink
 					class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-					to="/login"
+					:to="loginRoute"
 				>
 					Log in
 				</RouterLink>

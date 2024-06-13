@@ -80,6 +80,11 @@
 			</DialogPanel>
 		</Dialog>
 	</header>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl">
+			<slot />
+		</div>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -89,10 +94,11 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { signOut } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
+import { homeRoute, loginRoute, transactionsRoute } from '@/router'
 
 const navigation = [
-	{ name: 'Budgets', href: '/' },
-	{ name: 'Transactions', href: '/transactions' },
+	{ name: 'Budgets', href: homeRoute },
+	{ name: 'Transactions', href: transactionsRoute },
 ]
 
 const mobileMenuOpen = ref(false)
@@ -102,6 +108,6 @@ const router = useRouter()
 const auth = useFirebaseAuth()
 async function logout() {
 	await signOut(auth!)
-	void router.push('/login')
+	void router.push(loginRoute)
 }
 </script>
