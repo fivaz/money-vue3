@@ -53,10 +53,15 @@
 			/>
 		</div>
 
-		<Select v-if="budgets.length" v-model="transactionData.budget" :list="budgets" />
-		<span class="text-sm text-red-500">no budgets created yet</span>
+		<Select
+			v-if="budgets.length"
+			v-model="transactionData.budget"
+			title="Budgets"
+			:list="budgets"
+		/>
+		<span v-else class="text-sm text-red-500">no budgets created yet</span>
 
-		<Select v-model="transactionData.account" :list="accounts" />
+		<Select v-model="transactionData.account" :list="accounts" title="Accounts" />
 
 		<div>
 			<label for="description" class="block text-sm font-medium leading-6 text-gray-900">

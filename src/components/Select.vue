@@ -1,6 +1,8 @@
 <template>
 	<Listbox v-model="model" as="div">
-		<ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">Budget</ListboxLabel>
+		<ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">{{
+			title
+		}}</ListboxLabel>
 		<div class="relative mt-1">
 			<ListboxButton
 				class="relative w-full cursor-default rounded-lg border-0 bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm sm:leading-6"
@@ -60,7 +62,7 @@ import {
 
 type UnknownItem = { id: string; name: string }
 
-defineProps<{ list: UnknownItem[] }>()
+defineProps<{ title: string; list: UnknownItem[] }>()
 
 const model = defineModel<UnknownItem>({ required: true })
 </script>
