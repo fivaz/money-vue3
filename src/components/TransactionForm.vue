@@ -1,8 +1,33 @@
 <template>
 	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
+		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }} {{ operation }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
+		<div class="flex justify-center">
+			<fieldset aria-label="Payment operation">
+				<RadioGroup
+					v-model="operation"
+					class="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
+				>
+					<RadioGroupOption
+						as="template"
+						v-for="operation in operations"
+						:key="operation"
+						:value="operation"
+						v-slot="{ checked }"
+					>
+						<div
+							:class="[
+								checked ? 'bg-indigo-600 text-white' : 'text-gray-500',
+								'cursor-pointer rounded-full px-2.5 py-1',
+							]"
+						>
+							{{ operation }}
+						</div>
+					</RadioGroupOption>
+				</RadioGroup>
+			</fieldset>
+		</div>
 		<div>
 			<label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
 			<input
@@ -60,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue'
+import { defineEmits, ref, watch } from 'vue'
 import {
 	addTransaction,
 	deleteTransaction,
@@ -72,6 +97,7 @@ import {
 } from '@/lib/transactions'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
+import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
 
 const props = defineProps<{
 	budgetId: string
@@ -83,8 +109,28 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 const { id, ...data } = props.transaction
 const transactionData = ref<TransactionData>(formatDateIn(data))
 
+type Operation = 'expense' | 'income'
+
+const operations: Operation[] = ['expense', 'income']
+
+const operation = ref<Operation>(operations[0])
+
 const user = useCurrentUser()
 const db = useFirestore()
+
+watch(operation, () => {
+	transactionData.value.amount =
+		operation.value === 'expense'
+			? -Math.abs(transactionData.value.amount)
+			: Math.abs(transactionData.value.amount)
+})
+
+watch(
+	() => transactionData.value.amount,
+	(amount) => {
+		operation.value = amount >= 0 ? 'income' : 'expense'
+	},
+)
 
 function submitForm() {
 	const formattedTransactionData = formatDateOut(transactionData.value)

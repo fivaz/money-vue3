@@ -6,7 +6,9 @@
 				<span>{{ format(transaction.date, SHORT_DATETIME_FR) }}</span>
 				<span>{{ transaction.description }}</span>
 			</span>
-			<span>{{ formatMoney(transaction.amount) }}</span>
+			<span :class="transaction.amount >= 0 ? 'text-green-500' : 'text-red-500'">{{
+				formatMoney(transaction.amount)
+			}}</span>
 		</button>
 	</li>
 </template>
