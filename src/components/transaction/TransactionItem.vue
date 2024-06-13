@@ -4,19 +4,24 @@
 	>
 		<button class="flex w-full justify-between" @click="$emit('edit', transaction)">
 			<span class="flex gap-4">
-				<span>{{ format(transaction.date, DATETIME_FR) }}</span>
-				<span>{{ transaction.description }}</span>
+				<span class="block md:hidden">{{ format(transaction.date, DATE_FR) }}</span>
+				<span class="hidden md:block">{{ format(transaction.date, DATETIME_FR) }}</span>
+				<span class="truncate">{{ transaction.description }}</span>
 			</span>
-			<span :class="transaction.amount >= 0 ? 'text-green-500' : 'text-red-500'">{{
-				formatMoney(transaction.amount)
-			}}</span>
+			<span class="flex gap-4">
+				<span>{{ transaction.budget.name }}</span>
+				<span class="hidden md:block md:w-40">{{ transaction.account.name }}</span>
+				<span :class="transaction.amount >= 0 ? 'text-green-500' : 'text-red-500'">
+					{{ formatMoney(transaction.amount) }}
+				</span>
+			</span>
 		</button>
 	</li>
 </template>
 
 <script setup lang="ts">
 import { format } from 'date-fns'
-import { DATETIME_FR } from '@/lib/consts'
+import { DATETIME_FR, DATE_FR } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import type { Transaction } from '@/lib/transaction'
 

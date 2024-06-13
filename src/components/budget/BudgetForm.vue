@@ -24,6 +24,7 @@
 				required
 			/>
 		</div>
+
 		<div class="flex justify-between">
 			<button
 				v-if="budget.id"
