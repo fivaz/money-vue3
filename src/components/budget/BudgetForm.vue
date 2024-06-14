@@ -1,6 +1,6 @@
 <template>
 	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-		{{ budget.id ? 'Edit Account' : 'Add Account' }}
+		{{ budget.id ? 'Edit Budget' : 'Add Budget' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
 		<div>
