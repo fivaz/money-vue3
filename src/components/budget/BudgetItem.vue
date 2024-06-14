@@ -2,9 +2,9 @@
 	<li class="overflow-hidden rounded-xl border border-gray-200">
 		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
 			<div class="flex items-center justify-between gap-x-4">
-				<div class="flex items-center gap-2 text-sm font-medium leading-6 text-gray-900">
+				<div class="flex items-center gap-2">
 					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
-					<span>{{ budget.name }}</span>
+					<span class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<div class="text-sm font-medium leading-6 text-gray-900">

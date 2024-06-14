@@ -5,6 +5,7 @@ import { ACCOUNTS, USERS } from '@/lib/consts'
 export type Account = {
 	id: string
 	name: string
+	icon: string
 }
 
 export function addAccount(db: ReturnType<typeof useFirestore>, account: Account, userId: string) {

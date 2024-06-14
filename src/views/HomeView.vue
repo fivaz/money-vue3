@@ -65,6 +65,7 @@ import type { Budget } from '@/lib/budget'
 import { Plus, Vault } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transaction'
 import { isSameMonth, parseISO } from 'date-fns'
+import { icons } from '@/lib/utils'
 
 const currentDate = ref(new Date())
 
@@ -96,6 +97,7 @@ function getEmptyAccount(): Account {
 	return {
 		id: '',
 		name: '',
+		icon: icons[1].name,
 	}
 }
 

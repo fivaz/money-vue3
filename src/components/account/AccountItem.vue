@@ -2,7 +2,10 @@
 	<li class="overflow-hidden rounded-xl border border-gray-200">
 		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
 			<div class="flex items-center justify-between gap-x-4">
-				<div class="text-sm font-medium leading-6 text-gray-900">{{ account.name }}</div>
+				<div class="flex items-center gap-2">
+					<component :is="getIcon(account.icon)" class="h-4 w-4" />
+					<span class="text-sm font-medium leading-6 text-gray-900">{{ account.name }}</span>
+				</div>
 				<div class="flex items-center gap-2">
 					<div class="text-sm font-medium leading-6 text-gray-900">
 						{{ formatMoney(balance) }}
@@ -66,7 +69,7 @@ import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
 import { parseAmount, type Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
-import { formatMoney } from '@/lib/utils'
+import { formatMoney, getIcon } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'

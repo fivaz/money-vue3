@@ -1,10 +1,12 @@
 import {
 	Banknote,
+	CalendarFold,
 	Gift,
 	HandCoins,
 	HandHeart,
 	Home,
 	Hospital,
+	Landmark,
 	ReceiptText,
 	ShoppingCart,
 	Wallet,
@@ -19,6 +21,10 @@ export const icons = [
 	{
 		icon: ShoppingCart,
 		name: 'shopping-cart',
+	},
+	{
+		icon: HandCoins,
+		name: 'money coins',
 	},
 	{
 		icon: Hospital,
@@ -37,10 +43,6 @@ export const icons = [
 		name: 'fun gift',
 	},
 	{
-		icon: HandCoins,
-		name: 'money coins',
-	},
-	{
 		icon: Banknote,
 		name: 'money',
 	},
@@ -55,6 +57,14 @@ export const icons = [
 	{
 		icon: HandHeart,
 		name: 'heart love give',
+	},
+	{
+		icon: CalendarFold,
+		name: 'calendar year',
+	},
+	{
+		icon: Landmark,
+		name: 'bank',
 	},
 ]
 
