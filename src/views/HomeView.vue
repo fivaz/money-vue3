@@ -64,8 +64,8 @@ import DateHeader from '@/components/DateHeader.vue'
 import type { Budget } from '@/lib/budget'
 import { Plus, Vault } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transaction'
-import { endOfMonth, isBefore, isSameDay, isSameMonth, parseISO } from 'date-fns'
-import { formatMoney, icons } from '@/lib/utils'
+import { endOfMonth, isBefore, isSameDay, parseISO } from 'date-fns'
+import { formatMoney, icons, isCurrent } from '@/lib/utils'
 
 const currentDate = ref(new Date())
 
@@ -83,9 +83,7 @@ const allTransactions = useCollection<Transaction>(
 )
 
 const currentTransactions = computed(() =>
-	allTransactions.value.filter((transaction) =>
-		isSameMonth(currentDate.value, parseISO(transaction.date)),
-	),
+	allTransactions.value.filter((transaction) => isCurrent(currentDate.value, transaction)),
 )
 
 const upToThisMonth = computed(() =>

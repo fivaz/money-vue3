@@ -124,7 +124,6 @@
 				v-model="transactionIn.description"
 				id="description"
 				name="description"
-				rows="3"
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 			/>
 		</div>
@@ -136,10 +135,10 @@
 					type="button"
 					@click="
 						() => {
-							if (transactionIn.isRecurring) {
+							if (isRecurring) {
 								isRecurringOpen = !isRecurringOpen
 							} else {
-								transactionIn.isRecurring = true
+								isRecurring = true
 							}
 						}
 					"
@@ -147,21 +146,21 @@
 					is Recurring
 				</button>
 				<Switch
-					v-model="transactionIn.isRecurring"
+					v-model="isRecurring"
 					:class="[
-						transactionIn.isRecurring ? 'bg-indigo-600' : 'bg-gray-200',
+						isRecurring ? 'bg-indigo-600' : 'bg-gray-200',
 						'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2',
 					]"
 				>
 					<span
 						:class="[
-							transactionIn.isRecurring ? 'translate-x-5' : 'translate-x-0',
+							isRecurring ? 'translate-x-5' : 'translate-x-0',
 							'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
 						]"
 					>
 						<span
 							:class="[
-								transactionIn.isRecurring
+								isRecurring
 									? 'opacity-0 duration-100 ease-out'
 									: 'opacity-100 duration-200 ease-in',
 								'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
@@ -180,7 +179,7 @@
 						</span>
 						<span
 							:class="[
-								transactionIn.isRecurring
+								isRecurring
 									? 'opacity-100 duration-200 ease-in'
 									: 'opacity-0 duration-100 ease-out',
 								'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
@@ -283,9 +282,8 @@ const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 const user = useCurrentUser()
 const db = useFirestore()
 
+const isRecurring = ref(!!(props.transaction.startDate && props.transaction.endDate))
 const isRecurringOpen = ref(false)
-
-const enabled = ref(false)
 
 const operationsObject = [
 	{ operation: 'expense', icon: ArrowLeftFromLine },

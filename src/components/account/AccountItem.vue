@@ -114,7 +114,6 @@ function getEmptyTransactionFromAccount(): Transaction {
 		operation: 'expense',
 		startDate: null,
 		endDate: null,
-		isRecurring: false,
 	}
 }
 
