@@ -5,18 +5,20 @@
 				<span>{{ format(transaction.date, SHORT_DATETIME_FR) }}</span>
 				<span>{{ transaction.description }}</span>
 			</span>
-			<span :class="transaction.amount >= 0 ? 'text-green-500' : 'text-red-500'">{{
-				formatMoney(transaction.amount)
-			}}</span>
+			<span class="flex items-center gap-2">
+				<ArrowRightLeft v-if="transaction.operation === 'transfer'" class="h-5 w-5" />
+				{{ formatMoney(transaction.amount) }}
+			</span>
 		</button>
 	</li>
 </template>
 
 <script setup lang="ts">
-import type { Transaction } from '@/lib/transaction'
-import { formatMoney } from '@/lib/utils'
+import { type Transaction } from '@/lib/transaction'
 import { SHORT_DATETIME_FR } from '@/lib/consts'
 import { format } from 'date-fns'
+import { formatMoney } from '@/lib/utils'
+import { ArrowRightLeft } from 'lucide-vue-next'
 
 defineProps<{ transaction: Transaction }>()
 </script>

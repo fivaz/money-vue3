@@ -5,18 +5,29 @@
 				<span>{{ format(transaction.date, SHORT_DATETIME_FR) }}</span>
 				<span>{{ transaction.description }}</span>
 			</span>
-			<span :class="formatAmount(transaction, accountId) >= 0 ? 'text-green-500' : 'text-red-500'">
-				{{ formatMoney(formatAmount(transaction, accountId)) }}
+			<span
+				:class="[
+					'flex items-center gap-2',
+					parseAmount(transaction, accountId) >= 0 ? 'text-green-500' : 'text-red-500',
+				]"
+			>
+				<ArrowRightLeft v-if="transaction.operation === 'transfer'" class="h-5 w-5" />
+				{{ formatAmount() }}
 			</span>
 		</button>
 	</li>
 </template>
 
 <script setup lang="ts">
-import { formatAmount, type Transaction } from '@/lib/transaction'
+import { parseAmount, type Transaction } from '@/lib/transaction'
 import { SHORT_DATETIME_FR } from '@/lib/consts'
 import { format } from 'date-fns'
-import { formatMoney } from '@/lib/utils'
+import { ArrowRightLeft } from 'lucide-vue-next'
 
-defineProps<{ accountId: string; transaction: Transaction }>()
+const props = defineProps<{ accountId: string; transaction: Transaction }>()
+
+function formatAmount() {
+	const amount = parseAmount(props.transaction, props.accountId)
+	return `$${amount > 0 ? '+' : ''}${amount.toFixed(2)}`
+}
 </script>

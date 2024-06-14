@@ -19,7 +19,7 @@ import { formatMoney } from '@/lib/utils'
 const props = defineProps<{ transactions: Transaction[]; budget: Budget }>()
 
 const spent = computed(() =>
-	props.transactions.reduce((sum, transaction) => sum - transaction.amount, 0),
+	props.transactions.reduce((sum, transaction) => sum + transaction.amount, 0),
 )
 
 const percentage = computed(() => (spent.value / props.budget.value) * 100)

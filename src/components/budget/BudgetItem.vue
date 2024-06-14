@@ -82,7 +82,11 @@ const props = defineProps<{
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
 
 const transactions = computed(() =>
-	props.currentTransactions.filter((transaction) => transaction.budget?.id === props.budget.id),
+	props.currentTransactions.filter(
+		(transaction) =>
+			(transaction.operation === 'expense' || transaction.operation === 'transfer') &&
+			transaction.budget?.id === props.budget.id,
+	),
 )
 
 const showForm = ref(false)
@@ -98,6 +102,7 @@ function getEmptyTransaction(): Transaction {
 		account: props.accounts[0],
 		budget: props.budget,
 		destination: null,
+		operation: 'expense',
 	}
 }
 

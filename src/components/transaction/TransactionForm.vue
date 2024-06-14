@@ -6,7 +6,7 @@
 		<div class="flex justify-center">
 			<fieldset aria-label="transaction operation">
 				<RadioGroup
-					v-model="operation"
+					v-model="transactionIn.operation"
 					class="grid grid-cols-3 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
 				>
 					<RadioGroupOption
@@ -61,14 +61,14 @@
 
 		<div class="grid grid-cols-2 gap-5">
 			<Select
-				:class="operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
+				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
 				v-model="transactionIn.account"
 				:list="accounts"
 				title="Origin"
 			/>
 			<Select
 				class="grid-cols-1"
-				v-if="operation === 'transfer'"
+				v-if="transactionIn.operation === 'transfer'"
 				v-model="transactionIn.destination"
 				:list="accounts"
 				title="Destination"
@@ -108,13 +108,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref, watch } from 'vue'
+import { defineEmits, ref } from 'vue'
 import {
 	addTransaction,
 	deleteTransaction,
 	editTransaction,
 	formatDateIn,
 	formatDateOut,
+	type Operation,
 	type Transaction,
 } from '@/lib/transaction'
 import { useCurrentUser, useFirestore } from 'vuefire'
@@ -133,40 +134,10 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 
 const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 
-type Operation = 'expense' | 'transfer' | 'income'
-
-const operations: Operation[] = ['expense', 'transfer', 'income']
-
-function getOperation(): Operation {
-	if (props.transaction.destination?.id) {
-		return 'transfer'
-	}
-	return transactionIn.value.amount >= 0 ? 'income' : 'expense'
-}
-
-const operation = ref<Operation>(getOperation())
-
-watch(operation, () => {
-	if (operation.value !== 'transfer') {
-		transactionIn.value.destination = null
-		transactionIn.value.amount =
-			operation.value === 'expense'
-				? -Math.abs(transactionIn.value.amount)
-				: Math.abs(transactionIn.value.amount)
-	}
-})
-
-watch(
-	() => transactionIn.value.amount,
-	(amount) => {
-		if (operation.value !== 'transfer') {
-			operation.value = amount >= 0 ? 'income' : 'expense'
-		}
-	},
-)
-
 const user = useCurrentUser()
 const db = useFirestore()
+
+const operations: Operation[] = ['expense', 'transfer', 'income']
 
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)

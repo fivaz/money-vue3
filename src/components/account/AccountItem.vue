@@ -64,7 +64,7 @@ import { computed, ref } from 'vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
-import { formatAmount, type Transaction } from '@/lib/transaction'
+import { parseAmount, type Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
 import { formatMoney } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
@@ -90,7 +90,7 @@ const transactions = computed(() =>
 
 const balance = computed(() =>
 	transactions.value.reduce(
-		(sum, transaction) => sum + formatAmount(transaction, props.account.id),
+		(sum, transaction) => sum + parseAmount(transaction, props.account.id),
 		0,
 	),
 )
@@ -104,10 +104,11 @@ function getEmptyTransaction(): Transaction {
 		id: '',
 		date: new Date().toISOString(),
 		description: '',
-		amount: -1,
+		amount: 0,
 		account: props.account,
 		budget: null,
 		destination: null,
+		operation: 'expense',
 	}
 }
 

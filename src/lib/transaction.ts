@@ -5,6 +5,8 @@ import { DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { format, parse, parseISO } from 'date-fns'
 import type { Account } from '@/lib/account'
 
+export type Operation = 'expense' | 'transfer' | 'income'
+
 export type Transaction = {
 	id: string
 	amount: number
@@ -13,10 +15,14 @@ export type Transaction = {
 	budget: Budget | null
 	account: Account
 	destination: Account | null
+	operation: Operation
 }
 
-export function formatAmount(transaction: Transaction, accountId: string) {
-	if (transaction.destination?.id && accountId === transaction.account.id) {
+export function parseAmount(transaction: Transaction, accountId: string) {
+	if (
+		transaction.operation === 'expense' ||
+		(transaction.operation === 'transfer' && accountId === transaction.account.id)
+	) {
 		return transaction.amount * -1
 	}
 	return transaction.amount
