@@ -2,9 +2,9 @@
 	<Navbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
-			<!--			<h2 class="text-sm font-semibold leading-6 text-gray-900">-->
-			<!--				{{ formatMoney(balance) }}-->
-			<!--			</h2>-->
+			<h2 class="text-sm font-semibold leading-6 text-gray-900">
+				{{ formatMoney(balance) }}
+			</h2>
 		</div>
 
 		<ul role="list" class="flex flex-col gap-5">
@@ -64,8 +64,8 @@ import DateHeader from '@/components/DateHeader.vue'
 import type { Budget } from '@/lib/budget'
 import { Plus, Vault } from 'lucide-vue-next'
 import type { Transaction } from '@/lib/transaction'
-import { isSameMonth, parseISO } from 'date-fns'
-import { icons } from '@/lib/utils'
+import { endOfMonth, isBefore, isSameDay, isSameMonth, parseISO } from 'date-fns'
+import { formatMoney, icons } from '@/lib/utils'
 
 const currentDate = ref(new Date())
 
@@ -86,6 +86,28 @@ const currentTransactions = computed(() =>
 	allTransactions.value.filter((transaction) =>
 		isSameMonth(currentDate.value, parseISO(transaction.date)),
 	),
+)
+
+const upToThisMonth = computed(() =>
+	allTransactions.value.filter((transaction) => {
+		const endOfCurrentMonth = endOfMonth(currentDate.value)
+		const transactionDate = parseISO(transaction.date)
+		return (
+			isBefore(transactionDate, endOfCurrentMonth) || isSameDay(transactionDate, endOfCurrentMonth)
+		)
+	}),
+)
+
+const balance = computed(() =>
+	upToThisMonth.value.reduce((sum, transaction) => {
+		if (transaction.operation == 'income') {
+			return sum + transaction.amount
+		}
+		if (transaction.operation == 'expense') {
+			return sum - transaction.amount
+		}
+		return sum
+	}, 0),
 )
 
 function editAccount(account: Account) {
