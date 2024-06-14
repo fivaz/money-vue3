@@ -2,7 +2,10 @@
 	<li class="overflow-hidden rounded-xl border border-gray-200">
 		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
 			<div class="flex items-center justify-between gap-x-4">
-				<div class="text-sm font-medium leading-6 text-gray-900">{{ budget.name }}</div>
+				<div class="flex items-center gap-2 text-sm font-medium leading-6 text-gray-900">
+					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
+					<span>{{ budget.name }}</span>
+				</div>
 				<div class="flex items-center gap-2">
 					<div class="text-sm font-medium leading-6 text-gray-900">
 						{{ formatMoney(budget.value) }}
@@ -12,14 +15,14 @@
 						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						@click="addTransaction"
 					>
-						<Plus :size="18" />
+						<Plus class="h-4 w-4" />
 					</button>
 					<button
 						type="button"
 						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						@click="$emit('editBudget', budget)"
 					>
-						<Settings2 :size="18" />
+						<Settings2 class="h-4 w-4" />
 					</button>
 				</div>
 			</div>
@@ -70,7 +73,7 @@ import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
-import { formatMoney } from '@/lib/utils'
+import { formatMoney, getIcon } from '@/lib/utils'
 
 const props = defineProps<{
 	budget: Budget
@@ -98,7 +101,7 @@ function getEmptyTransaction(): Transaction {
 		id: '',
 		date: new Date().toISOString(),
 		description: '',
-		amount: -1,
+		amount: 0,
 		account: props.accounts[0],
 		budget: props.budget,
 		destination: null,

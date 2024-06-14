@@ -65,6 +65,7 @@ import type { Account } from '@/lib/account'
 import type { Transaction } from '@/lib/transaction'
 import { isSameMonth, parseISO } from 'date-fns'
 import { Plus, PiggyBank } from 'lucide-vue-next'
+import { icons } from '@/lib/utils'
 
 const currentDate = ref(new Date())
 
@@ -97,7 +98,7 @@ function getEmptyBudget(): Budget {
 		id: '',
 		name: '',
 		value: 0,
-		icon: 'shopping-cart',
+		icon: icons[0].name,
 	}
 }
 
