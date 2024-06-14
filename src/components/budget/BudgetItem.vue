@@ -23,7 +23,7 @@
 					</button>
 				</div>
 			</div>
-			<ProgressBar :transactions="currentTransactions" :budget="budget" />
+			<ProgressBar :transactions="transactions" :budget="budget" />
 		</div>
 		<Disclosure v-slot="{ open }" default-open>
 			<transition
@@ -36,7 +36,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<BudgetTransactionItem
-						v-for="transaction in currentTransactions"
+						v-for="transaction in transactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						@edit="editTransaction"
@@ -64,42 +64,25 @@ import { computed, ref } from 'vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
 import type { Account } from '@/lib/account'
-import type { Transaction } from '@/lib/transaction'
+import { type Transaction } from '@/lib/transaction'
 import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
-import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import { collection } from 'firebase/firestore'
-import { BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import { isSameMonth, parseISO } from 'date-fns'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
-import { formatMoney } from '../../lib/utils'
+import { formatMoney } from '@/lib/utils'
 
 const props = defineProps<{
 	budget: Budget
-	currentDate: Date
 	accounts: Account[]
 	budgets: Budget[]
+	currentTransactions: Transaction[]
 }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
 
-const db = useFirestore()
-const user = useCurrentUser()
-
-const allTransactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, BUDGETS, props.budget.id, TRANSACTIONS),
-)
-
-const currentTransactions = computed(() =>
-	allTransactions.value.filter((transaction) =>
-		isSameMonth(props.currentDate, parseISO(transaction.date)),
-	),
-)
-
-const balance = computed(() =>
-	currentTransactions.value.reduce((sum, transaction) => sum + transaction.amount, 0),
+const transactions = computed(() =>
+	props.currentTransactions.filter((transaction) => transaction.budget?.id === props.budget.id),
 )
 
 const showForm = ref(false)
