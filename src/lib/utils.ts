@@ -12,9 +12,8 @@ import {
 	Wallet,
 	Wrench,
 } from 'lucide-vue-next'
-import { isSameMonth, isWithinInterval, parse, parseISO } from 'date-fns'
 import type { Transaction } from '@/lib/transaction'
-import { DATE } from '@/lib/consts'
+import { isWithinInterval } from 'date-fns'
 
 export function formatMoney(cents: number) {
 	return `$${cents.toFixed(2)}`
@@ -75,16 +74,40 @@ export function getIcon(iconName: string) {
 	return (icons.find(({ name }) => name === iconName) || icons[0]).icon
 }
 
-export function isCurrent(currentDate: Date, transaction: Transaction): boolean {
-	return (
-		isSameMonth(currentDate, parseISO(transaction.date)) ||
-		!!(
-			transaction.startDate &&
-			transaction.endDate &&
-			isWithinInterval(currentDate, {
-				start: parse(transaction.startDate, DATE, new Date()),
-				end: parse(transaction.endDate, DATE, new Date()),
-			})
-		)
+function isExpandable(currentDate: Date, transaction: Transaction) {
+	return !!(
+		transaction.startDate &&
+		transaction.endDate &&
+		isWithinInterval(currentDate, {
+			start: new Date(transaction.startDate),
+			end: new Date(transaction.endDate),
+		})
 	)
+}
+
+function expandTransaction(currentDate: Date, transaction: Transaction) {
+	const transactions: Transaction[] = []
+	const currentOccurrence = new Date(transaction.date)
+
+	while (currentOccurrence <= new Date(transaction.endDate!) && currentOccurrence <= currentDate) {
+		if (currentOccurrence >= new Date(transaction.startDate!)) {
+			transactions.push({
+				...transaction,
+				date: currentOccurrence.toISOString(),
+			})
+		}
+		currentOccurrence.setMonth(currentOccurrence.getMonth() + 1)
+	}
+
+	return transactions
+}
+
+export function getExpandedTransactions(currentDate: Date, transactions: Transaction[]) {
+	return transactions.flatMap((transaction) => {
+		if (isExpandable(currentDate, transaction)) {
+			return expandTransaction(currentDate, transaction)
+		} else {
+			return transaction
+		}
+	})
 }
