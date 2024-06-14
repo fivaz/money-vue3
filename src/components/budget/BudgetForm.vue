@@ -8,7 +8,7 @@
 			<input
 				type="text"
 				name="name"
-				v-model="budgetData.name"
+				v-model="budgetIn.name"
 				required
 				id="name"
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -21,12 +21,14 @@
 				type="number"
 				name="value"
 				step="0.01"
-				v-model="budgetData.value"
+				v-model="budgetIn.value"
 				required
 				id="value"
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 			/>
 		</div>
+
+		<IconSelector v-model="budgetIn.icon" />
 
 		<div class="flex justify-between">
 			<button
@@ -49,33 +51,32 @@
 
 <script setup lang="ts">
 import { defineEmits, ref } from 'vue'
-import { type BudgetData, addBudget, editBudget, deleteBudget, type Budget } from '@/lib/budget'
+import { addBudget, editBudget, deleteBudget, type Budget } from '@/lib/budget'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
+import IconSelector from '@/components/budget/IconSelector.vue'
 
 const props = defineProps<{ budget: Budget }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const { id, ...data } = props.budget
-
-const budgetData = ref<BudgetData>(data)
+const budgetIn = ref<Budget>({ ...props.budget, id: props.budget.id })
 
 const user = useCurrentUser()
 const db = useFirestore()
 
 function submitForm() {
-	if (id) {
-		editBudget(db, budgetData.value, id, user.value!.uid)
+	if (budgetIn.value.id) {
+		editBudget(db, budgetIn.value, user.value!.uid)
 	} else {
-		addBudget(db, budgetData.value, user.value!.uid)
+		addBudget(db, budgetIn.value, user.value!.uid)
 	}
 	emit('close')
 }
 
 function handleDelete() {
-	if (id) {
-		deleteBudget(db, user.value!.uid, id)
+	if (budgetIn.value.id) {
+		deleteBudget(db, budgetIn.value.id, user.value!.uid)
 		emit('close')
 	}
 }

@@ -97,6 +97,7 @@ function getEmptyBudget(): Budget {
 		id: '',
 		name: '',
 		value: 0,
+		icon: 'shopping-cart',
 	}
 }
 

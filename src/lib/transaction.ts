@@ -36,6 +36,7 @@ export function formatDateOut(transaction: Transaction): Transaction {
 }
 
 export function getData(transaction: Transaction): Omit<Transaction, 'id'> {
+	// this is necessary cause the id of the object we get from firebase has the ids hidden and they will disappear in a swallow copy
 	const { id, ...data } = {
 		...transaction,
 		account: {
@@ -64,17 +65,15 @@ export function addTransaction(
 	userId: string,
 ) {
 	const newTransactionRef = doc(collection(db, USERS, userId, TRANSACTIONS))
-
 	void setDoc(newTransactionRef, getData(transaction))
 }
 
 export function editTransaction(
 	db: ReturnType<typeof useFirestore>,
 	transaction: Transaction,
-	id: string,
 	userId: string,
 ) {
-	const transactionDocRef = doc(db, USERS, userId, TRANSACTIONS, id)
+	const transactionDocRef = doc(db, USERS, userId, TRANSACTIONS, transaction.id)
 	void updateDoc(transactionDocRef, getData(transaction))
 }
 
@@ -86,6 +85,7 @@ export function deleteTransaction(db: ReturnType<typeof useFirestore>, id: strin
 export function formatDateIn(transaction: Transaction): Transaction {
 	return {
 		...transaction,
+		id: transaction.id,
 		date: format(parseISO(transaction.date), DATETIME_OUT),
 	}
 }

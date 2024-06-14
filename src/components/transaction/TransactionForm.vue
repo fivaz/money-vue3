@@ -142,8 +142,8 @@ const operations: Operation[] = ['expense', 'transfer', 'income']
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)
 
-	if (props.transaction.id) {
-		void editTransaction(db, formattedTransaction, props.transaction.id, user.value!.uid)
+	if (formattedTransaction.id) {
+		void editTransaction(db, formattedTransaction, user.value!.uid)
 	} else {
 		void addTransaction(db, formattedTransaction, user.value!.uid)
 	}
@@ -151,8 +151,8 @@ function submitForm() {
 }
 
 function handleDelete() {
-	if (props.transaction.id) {
-		deleteTransaction(db, props.transaction.id, user.value!.uid)
+	if (transactionIn.value.id) {
+		deleteTransaction(db, transactionIn.value.id, user.value!.uid)
 		emit('close')
 	}
 }

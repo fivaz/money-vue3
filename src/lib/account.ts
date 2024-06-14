@@ -7,28 +7,20 @@ export type Account = {
 	name: string
 }
 
-export type AccountData = Omit<Account, 'id'>
-
-export function addAccount(
-	db: ReturnType<typeof useFirestore>,
-	account: Omit<AccountData, 'id'>,
-	userId: string,
-) {
+export function addAccount(db: ReturnType<typeof useFirestore>, account: Account, userId: string) {
+	const { id, ...data } = account
 	const accountCollectionRef = collection(db, USERS, userId, ACCOUNTS)
 
-	void addDoc(accountCollectionRef, account)
+	void addDoc(accountCollectionRef, data)
 }
-export function editAccount(
-	db: ReturnType<typeof useFirestore>,
-	data: AccountData,
-	id: string,
-	userId: string,
-) {
+export function editAccount(db: ReturnType<typeof useFirestore>, account: Account, userId: string) {
+	const { id, ...data } = account
+
 	const accountDocRef = doc(db, USERS, userId, ACCOUNTS, id)
 	void updateDoc(accountDocRef, data)
 }
 
-export function deleteAccount(db: ReturnType<typeof useFirestore>, userId: string, id: string) {
+export function deleteAccount(db: ReturnType<typeof useFirestore>, id: string, userId: string) {
 	const accountDocRef = doc(db, USERS, userId, ACCOUNTS, id)
 	void deleteDoc(accountDocRef)
 }

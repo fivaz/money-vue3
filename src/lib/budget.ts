@@ -6,30 +6,21 @@ export type Budget = {
 	id: string
 	name: string
 	value: number
+	icon: string
 }
 
-export type BudgetData = Omit<Budget, 'id'>
-
-export function addBudget(
-	db: ReturnType<typeof useFirestore>,
-	budget: Omit<BudgetData, 'id'>,
-	userId: string,
-) {
+export function addBudget(db: ReturnType<typeof useFirestore>, budget: Budget, userId: string) {
 	const budgetCollectionRef = collection(db, USERS, userId, BUDGETS)
 
 	void addDoc(budgetCollectionRef, budget)
 }
-export function editBudget(
-	db: ReturnType<typeof useFirestore>,
-	data: BudgetData,
-	id: string,
-	userId: string,
-) {
+export function editBudget(db: ReturnType<typeof useFirestore>, budget: Budget, userId: string) {
+	const { id, ...data } = budget
 	const budgetDocRef = doc(db, USERS, userId, BUDGETS, id)
 	void updateDoc(budgetDocRef, data)
 }
 
-export function deleteBudget(db: ReturnType<typeof useFirestore>, userId: string, id: string) {
+export function deleteBudget(db: ReturnType<typeof useFirestore>, id: string, userId: string) {
 	const budgetDocRef = doc(db, USERS, userId, BUDGETS, id)
 	void deleteDoc(budgetDocRef)
 }

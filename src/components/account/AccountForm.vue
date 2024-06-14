@@ -8,7 +8,7 @@
 			<input
 				type="text"
 				name="name"
-				v-model="accountData.name"
+				v-model="accountIn.name"
 				required
 				id="name"
 				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -36,13 +36,7 @@
 
 <script setup lang="ts">
 import { defineEmits, ref } from 'vue'
-import {
-	type AccountData,
-	addAccount,
-	editAccount,
-	deleteAccount,
-	type Account,
-} from '@/lib/account'
+import { addAccount, editAccount, deleteAccount, type Account } from '@/lib/account'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
 
@@ -50,25 +44,23 @@ const props = defineProps<{ account: Account }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const { id, ...data } = props.account
-
-const accountData = ref<AccountData>(data)
+const accountIn = ref<Account>({ ...props.account, id: props.account.id })
 
 const user = useCurrentUser()
 const db = useFirestore()
 
 function submitForm() {
-	if (id) {
-		editAccount(db, accountData.value, id, user.value!.uid)
+	if (accountIn.value.id) {
+		editAccount(db, accountIn.value, user.value!.uid)
 	} else {
-		addAccount(db, accountData.value, user.value!.uid)
+		addAccount(db, accountIn.value, user.value!.uid)
 	}
 	emit('close')
 }
 
 function handleDelete() {
-	if (id) {
-		deleteAccount(db, user.value!.uid, id)
+	if (accountIn.value.id) {
+		deleteAccount(db, accountIn.value.id, user.value!.uid)
 		emit('close')
 	}
 }
