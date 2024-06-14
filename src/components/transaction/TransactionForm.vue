@@ -56,23 +56,63 @@
 			</div>
 		</div>
 
-		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets" :list="budgets" />
+		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets">
+			<template v-slot:placeholder>
+				<span class="block truncate">{{ transactionIn.budget?.name || 'no budget selected' }}</span>
+			</template>
+			<SelectItem
+				v-for="budget in budgets"
+				:key="budget.id"
+				:value="budget"
+				class="flex items-center gap-2"
+			>
+				<div class="flex items-center gap-2">
+					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
+					<span>{{ budget.name }}</span>
+				</div>
+			</SelectItem>
+		</Select>
 		<span v-else class="text-sm text-red-500">no budgets created yet</span>
 
 		<div class="grid grid-cols-2 gap-5">
 			<Select
 				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
 				v-model="transactionIn.account"
-				:list="accounts"
 				title="Origin"
-			/>
+			>
+				<template v-slot:placeholder>
+					<span class="block truncate">
+						{{ transactionIn.account?.name || 'no account selected' }}
+					</span>
+				</template>
+
+				<SelectItem v-for="account in accounts" :key="account.id" :value="account">
+					<div class="flex items-center gap-2">
+						<component :is="getIcon(account.icon)" class="h-4 w-4" />
+						<span>{{ account.name }}</span>
+					</div>
+				</SelectItem>
+			</Select>
+
 			<Select
 				class="grid-cols-1"
 				v-if="transactionIn.operation === 'transfer'"
 				v-model="transactionIn.destination"
-				:list="accounts"
 				title="Destination"
-			/>
+			>
+				<template v-slot:placeholder>
+					<span class="block truncate">
+						{{ transactionIn.destination?.name || 'no destination selected' }}
+					</span>
+				</template>
+
+				<SelectItem v-for="account in accounts" :key="account.id" :value="account">
+					<div class="flex items-center gap-2">
+						<component :is="getIcon(account.icon)" class="h-4 w-4" />
+						<span>{{ account.name }}</span>
+					</div>
+				</SelectItem>
+			</Select>
 		</div>
 
 		<div>
@@ -123,6 +163,8 @@ import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import Select from '@/components/Select.vue'
 import type { Account } from '@/lib/account'
+import SelectItem from '@/components/SelectItem.vue'
+import { getIcon } from '@/lib/utils'
 
 const props = defineProps<{
 	budgets: Budget[]
