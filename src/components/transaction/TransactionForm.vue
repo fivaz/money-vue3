@@ -11,18 +11,19 @@
 				>
 					<RadioGroupOption
 						as="template"
-						v-for="operation in operations"
-						:key="operation"
-						:value="operation"
+						v-for="operationObject in operationsObject"
+						:key="operationObject.operation"
+						:value="operationObject.operation"
 						v-slot="{ checked }"
 					>
 						<div
 							:class="[
 								checked ? 'bg-indigo-600 text-white' : 'text-gray-500',
-								'cursor-pointer rounded-full px-2.5 py-1',
+								'flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1',
 							]"
 						>
-							{{ operation }}
+							<component :is="operationObject.icon" class="h-4 w-4" />
+							<span>{{ operationObject.operation }}</span>
 						</div>
 					</RadioGroupOption>
 				</RadioGroup>
@@ -155,7 +156,6 @@ import {
 	editTransaction,
 	formatDateIn,
 	formatDateOut,
-	type Operation,
 	type Transaction,
 } from '@/lib/transaction'
 import { useCurrentUser, useFirestore } from 'vuefire'
@@ -165,6 +165,7 @@ import Select from '@/components/Select.vue'
 import type { Account } from '@/lib/account'
 import SelectItem from '@/components/SelectItem.vue'
 import { getIcon } from '@/lib/utils'
+import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
 
 const props = defineProps<{
 	budgets: Budget[]
@@ -179,7 +180,11 @@ const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 const user = useCurrentUser()
 const db = useFirestore()
 
-const operations: Operation[] = ['expense', 'transfer', 'income']
+const operationsObject = [
+	{ operation: 'expense', icon: ArrowLeftFromLine },
+	{ operation: 'transfer', icon: ArrowLeftRight },
+	{ operation: 'income', icon: ArrowRightToLine },
+]
 
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)

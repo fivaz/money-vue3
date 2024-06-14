@@ -1,5 +1,5 @@
 <template>
-	<Listbox v-model="model" as="div">
+	<Listbox v-model="model" as="div" by="id">
 		<ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">
 			{{ title }}
 		</ListboxLabel>
