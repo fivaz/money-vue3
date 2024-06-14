@@ -21,7 +21,7 @@
 
 		<div v-if="accounts.length === 0" class="pt-10 text-center">
 			<Vault class="mx-auto h-12 w-12 text-gray-400" />
-			<h3 class="mt-2 text-sm font-semibold text-gray-900">No accounts</h3>
+			<h3 class="mt-2 text-sm font-semibold text-gray-900">No account</h3>
 			<p class="mt-1 text-sm text-gray-500">Get started by creating your first account.</p>
 			<div class="mt-6">
 				<button
