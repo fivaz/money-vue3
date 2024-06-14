@@ -129,6 +129,109 @@
 			/>
 		</div>
 
+		<div class="flex flex-col gap-2 rounded-lg border bg-white p-2">
+			<div class="flex items-center justify-between">
+				<button
+					class="flex flex-grow text-start text-sm font-medium leading-6 text-gray-900"
+					type="button"
+					@click="
+						() => {
+							if (transactionIn.isRecurring) {
+								isRecurringOpen = !isRecurringOpen
+							} else {
+								transactionIn.isRecurring = true
+							}
+						}
+					"
+				>
+					is Recurring
+				</button>
+				<Switch
+					v-model="transactionIn.isRecurring"
+					:class="[
+						transactionIn.isRecurring ? 'bg-indigo-600' : 'bg-gray-200',
+						'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2',
+					]"
+				>
+					<span
+						:class="[
+							transactionIn.isRecurring ? 'translate-x-5' : 'translate-x-0',
+							'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+						]"
+					>
+						<span
+							:class="[
+								transactionIn.isRecurring
+									? 'opacity-0 duration-100 ease-out'
+									: 'opacity-100 duration-200 ease-in',
+								'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+							]"
+							aria-hidden="true"
+						>
+							<svg class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 12 12">
+								<path
+									d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						</span>
+						<span
+							:class="[
+								transactionIn.isRecurring
+									? 'opacity-100 duration-200 ease-in'
+									: 'opacity-0 duration-100 ease-out',
+								'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+							]"
+							aria-hidden="true"
+						>
+							<svg class="h-3 w-3 text-indigo-600" fill="currentColor" viewBox="0 0 12 12">
+								<path
+									d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"
+								/>
+							</svg>
+						</span>
+					</span>
+				</Switch>
+			</div>
+
+			<transition
+				enter-active-class="transition duration-300 ease-out"
+				enter-from-class="transform scale-95 opacity-0"
+				enter-to-class="transform scale-100 opacity-100"
+				leave-active-class="transition duration-300 ease-out"
+				leave-from-class="transform scale-100 opacity-100"
+				leave-to-class="transform scale-95 opacity-0"
+			>
+				<div v-if="isRecurringOpen" class="grid grid-cols-2 gap-5">
+					<div class="col-span-1">
+						<label for="date" class="block text-sm font-medium leading-6 text-gray-900">
+							Start date
+						</label>
+						<input
+							v-model="transactionIn.startDate"
+							required
+							type="date"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+						/>
+					</div>
+					<div class="col-span-1">
+						<label for="date" class="block text-sm font-medium leading-6 text-gray-900">
+							End date
+						</label>
+						<input
+							v-model="transactionIn.endDate"
+							required
+							type="date"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+						/>
+					</div>
+				</div>
+			</transition>
+		</div>
+
 		<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
 			<button
 				v-if="transaction.id"
@@ -159,7 +262,7 @@ import {
 	type Transaction,
 } from '@/lib/transaction'
 import { useCurrentUser, useFirestore } from 'vuefire'
-import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
+import { DialogTitle, RadioGroup, RadioGroupOption, Switch } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import Select from '@/components/Select.vue'
 import type { Account } from '@/lib/account'
@@ -179,6 +282,10 @@ const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 
 const user = useCurrentUser()
 const db = useFirestore()
+
+const isRecurringOpen = ref(false)
+
+const enabled = ref(false)
 
 const operationsObject = [
 	{ operation: 'expense', icon: ArrowLeftFromLine },

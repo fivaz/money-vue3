@@ -16,6 +16,9 @@ export type Transaction = {
 	account: Account
 	destination: Account | null
 	operation: Operation
+	startDate: string | null
+	endDate: string | null
+	isRecurring: boolean
 }
 
 export function parseAmount(transaction: Transaction, accountId: string) {

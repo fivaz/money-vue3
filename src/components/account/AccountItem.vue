@@ -100,9 +100,9 @@ const balance = computed(() =>
 
 const showForm = ref(false)
 
-const editingTransaction = ref<Transaction>(getEmptyTransaction())
+const editingTransaction = ref<Transaction>(getEmptyTransactionFromAccount())
 
-function getEmptyTransaction(): Transaction {
+function getEmptyTransactionFromAccount(): Transaction {
 	return {
 		id: '',
 		date: new Date().toISOString(),
@@ -112,11 +112,14 @@ function getEmptyTransaction(): Transaction {
 		budget: null,
 		destination: null,
 		operation: 'expense',
+		startDate: null,
+		endDate: null,
+		isRecurring: false,
 	}
 }
 
 function addTransaction() {
-	editingTransaction.value = getEmptyTransaction()
+	editingTransaction.value = getEmptyTransactionFromAccount()
 	showForm.value = true
 }
 

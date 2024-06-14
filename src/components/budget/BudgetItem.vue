@@ -94,9 +94,9 @@ const transactions = computed(() =>
 
 const showForm = ref(false)
 
-const editingTransaction = ref<Transaction>(getEmptyTransaction())
+const editingTransaction = ref<Transaction>(getEmptyTransactionFromBudget())
 
-function getEmptyTransaction(): Transaction {
+function getEmptyTransactionFromBudget(): Transaction {
 	return {
 		id: '',
 		date: new Date().toISOString(),
@@ -106,11 +106,14 @@ function getEmptyTransaction(): Transaction {
 		budget: props.budget,
 		destination: null,
 		operation: 'expense',
+		startDate: null,
+		endDate: null,
+		isRecurring: false,
 	}
 }
 
 function addTransaction() {
-	editingTransaction.value = getEmptyTransaction()
+	editingTransaction.value = getEmptyTransactionFromBudget()
 	showForm.value = true
 }
 
