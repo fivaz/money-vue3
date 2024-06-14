@@ -4,7 +4,7 @@
 		<h1
 			class="text-base font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
 		>
-			{{ currentMonth }}
+			{{ formattedCurrentDate() }}
 		</h1>
 		<button @click="nextMonth"><ChevronRight /></button>
 	</div>
@@ -12,12 +12,17 @@
 
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
-import { addMonths, format, subMonths } from 'date-fns'
-import { computed } from 'vue'
+import { addMonths, format, isThisYear, subMonths } from 'date-fns'
 
 const currentDate = defineModel<Date>({ required: true })
 
-const currentMonth = computed(() => format(currentDate.value, 'MMMM'))
+function formattedCurrentDate() {
+	if (isThisYear(currentDate.value)) {
+		return format(currentDate.value, 'MMMM')
+	} else {
+		return format(currentDate.value, 'MMMM yyyy')
+	}
+}
 
 function prevMonth() {
 	currentDate.value = subMonths(currentDate.value, 1)
