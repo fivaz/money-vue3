@@ -38,7 +38,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<AccountTransactionItem
-						v-for="transaction in transactions"
+						v-for="transaction in currentTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						:account-id="account.id"
@@ -73,26 +73,34 @@ import { formatMoney, getIcon } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
+import { isSameMonth, parseISO } from 'date-fns'
 
 const props = defineProps<{
 	account: Account
 	accounts: Account[]
 	budgets: Budget[]
-	currentTransactions: Transaction[]
+	historicalTransactions: Transaction[]
+	currentDate: Date
 }>()
 
 defineEmits<{ (e: 'editAccount', value: Account): void }>()
 
-const transactions = computed(() =>
-	props.currentTransactions.filter(
+const accountTransactions = computed(() =>
+	props.historicalTransactions.filter(
 		(transaction) =>
 			transaction.account.id === props.account.id ||
 			transaction.destination?.id === props.account.id,
 	),
 )
 
+const currentTransactions = computed(() =>
+	accountTransactions.value.filter((transaction) =>
+		isSameMonth(props.currentDate, parseISO(transaction.date)),
+	),
+)
+
 const balance = computed(() =>
-	transactions.value.reduce(
+	accountTransactions.value.reduce(
 		(sum, transaction) => sum + parseAmount(transaction, props.account.id),
 		0,
 	),
