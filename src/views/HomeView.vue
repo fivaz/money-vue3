@@ -62,9 +62,8 @@ import Navbar from '@/components/Navbar.vue'
 import DateHeader from '@/components/DateHeader.vue'
 import type { Budget } from '@/lib/budget'
 import { Plus, Vault } from 'lucide-vue-next'
-import type { Transaction } from '@/lib/transaction'
-import { endOfMonth, isBefore, isSameDay } from 'date-fns'
-import { formatMoney, getExpandedTransactions, icons } from '@/lib/utils'
+import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
+import { formatMoney, icons } from '@/lib/utils'
 
 const currentDate = ref(new Date())
 
@@ -81,18 +80,8 @@ const allTransactions = useCollection<Transaction>(
 	collection(db, USERS, user.value!.uid, TRANSACTIONS),
 )
 
-const expandedTransactions = computed(() =>
-	getExpandedTransactions(currentDate.value, allTransactions.value),
-)
-
 const historicalTransactions = computed(() =>
-	expandedTransactions.value.filter((transaction) => {
-		const endOfCurrentMonth = endOfMonth(currentDate.value)
-		const transactionDate = new Date(transaction.date)
-		return (
-			isBefore(transactionDate, endOfCurrentMonth) || isSameDay(transactionDate, endOfCurrentMonth)
-		)
-	}),
+	getHistoricalTransactions(currentDate.value, allTransactions.value),
 )
 
 const balance = computed(() =>

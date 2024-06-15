@@ -13,7 +13,7 @@
 				v-for="budget in budgets"
 				:key="budget.id"
 				:budget="budget"
-				:currentTransactions="currentTransactions"
+				:transactions="currentTransactions"
 				:budgets="budgets"
 				:accounts="accounts"
 			/>
@@ -62,10 +62,10 @@ import ModalDialog from '@/components/Modal.vue'
 import Navbar from '@/components/Navbar.vue'
 import DateHeader from '@/components/DateHeader.vue'
 import type { Account } from '@/lib/account'
-import type { Transaction } from '@/lib/transaction'
-import { isSameMonth, parseISO } from 'date-fns'
+import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
 import { Plus, PiggyBank } from 'lucide-vue-next'
 import { icons } from '@/lib/utils'
+import { isSameMonth, parseISO } from 'date-fns'
 
 const currentDate = ref(new Date())
 
@@ -83,7 +83,7 @@ const allTransactions = useCollection<Transaction>(
 )
 
 const currentTransactions = computed(() =>
-	allTransactions.value.filter((transaction) =>
+	getHistoricalTransactions(currentDate.value, allTransactions.value).filter((transaction) =>
 		isSameMonth(currentDate.value, parseISO(transaction.date)),
 	),
 )

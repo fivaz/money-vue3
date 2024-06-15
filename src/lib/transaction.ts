@@ -2,7 +2,7 @@ import { useFirestore } from 'vuefire'
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
 import { DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
-import { format, parseISO } from 'date-fns'
+import { endOfMonth, format, isBefore, isSameDay, parseISO } from 'date-fns'
 import type { Account } from '@/lib/account'
 
 export type Operation = 'expense' | 'transfer' | 'income'
@@ -90,4 +90,46 @@ export function formatDateIn(transaction: Transaction): Transaction {
 		id: transaction.id,
 		date: format(parseISO(transaction.date), DATETIME_OUT),
 	}
+}
+
+function expandTransaction(currentDate: Date, transaction: Transaction) {
+	const transactions: Transaction[] = []
+	const currentOccurrence = new Date(transaction.date)
+
+	while (
+		currentOccurrence <= new Date(transaction.endDate!) &&
+		currentOccurrence <= endOfMonth(currentDate)
+	) {
+		if (currentOccurrence >= new Date(transaction.startDate!)) {
+			transactions.push({
+				...transaction,
+				id: transaction.id,
+				date: currentOccurrence.toISOString(),
+			})
+		}
+		currentOccurrence.setMonth(currentOccurrence.getMonth() + 1)
+	}
+
+	return transactions
+}
+
+export function getExpandedTransactions(currentDate: Date, transactions: Transaction[]) {
+	return transactions.flatMap((transaction) => {
+		if (transaction.startDate && transaction.endDate) {
+			return expandTransaction(currentDate, transaction)
+		} else {
+			return transaction
+		}
+	})
+}
+
+export function getHistoricalTransactions(currentDate: Date, transactions: Transaction[]) {
+	const expandedTransactions = getExpandedTransactions(currentDate, transactions)
+	return expandedTransactions.filter((transaction) => {
+		const endOfCurrentMonth = endOfMonth(currentDate)
+		const transactionDate = new Date(transaction.date)
+		return (
+			isBefore(transactionDate, endOfCurrentMonth) || isSameDay(transactionDate, endOfCurrentMonth)
+		)
+	})
 }

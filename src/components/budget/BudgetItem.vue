@@ -26,7 +26,7 @@
 					</button>
 				</div>
 			</div>
-			<ProgressBar :transactions="transactions" :budget="budget" />
+			<ProgressBar :transactions="budgetTransactions" :budget="budget" />
 		</div>
 		<Disclosure v-slot="{ open }" default-open>
 			<transition
@@ -39,7 +39,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<BudgetTransactionItem
-						v-for="transaction in transactions"
+						v-for="transaction in budgetTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						@edit="editTransaction"
@@ -79,13 +79,13 @@ const props = defineProps<{
 	budget: Budget
 	accounts: Account[]
 	budgets: Budget[]
-	currentTransactions: Transaction[]
+	transactions: Transaction[]
 }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
 
-const transactions = computed(() =>
-	props.currentTransactions.filter(
+const budgetTransactions = computed(() =>
+	props.transactions.filter(
 		(transaction) =>
 			(transaction.operation === 'expense' || transaction.operation === 'transfer') &&
 			transaction.budget?.id === props.budget.id,
