@@ -2,7 +2,7 @@ import { useFirestore } from 'vuefire'
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import type { Budget } from '@/lib/budget'
 import { DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
-import { format, parse, parseISO } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import type { Account } from '@/lib/account'
 
 export type Operation = 'expense' | 'transfer' | 'income'
@@ -33,7 +33,7 @@ export function parseAmount(transaction: Transaction, accountId: string) {
 export function formatDateOut(transaction: Transaction): Transaction {
 	return {
 		...transaction,
-		date: parse(transaction.date, DATETIME_OUT, new Date()).toISOString(),
+		date: new Date(transaction.date).toISOString(),
 	}
 }
 

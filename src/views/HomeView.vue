@@ -2,9 +2,7 @@
 	<Navbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
-			<h2 class="text-sm font-semibold leading-6 text-gray-900">
-				{{ formatMoney(balance) }}
-			</h2>
+			<h2 class="text-sm font-semibold leading-6 text-gray-900">{{ formatMoney(balance) }}</h2>
 		</div>
 
 		<ul role="list" class="flex flex-col gap-5">
