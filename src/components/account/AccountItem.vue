@@ -1,5 +1,5 @@
 <template>
-	<li class="overflow-hidden rounded-xl border border-gray-200">
+	<div class="overflow-hidden rounded-xl border border-gray-200">
 		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
@@ -50,7 +50,7 @@
 				<ChevronDown :class="open && 'rotate-180 transform'" />
 			</DisclosureButton>
 		</Disclosure>
-	</li>
+	</div>
 
 	<ModalDialog :show="showForm" @close="showForm = false">
 		<TransactionForm

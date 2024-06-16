@@ -6,7 +6,7 @@
 				'relative cursor-default select-none py-2 pl-10 pr-4',
 			]"
 		>
-			<span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate']">
+			<span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate', $attrs.class]">
 				<slot></slot>
 			</span>
 			<span

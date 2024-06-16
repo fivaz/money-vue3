@@ -6,16 +6,20 @@
 		</div>
 
 		<ul role="list" class="flex flex-col gap-5">
-			<AccountItem
-				@edit-account="(a) => editAccount(a)"
+			<li
+				:style="{ order: account.order || accounts.length }"
 				v-for="account in accounts"
 				:key="account.id"
-				:account="account"
-				:historicalTransactions="historicalTransactions"
-				:accounts="accounts"
-				:budgets="budgets"
-				:currentDate="currentDate"
-			/>
+			>
+				<AccountItem
+					:account="account"
+					:historicalTransactions="historicalTransactions"
+					:accounts="accounts"
+					:budgets="budgets"
+					:currentDate="currentDate"
+					@edit-account="(a) => editAccount(a)"
+				/>
+			</li>
 		</ul>
 
 		<div v-if="accounts.length === 0" class="pt-10 text-center">
@@ -44,7 +48,7 @@
 		</button>
 
 		<ModalDialog :show="showForm" @close="showForm = false">
-			<AccountForm @close="showForm = false" :account="editingAccount" />
+			<AccountForm @close="showForm = false" :account="editingAccount" :length="accounts.length" />
 		</ModalDialog>
 	</Navbar>
 </template>
@@ -106,6 +110,7 @@ function getEmptyAccount(): Account {
 		id: '',
 		name: '',
 		icon: icons[1].name,
+		order: null,
 	}
 }
 

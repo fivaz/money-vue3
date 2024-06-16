@@ -57,7 +57,7 @@
 			</div>
 		</div>
 
-		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets">
+		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets" by="id">
 			<template v-slot:placeholder>
 				<span class="block truncate">{{ transactionIn.budget?.name || 'no budget selected' }}</span>
 			</template>
@@ -67,10 +67,8 @@
 				:value="budget"
 				class="flex items-center gap-2"
 			>
-				<div class="flex items-center gap-2">
-					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
-					<span>{{ budget.name }}</span>
-				</div>
+				<component :is="getIcon(budget.icon)" class="h-4 w-4" />
+				<span>{{ budget.name }}</span>
 			</SelectItem>
 		</Select>
 		<span v-else class="text-sm text-red-500">no budgets created yet</span>
@@ -87,11 +85,15 @@
 					</span>
 				</template>
 
-				<SelectItem v-for="account in accounts" :key="account.id" :value="account">
-					<div class="flex items-center gap-2">
-						<component :is="getIcon(account.icon)" class="h-4 w-4" />
-						<span>{{ account.name }}</span>
-					</div>
+				<SelectItem
+					v-for="account in accounts"
+					:key="account.id"
+					:value="account"
+					by="id"
+					class="flex items-center gap-2"
+				>
+					<component :is="getIcon(account.icon)" class="h-4 w-4" />
+					<span>{{ account.name }}</span>
 				</SelectItem>
 			</Select>
 
@@ -107,11 +109,15 @@
 					</span>
 				</template>
 
-				<SelectItem v-for="account in accounts" :key="account.id" :value="account">
-					<div class="flex items-center gap-2">
-						<component :is="getIcon(account.icon)" class="h-4 w-4" />
-						<span>{{ account.name }}</span>
-					</div>
+				<SelectItem
+					v-for="account in accounts"
+					:key="account.id"
+					:value="account"
+					by="id"
+					class="flex items-center gap-2"
+				>
+					<component :is="getIcon(account.icon)" class="h-4 w-4" />
+					<span>{{ account.name }}</span>
 				</SelectItem>
 			</Select>
 		</div>
