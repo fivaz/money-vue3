@@ -251,7 +251,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue'
+import { defineEmits, ref, watch } from 'vue'
 import {
 	addTransaction,
 	deleteTransaction,
@@ -268,6 +268,8 @@ import type { Account } from '@/lib/account'
 import SelectItem from '@/components/SelectItem.vue'
 import { getIcon } from '@/lib/utils'
 import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
+import { format, getMonth, parseISO, set } from 'date-fns'
+import { DATETIME_OUT } from '@/lib/consts'
 
 const props = defineProps<{
 	budgets: Budget[]
@@ -290,6 +292,20 @@ const operationsObject = [
 	{ operation: 'transfer', icon: ArrowLeftRight },
 	{ operation: 'income', icon: ArrowRightToLine },
 ]
+
+watch(
+	() => transactionIn.value.startDate,
+	(startDate) => {
+		if (startDate) {
+			transactionIn.value.date = format(
+				set(parseISO(transactionIn.value.date), {
+					month: getMonth(new Date(startDate)),
+				}),
+				DATETIME_OUT,
+			)
+		}
+	},
+)
 
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)
