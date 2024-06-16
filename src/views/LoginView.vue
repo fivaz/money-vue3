@@ -5,11 +5,7 @@
 		>
 			<div class="mx-auto w-full max-w-sm lg:w-96">
 				<div>
-					<img
-						alt="Your Company"
-						class="h-10 w-auto"
-						src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-					/>
+					<Logo class="h-10 w-auto" />
 					<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
 						Sign in to your account
 					</h2>
@@ -97,11 +93,7 @@
 			</div>
 		</div>
 		<div class="relative hidden w-0 flex-1 lg:block">
-			<img
-				alt="logo"
-				class="absolute inset-0 h-full w-full object-cover"
-				src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-			/>
+			<Logo class="absolute inset-0 h-full w-full object-cover" />
 		</div>
 	</div>
 </template>
@@ -115,6 +107,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
 import Alert from '@/components/Alert.vue'
 import { homeRoute, registerRoute } from '@/router'
+import Logo from '@/components/Logo.vue'
 
 const router = useRouter()
 const route = useRoute()

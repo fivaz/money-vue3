@@ -1,56 +1,7 @@
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-import { minidenticon } from 'minidenticons'
-import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
-import { doc, setDoc } from 'firebase/firestore'
-import { USERS } from '@/lib/consts'
-import { loginRoute } from '@/router'
-const name = ref('')
-const email = ref('')
-const password = ref('')
-
-const avatar = computed(() => minidenticon(email.value, 95, 45))
-
-const codedAvatar = computed(() => 'data:image/svg+xml;utf8,' + encodeURIComponent(avatar.value))
-
-async function storeAvatar(userId: string, file: Blob): Promise<string> {
-	const avatarsRef = storageRef(useFirebaseStorage(), `avatars/${userId}`)
-	await uploadBytes(avatarsRef, file)
-	return await getDownloadURL(avatarsRef)
-}
-
-const auth = useFirebaseAuth()!
-
-async function handleSubmit() {
-	const { user } = await createUserWithEmailAndPassword(auth, email.value, password.value)
-
-	const photoURL = await storeAvatar(
-		user.uid,
-		new Blob([avatar.value], { type: 'image/svg+xml;charset=utf-8' }),
-	)
-
-	await updateProfile(user, { displayName: name.value, photoURL: photoURL })
-
-	const userRef = doc(useFirestore(), USERS, user.uid)
-
-	await setDoc(userRef, {
-		displayName: name.value,
-		email: email.value,
-		photoURL,
-	})
-}
-</script>
-
 <template>
 	<div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
-			<img
-				alt="Your Company"
-				class="mx-auto h-10 w-auto"
-				src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-			/>
+			<Logo class="mx-auto h-10 w-auto" />
 			<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 				Create your account
 			</h2>
@@ -135,4 +86,48 @@ async function handleSubmit() {
 	</div>
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { minidenticon } from 'minidenticons'
+import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
+import { doc, setDoc } from 'firebase/firestore'
+import { USERS } from '@/lib/consts'
+import { loginRoute } from '@/router'
+import Logo from '@/components/Logo.vue'
+const name = ref('')
+const email = ref('')
+const password = ref('')
+
+const avatar = computed(() => minidenticon(email.value, 95, 45))
+
+const codedAvatar = computed(() => 'data:image/svg+xml;utf8,' + encodeURIComponent(avatar.value))
+
+async function storeAvatar(userId: string, file: Blob): Promise<string> {
+	const avatarsRef = storageRef(useFirebaseStorage(), `avatars/${userId}`)
+	await uploadBytes(avatarsRef, file)
+	return await getDownloadURL(avatarsRef)
+}
+
+const auth = useFirebaseAuth()!
+
+async function handleSubmit() {
+	const { user } = await createUserWithEmailAndPassword(auth, email.value, password.value)
+
+	const photoURL = await storeAvatar(
+		user.uid,
+		new Blob([avatar.value], { type: 'image/svg+xml;charset=utf-8' }),
+	)
+
+	await updateProfile(user, { displayName: name.value, photoURL: photoURL })
+
+	const userRef = doc(useFirestore(), USERS, user.uid)
+
+	await setDoc(userRef, {
+		displayName: name.value,
+		email: email.value,
+		photoURL,
+	})
+}
+</script>

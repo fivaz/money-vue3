@@ -28,7 +28,7 @@
 			</div>
 			<a href="#" class="-m-1.5 p-1.5">
 				<span class="sr-only">Money</span>
-				<img class="h-8 w-auto" src="/logo.svg" alt="logo" />
+				<Logo class="h-8 w-auto" />
 			</a>
 			<div class="flex flex-1 justify-end">
 				<button @click="logout" class="text-sm font-semibold leading-6 text-gray-900">
@@ -52,11 +52,7 @@
 					</div>
 					<a href="#" class="-m-1.5 p-1.5">
 						<span class="sr-only">Your Company</span>
-						<img
-							class="h-8 w-auto"
-							src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-							alt=""
-						/>
+						<Logo class="h-8 w-auto" />
 					</a>
 					<div class="flex flex-1 justify-end">
 						<a href="#" class="text-sm font-semibold leading-6 text-gray-900">
@@ -92,6 +88,7 @@ import { signOut } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
 import { budgetsRoute, homeRoute, loginRoute } from '@/router'
+import Logo from '@/components/Logo.vue'
 
 const navigation = [
 	{ name: 'Home', href: homeRoute },
