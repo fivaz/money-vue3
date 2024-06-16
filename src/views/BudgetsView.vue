@@ -16,6 +16,7 @@
 				:transactions="currentTransactions"
 				:budgets="budgets"
 				:accounts="accounts"
+				:current-date="currentDate"
 			/>
 		</ul>
 

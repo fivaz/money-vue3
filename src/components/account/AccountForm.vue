@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 import { addAccount, editAccount, deleteAccount, type Account } from '@/lib/account'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'

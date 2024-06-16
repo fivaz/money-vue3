@@ -80,6 +80,7 @@ const props = defineProps<{
 	accounts: Account[]
 	budgets: Budget[]
 	transactions: Transaction[]
+	currentDate: Date
 }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
@@ -99,7 +100,7 @@ const editingTransaction = ref<Transaction>(getEmptyTransactionFromBudget())
 function getEmptyTransactionFromBudget(): Transaction {
 	return {
 		id: '',
-		date: new Date().toISOString(),
+		date: props.currentDate.toISOString(),
 		description: '',
 		amount: 0,
 		account: props.accounts[0],

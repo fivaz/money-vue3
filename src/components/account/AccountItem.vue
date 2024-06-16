@@ -113,7 +113,7 @@ const editingTransaction = ref<Transaction>(getEmptyTransactionFromAccount())
 function getEmptyTransactionFromAccount(): Transaction {
 	return {
 		id: '',
-		date: new Date().toISOString(),
+		date: props.currentDate.toISOString(),
 		description: '',
 		amount: 0,
 		account: props.account,
