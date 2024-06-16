@@ -1,99 +1,85 @@
 <template>
-	<div class="flex min-h-full flex-1">
-		<div
-			class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
-		>
-			<div class="mx-auto w-full max-w-sm lg:w-96">
-				<div>
-					<Logo class="h-10 w-auto" />
-					<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-						Sign in to your account
-					</h2>
-					<p class="mt-2 text-sm leading-6 text-gray-500">
-						Not a member?
-						<RouterLink
-							class="font-semibold text-indigo-600 hover:text-indigo-500"
-							:to="registerRoute"
-						>
-							Register
-						</RouterLink>
-					</p>
-				</div>
-
-				<div class="mt-5">
-					<Alert v-if="!!errorMessage">
-						{{ errorMessage }}
-					</Alert>
-					<div class="mt-5">
-						<form class="space-y-6" @submit.prevent="handleSubmit">
-							<div>
-								<label class="block text-sm font-medium leading-6 text-gray-900" for="email">
-									Email address
-								</label>
-								<div class="mt-2">
-									<input
-										v-model="email"
-										autocomplete="email"
-										class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-										id="email"
-										name="email"
-										type="email"
-									/>
-								</div>
-							</div>
-
-							<div>
-								<label class="block text-sm font-medium leading-6 text-gray-900" for="password">
-									Password
-								</label>
-								<div class="mt-2">
-									<input
-										autocomplete="current-password"
-										class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-										id="password"
-										name="password"
-										type="password"
-										v-model="password"
-									/>
-								</div>
-							</div>
-
-							<div class="flex items-center justify-between">
-								<div class="flex items-center">
-									<input
-										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-										disabled
-										id="remember-me"
-										name="remember-me"
-										type="checkbox"
-									/>
-									<label class="ml-3 block text-sm leading-6 text-gray-700" for="remember-me">
-										Remember me
-									</label>
-								</div>
-
-								<div class="text-sm leading-6">
-									<button class="font-semibold text-indigo-600 hover:text-indigo-500" disabled>
-										Forgot password?
-									</button>
-								</div>
-							</div>
-
-							<div>
-								<button
-									type="submit"
-									class="w-full rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								>
-									Sign in
-								</button>
-							</div>
-						</form>
+	<div
+		class="flex h-[100vh] min-h-full flex-1 items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
+	>
+		<div class="w-full max-w-sm space-y-10">
+			<div>
+				<Logo class="mx-auto h-10 w-auto" />
+				<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+					Sign in to your account
+				</h2>
+			</div>
+			<Alert v-if="!!errorMessage">{{ errorMessage }}</Alert>
+			<form class="space-y-6" @submit.prevent="handleSubmit">
+				<div class="relative -space-y-px rounded-md shadow-sm">
+					<div
+						class="pointer-events-none absolute inset-0 z-10 rounded-md ring-1 ring-inset ring-gray-300"
+					/>
+					<div>
+						<label for="email-address" class="sr-only">Email address</label>
+						<input
+							v-model="email"
+							id="email-address"
+							name="email"
+							type="email"
+							autocomplete="email"
+							required
+							class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							placeholder="Email address"
+						/>
+					</div>
+					<div>
+						<label for="password" class="sr-only">Password</label>
+						<input
+							v-model="password"
+							id="password"
+							name="password"
+							type="password"
+							autocomplete="current-password"
+							required
+							class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							placeholder="Password"
+						/>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="relative hidden w-0 flex-1 lg:block">
-			<Logo class="absolute inset-0 h-full w-full object-cover" />
+
+				<div class="flex items-center justify-between">
+					<div class="flex items-center">
+						<input
+							id="remember-me"
+							name="remember-me"
+							type="checkbox"
+							class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+						/>
+						<label for="remember-me" class="ml-3 block text-sm leading-6 text-gray-900">
+							Remember me
+						</label>
+					</div>
+
+					<div class="text-sm leading-6">
+						<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
+							Forgot password?
+						</a>
+					</div>
+				</div>
+
+				<div>
+					<button
+						type="submit"
+						class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					>
+						Sign in
+					</button>
+				</div>
+			</form>
+
+			<p class="text-center text-sm leading-6 text-gray-500">
+				Not a member?
+				{{ ' ' }}
+				<RouterLink class="font-semibold text-indigo-600 hover:text-indigo-500" :to="registerRoute">
+					Register
+				</RouterLink>
+			</p>
 		</div>
 	</div>
 </template>
@@ -105,9 +91,9 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useFirebaseAuth } from 'vuefire'
 import { useRoute, useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
-import Alert from '@/components/Alert.vue'
 import { homeRoute, registerRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
+import Alert from '@/components/Alert.vue'
 
 const router = useRouter()
 const route = useRoute()
