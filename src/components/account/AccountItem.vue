@@ -1,6 +1,6 @@
 <template>
 	<div class="overflow-hidden rounded-xl border border-gray-200">
-		<div class="border-b border-gray-900/5 bg-gray-50 p-3 dark:bg-gray-900">
+		<div class="border-b border-gray-200 bg-gray-50 p-3 dark:bg-gray-900">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
 					<component :is="getIcon(account.icon)" class="h-4 w-4 text-gray-900 dark:text-white" />
