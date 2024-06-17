@@ -12,16 +12,16 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(balance) }}
 					</div>
-					<IndigoButton @click="addTransaction">
+					<SmallIndigoButton @click="addTransaction">
 						<Plus class="h-4 w-4 text-white" />
-					</IndigoButton>
-					<DarkButton @click="$emit('editAccount', account)">
+					</SmallIndigoButton>
+					<SmallDarkButton @click="$emit('editAccount', account)">
 						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
-					</DarkButton>
-					<DarkButton @click="toggleSorting">
+					</SmallDarkButton>
+					<SmallDarkButton @click="toggleSorting">
 						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4 text-gray-900 dark:text-white" />
 						<ArrowUpZA v-else class="h-4 w-4 text-gray-900 dark:text-white" />
-					</DarkButton>
+					</SmallDarkButton>
 				</div>
 			</div>
 		</div>
@@ -74,8 +74,8 @@ import ModalDialog from '@/components/form/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import { isSameMonth, parseISO } from 'date-fns'
-import DarkButton from '@/components/button/DarkButton.vue'
-import IndigoButton from '@/components/button/IndigoButton.vue'
+import SmallIndigoButton from '@/components/button/SmallIndigoButton.vue'
+import SmallDarkButton from '@/components/button/SmallDarkButton.vue'
 
 const props = defineProps<{
 	account: Account

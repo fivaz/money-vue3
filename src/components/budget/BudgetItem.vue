@@ -12,12 +12,12 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(budget.value) }}
 					</div>
-					<IndigoButton @click="addTransaction">
+					<SmallIndigoButton @click="addTransaction">
 						<Plus class="h-4 w-4 text-white" />
-					</IndigoButton>
-					<DarkButton @click="$emit('editBudget', budget)">
+					</SmallIndigoButton>
+					<SmallDarkButton @click="$emit('editBudget', budget)">
 						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
-					</DarkButton>
+					</SmallDarkButton>
 				</div>
 			</div>
 			<ProgressBar :transactions="budgetTransactions" :budget="budget" />
@@ -68,8 +68,8 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
 import ProgressBar from '@/components/form/ProgressBar.vue'
 import { formatMoney, getIcon } from '@/lib/utils'
-import IndigoButton from '@/components/button/IndigoButton.vue'
-import DarkButton from '@/components/button/DarkButton.vue'
+import SmallIndigoButton from '@/components/button/SmallIndigoButton.vue'
+import SmallDarkButton from '@/components/button/SmallDarkButton.vue'
 
 const props = defineProps<{
 	budget: Budget
