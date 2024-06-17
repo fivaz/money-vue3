@@ -109,6 +109,7 @@ function getEmptyTransactionFromBudget(): Transaction {
 		operation: 'expense',
 		startDate: null,
 		endDate: null,
+		isPaid: true,
 	}
 }
 

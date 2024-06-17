@@ -18,6 +18,7 @@ export type Transaction = {
 	operation: Operation
 	startDate: string | null
 	endDate: string | null
+	isPaid: boolean
 }
 
 export function parseAmount(transaction: Transaction, accountId: string) {

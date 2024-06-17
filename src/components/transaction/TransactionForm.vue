@@ -57,22 +57,35 @@
 			</div>
 		</div>
 
-		<Select v-if="budgets.length" v-model="transactionIn.budget" title="Budgets" by="id">
-			<template v-slot:placeholder>
-				<span class="block truncate">{{ transactionIn.budget?.name || 'no budget selected' }}</span>
-			</template>
-			<SelectItem
-				v-for="budget in budgets"
-				:key="budget.id"
-				:value="budget"
-				class="flex items-center gap-2"
+		<div class="flex items-end gap-5">
+			<Select
+				v-if="budgets.length"
+				v-model="transactionIn.budget"
+				title="Budgets"
+				by="id"
+				class="grow"
 			>
-				<component :is="getIcon(budget.icon)" class="h-4 w-4" />
-				<span>{{ budget.name }}</span>
-			</SelectItem>
-		</Select>
-		<span v-else class="text-sm text-red-500">no budgets created yet</span>
-
+				<template v-slot:placeholder>
+					<span class="block truncate">
+						{{ transactionIn.budget?.name || 'no budget selected' }}
+					</span>
+				</template>
+				<SelectItem
+					v-for="budget in budgets"
+					:key="budget.id"
+					:value="budget"
+					class="flex items-center gap-2"
+				>
+					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
+					<span>{{ budget.name }}</span>
+				</SelectItem>
+			</Select>
+			<span v-else class="text-sm text-red-500">no budgets created yet</span>
+			<label class="flex gap-2 pb-2">
+				is paid
+				<Toggle v-model="transactionIn.isPaid" />
+			</label>
+		</div>
 		<div class="grid grid-cols-2 gap-5">
 			<Select
 				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
@@ -276,6 +289,7 @@ import { getIcon } from '@/lib/utils'
 import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
 import { format, getMonth, parseISO, set } from 'date-fns'
 import { DATETIME_OUT } from '@/lib/consts'
+import Toggle from '@/components/Toggle.vue'
 
 const props = defineProps<{
 	budgets: Budget[]
