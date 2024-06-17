@@ -18,7 +18,7 @@
 					>
 						<div
 							:class="[
-								checked ? 'bg-indigo-600 text-white' : 'text-gray-500',
+								checked ? 'bg-indigo-600 text-white' : 'text-gray-500 dark:text-gray-200',
 								'flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1',
 							]"
 						>
@@ -133,10 +133,10 @@
 			/>
 		</div>
 
-		<div class="flex flex-col gap-2 rounded-lg border bg-white p-2">
+		<div class="flex flex-col gap-2 rounded-lg border bg-white p-2 dark:bg-slate-800">
 			<div class="flex items-center justify-between">
 				<button
-					class="flex flex-grow text-start text-sm font-medium leading-6 text-gray-900"
+					class="flex flex-grow text-start text-sm font-medium leading-6 text-slate-900 dark:text-white"
 					type="button"
 					@click="
 						() => {
@@ -148,57 +148,9 @@
 						}
 					"
 				>
-					is Recurring
+					Recurring
 				</button>
-				<Switch
-					v-model="isRecurring"
-					:class="[
-						isRecurring ? 'bg-indigo-600' : 'bg-gray-200',
-						'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2',
-					]"
-				>
-					<span
-						:class="[
-							isRecurring ? 'translate-x-5' : 'translate-x-0',
-							'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
-						]"
-					>
-						<span
-							:class="[
-								isRecurring
-									? 'opacity-0 duration-100 ease-out'
-									: 'opacity-100 duration-200 ease-in',
-								'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
-							]"
-							aria-hidden="true"
-						>
-							<svg class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 12 12">
-								<path
-									d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-						</span>
-						<span
-							:class="[
-								isRecurring
-									? 'opacity-100 duration-200 ease-in'
-									: 'opacity-0 duration-100 ease-out',
-								'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
-							]"
-							aria-hidden="true"
-						>
-							<svg class="h-3 w-3 text-indigo-600" fill="currentColor" viewBox="0 0 12 12">
-								<path
-									d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"
-								/>
-							</svg>
-						</span>
-					</span>
-				</Switch>
+				<Toggle v-model="isRecurring" />
 			</div>
 
 			<transition
@@ -211,25 +163,31 @@
 			>
 				<div v-if="isRecurringOpen" class="grid grid-cols-2 gap-5">
 					<div class="col-span-1">
-						<label for="date" class="block text-sm font-medium leading-6 text-gray-900">
+						<label
+							for="date"
+							class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
+						>
 							Start date
 						</label>
 						<input
 							v-model="transactionIn.startDate"
 							required
 							type="date"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 						/>
 					</div>
 					<div class="col-span-1">
-						<label for="date" class="block text-sm font-medium leading-6 text-gray-900">
+						<label
+							for="date"
+							class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
+						>
 							End date
 						</label>
 						<input
 							v-model="transactionIn.endDate"
 							required
 							type="date"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 						/>
 					</div>
 				</div>
@@ -266,7 +224,7 @@ import {
 	type Transaction,
 } from '@/lib/transaction'
 import { useCurrentUser, useFirestore } from 'vuefire'
-import { DialogTitle, RadioGroup, RadioGroupOption, Switch } from '@headlessui/vue'
+import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import Select from '@/components/Select.vue'
 import type { Account } from '@/lib/account'
