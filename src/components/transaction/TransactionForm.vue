@@ -36,7 +36,12 @@
 			</div>
 
 			<div class="col-span-3">
-				<label for="date" class="block text-sm font-medium leading-6 text-gray-900"> Date </label>
+				<label
+					for="date"
+					class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
+				>
+					Date
+				</label>
 				<input
 					type="datetime-local"
 					name="date"
@@ -72,7 +77,7 @@
 				</SelectItem>
 			</Select>
 			<span v-else class="text-sm text-red-500">no budgets created yet</span>
-			<label class="flex gap-2 pb-2">
+			<label class="flex gap-2 pb-2 text-slate-900 dark:text-white">
 				is paid
 				<Toggle v-model="transactionIn.isPaid" />
 			</label>
@@ -127,7 +132,10 @@
 		</div>
 
 		<div>
-			<label for="description" class="block text-sm font-medium leading-6 text-gray-900">
+			<label
+				for="description"
+				class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
+			>
 				Description
 			</label>
 			<textarea
@@ -281,6 +289,7 @@ import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-
 import { format, getMonth, parseISO, set } from 'date-fns'
 import { DATETIME_OUT } from '@/lib/consts'
 import Toggle from '@/components/Toggle.vue'
+import LabelInput from '@/components/LabelInput.vue'
 
 const props = defineProps<{
 	budgets: Budget[]
