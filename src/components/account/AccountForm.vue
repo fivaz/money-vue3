@@ -50,10 +50,10 @@ import { ref } from 'vue'
 import { addAccount, editAccount, deleteAccount, type Account } from '@/lib/account'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
-import IconSelector from '@/components/IconSelector.vue'
-import SelectItem from '@/components/SelectItem.vue'
-import Select from '@/components/Select.vue'
-import LabelInput from '@/components/LabelInput.vue'
+import IconSelector from '@/components/form/IconSelector.vue'
+import SelectItem from '@/components/form/SelectItem.vue'
+import Select from '@/components/form/Select.vue'
+import LabelInput from '@/components/form/LabelInput.vue'
 
 const props = defineProps<{ account: Account; length: number }>()
 

@@ -33,8 +33,8 @@ import { defineEmits, ref } from 'vue'
 import { addBudget, editBudget, deleteBudget, type Budget } from '@/lib/budget'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
-import IconSelector from '@/components/IconSelector.vue'
-import LabelInput from '@/components/LabelInput.vue'
+import IconSelector from '@/components/form/IconSelector.vue'
+import LabelInput from '@/components/form/LabelInput.vue'
 
 const props = defineProps<{ budget: Budget }>()
 

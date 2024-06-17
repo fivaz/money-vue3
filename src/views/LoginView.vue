@@ -93,7 +93,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
 import { homeRoute, registerRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
-import Alert from '@/components/Alert.vue'
+import Alert from '@/components/form/Alert.vue'
 
 const router = useRouter()
 const route = useRoute()

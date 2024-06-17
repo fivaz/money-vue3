@@ -115,7 +115,7 @@ import { useRouter } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
 import { budgetsRoute, homeRoute, loginRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
-import Toggle from '@/components/Toggle.vue'
+import Toggle from '@/components/form/Toggle.vue'
 import { Moon, Sun } from 'lucide-vue-next'
 
 const navigation = [

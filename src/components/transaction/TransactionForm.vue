@@ -217,15 +217,15 @@ import {
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
-import Select from '@/components/Select.vue'
+import Select from '@/components/form/Select.vue'
 import type { Account } from '@/lib/account'
-import SelectItem from '@/components/SelectItem.vue'
+import SelectItem from '@/components/form/SelectItem.vue'
 import { getIcon } from '@/lib/utils'
 import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
 import { format, getMonth, parseISO, set } from 'date-fns'
 import { DATETIME_OUT } from '@/lib/consts'
-import Toggle from '@/components/Toggle.vue'
-import LabelInput from '@/components/LabelInput.vue'
+import Toggle from '@/components/form/Toggle.vue'
+import LabelInput from '@/components/form/LabelInput.vue'
 
 const props = defineProps<{
 	budgets: Budget[]
