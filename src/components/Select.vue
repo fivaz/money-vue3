@@ -18,7 +18,7 @@
 				leave-to-class="opacity-0"
 			>
 				<ListboxOptions
-					class="absolute z-10 mt-1 block max-h-60 w-full overflow-auto rounded-md border-0 bg-white py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-black/5 ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
+					class="absolute z-10 mt-1 block max-h-60 w-full overflow-auto rounded-md border-0 bg-white py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-black/5 ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-[#293445] dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 				>
 					<slot></slot>
 				</ListboxOptions>
