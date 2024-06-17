@@ -1,6 +1,6 @@
 <template>
 	<Listbox v-model="model" as="div" :by="by">
-		<ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">
+		<ListboxLabel class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
 			{{ title }}
 		</ListboxLabel>
 		<div class="relative mt-1">

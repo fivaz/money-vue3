@@ -1,5 +1,5 @@
 <template>
-	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
+	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
 		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex w-[320px] flex-col gap-5">
@@ -32,16 +32,7 @@
 
 		<div class="grid grid-cols-5 gap-5">
 			<div class="col-span-2">
-				<label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
-				<input
-					type="number"
-					name="amount"
-					id="amount"
-					step=".01"
-					v-model="transactionIn.amount"
-					required
-					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-				/>
+				<LabelInput v-model="transactionIn.amount" name="amount" />
 			</div>
 
 			<div class="col-span-3">
