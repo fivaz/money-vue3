@@ -186,14 +186,7 @@
 		</div>
 
 		<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
-			<button
-				v-if="transaction.id"
-				@click="handleDelete"
-				type="button"
-				class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-			>
-				Delete
-			</button>
+			<DarkButton2 v-if="transaction.id" @click="handleDelete"> Delete </DarkButton2>
 			<button
 				type="submit"
 				class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -226,6 +219,7 @@ import { format, getMonth, parseISO, set } from 'date-fns'
 import { DATETIME_OUT } from '@/lib/consts'
 import Toggle from '@/components/form/Toggle.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import DarkButton2 from '@/components/button/DarkButton2.vue'
 
 const props = defineProps<{
 	budgets: Budget[]
