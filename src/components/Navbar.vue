@@ -7,14 +7,14 @@
 			>
 				<div class="flex flex-1">
 					<div class="hidden lg:flex lg:gap-x-12">
-						<a
+						<RouterLink
 							v-for="item in navigation"
 							:key="item.name"
-							:href="item.href"
+							:to="item.href"
 							class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
 						>
 							{{ item.name }}
-						</a>
+						</RouterLink>
 					</div>
 					<div class="flex lg:hidden">
 						<button
@@ -64,6 +64,7 @@
 							v-for="item in navigation"
 							:key="item.name"
 							:to="item.href"
+							@click="mobileMenuOpen = false"
 							class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-900"
 						>
 							{{ item.name }}
