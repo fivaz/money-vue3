@@ -1,13 +1,15 @@
 <template>
 	<div class="overflow-hidden rounded-xl border border-gray-200">
-		<div class="border-b border-gray-900/5 bg-gray-50 p-3">
+		<div class="border-b border-gray-900/5 bg-gray-50 p-3 dark:bg-gray-900">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
-					<component :is="getIcon(account.icon)" class="h-4 w-4" />
-					<span class="text-sm font-medium leading-6 text-gray-900">{{ account.name }}</span>
+					<component :is="getIcon(account.icon)" class="h-4 w-4 text-gray-900 dark:text-white" />
+					<span class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
+						{{ account.name }}
+					</span>
 				</div>
 				<div class="flex items-center gap-2">
-					<div class="text-sm font-medium leading-6 text-gray-900">
+					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(balance) }}
 					</div>
 					<button
@@ -19,18 +21,18 @@
 					</button>
 					<button
 						type="button"
-						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
+						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-slate-500"
 						@click="$emit('editAccount', account)"
 					>
-						<Settings2 class="h-4 w-4" />
+						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
 					</button>
 					<button
 						type="button"
-						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
+						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-slate-500"
 						@click="toggleSorting"
 					>
-						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4" />
-						<ArrowUpZA v-else class="h-4 w-4" />
+						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4 text-gray-900 dark:text-white" />
+						<ArrowUpZA v-else class="h-4 w-4 text-gray-900 dark:text-white" />
 					</button>
 				</div>
 			</div>
@@ -54,7 +56,9 @@
 					/>
 				</DisclosurePanel>
 			</transition>
-			<DisclosureButton class="flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700">
+			<DisclosureButton
+				class="flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-slate-900 dark:hover:text-gray-500"
+			>
 				<ChevronDown :class="open && 'rotate-180 transform'" />
 			</DisclosureButton>
 		</Disclosure>

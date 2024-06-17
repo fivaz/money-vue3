@@ -1,10 +1,12 @@
 <template>
-	<li class="border-b p-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 hover:underline">
+	<li
+		class="border-b p-3 text-slate-500 hover:bg-gray-50 hover:text-slate-700 hover:underline dark:text-slate-400 dark:hover:bg-slate-900"
+	>
 		<button class="flex w-full justify-between" @click="$emit('edit', transaction)">
 			<span class="flex items-center gap-4">
-				<span class="block w-20 text-left md:hidden">{{
-					format(transaction.date, SHORT_DATETIME_FR)
-				}}</span>
+				<span class="block w-20 text-left md:hidden">
+					{{ format(transaction.date, SHORT_DATETIME_FR) }}
+				</span>
 				<span class="hidden gap-2 md:flex">
 					<span class="flex w-10 items-center gap-2">
 						<CalendarCheck class="h-4 w-4" />
