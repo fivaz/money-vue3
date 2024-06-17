@@ -2,8 +2,14 @@
 	<li class="border-b p-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 hover:underline">
 		<button class="flex w-full justify-between" @click="$emit('edit', transaction)">
 			<span class="flex gap-4">
-				<span>{{ format(transaction.date, SHORT_DATETIME_FR) }}</span>
-				<span>{{ transaction.description }}</span>
+				<span>{{ format(transaction.date, 'dd') }}</span>
+				<span>{{ format(transaction.date, 'HH:mm') }}</span>
+				<span v-if="transaction.description">{{ transaction.description }}</span>
+				<component
+					v-if="transaction.budget"
+					:is="getIcon(transaction.budget.icon)"
+					class="h-4 w-4"
+				/>
 			</span>
 			<span
 				:class="[
@@ -20,9 +26,9 @@
 
 <script setup lang="ts">
 import { parseAmount, type Transaction } from '@/lib/transaction'
-import { SHORT_DATETIME_FR } from '@/lib/consts'
 import { format } from 'date-fns'
 import { ArrowRightLeft } from 'lucide-vue-next'
+import { getIcon } from '@/lib/utils'
 
 const props = defineProps<{ accountId: string; transaction: Transaction }>()
 

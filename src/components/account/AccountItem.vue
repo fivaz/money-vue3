@@ -12,17 +12,24 @@
 					</div>
 					<button
 						type="button"
-						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+						class="rounded bg-indigo-600 px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-indigo-400"
 						@click="addTransaction"
 					>
-						<Plus :size="18" />
+						<Plus class="h-4 w-4 text-white" />
 					</button>
 					<button
 						type="button"
-						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
 						@click="$emit('editAccount', account)"
 					>
-						<Settings2 :size="18" />
+						<Settings2 class="h-4 w-4" />
+					</button>
+					<button
+						type="button"
+						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
+						@click="toggleSorting"
+					>
+						<ArrowDownAZ :class="['h-4 w-4', isSortingAscending && 'rotate-180 transform']" />
 					</button>
 				</div>
 			</div>
@@ -38,7 +45,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<AccountTransactionItem
-						v-for="transaction in currentTransactions"
+						v-for="transaction in sortCurrentTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						:account-id="account.id"
@@ -68,7 +75,7 @@ import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
 import { parseAmount, type Transaction } from '@/lib/transaction'
-import { Plus, Settings2, ChevronDown } from 'lucide-vue-next'
+import { Plus, Settings2, ChevronDown, ArrowDownAZ } from 'lucide-vue-next'
 import { formatMoney, getIcon } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
@@ -85,6 +92,8 @@ const props = defineProps<{
 
 defineEmits<{ (e: 'editAccount', value: Account): void }>()
 
+const isSortingAscending = ref(true)
+
 const accountTransactions = computed(() =>
 	props.historicalTransactions.filter(
 		(transaction) =>
@@ -98,6 +107,16 @@ const currentTransactions = computed(() =>
 		isSameMonth(props.currentDate, parseISO(transaction.date)),
 	),
 )
+
+const sortCurrentTransactions = computed(() => {
+	return [...currentTransactions.value].sort((a, b) => {
+		if (isSortingAscending.value) {
+			return new Date(a.date).getTime() - new Date(b.date).getTime()
+		} else {
+			return new Date(b.date).getTime() - new Date(a.date).getTime()
+		}
+	})
+})
 
 const balance = computed(() =>
 	accountTransactions.value.reduce(
@@ -133,5 +152,9 @@ function addTransaction() {
 function editTransaction(transaction: Transaction) {
 	editingTransaction.value = transaction
 	showForm.value = true
+}
+
+function toggleSorting() {
+	isSortingAscending.value = !isSortingAscending.value
 }
 </script>
