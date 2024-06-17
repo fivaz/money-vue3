@@ -12,8 +12,12 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(budget.value) }}
 					</div>
-					<ButtonPlus @click="addTransaction" />
-					<ButtonSettings @click="$emit('editBudget', budget)" />
+					<IndigoButton @click="addTransaction">
+						<Plus class="h-4 w-4 text-white" />
+					</IndigoButton>
+					<DarkButton @click="$emit('editBudget', budget)">
+						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
+					</DarkButton>
 				</div>
 			</div>
 			<ProgressBar :transactions="budgetTransactions" :budget="budget" />
@@ -58,14 +62,14 @@ import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import type { Budget } from '@/lib/budget'
 import type { Account } from '@/lib/account'
 import { type Transaction } from '@/lib/transaction'
-import { ChevronDown } from 'lucide-vue-next'
+import { ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
 import ModalDialog from '@/components/form/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
 import ProgressBar from '@/components/form/ProgressBar.vue'
 import { formatMoney, getIcon } from '@/lib/utils'
-import ButtonPlus from '@/components/form/button/ButtonPlus.vue'
-import ButtonSettings from '@/components/form/button/ButtonSettings.vue'
+import IndigoButton from '@/components/button/IndigoButton.vue'
+import DarkButton from '@/components/button/DarkButton.vue'
 
 const props = defineProps<{
 	budget: Budget

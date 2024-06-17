@@ -12,16 +12,16 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(balance) }}
 					</div>
-					<ButtonPlus @click="addTransaction" />
-					<ButtonSettings @click="$emit('editAccount', account)" />
-					<button
-						type="button"
-						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-slate-500"
-						@click="toggleSorting"
-					>
+					<IndigoButton @click="addTransaction">
+						<Plus class="h-4 w-4 text-white" />
+					</IndigoButton>
+					<DarkButton @click="$emit('editAccount', account)">
+						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
+					</DarkButton>
+					<DarkButton @click="toggleSorting">
 						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4 text-gray-900 dark:text-white" />
 						<ArrowUpZA v-else class="h-4 w-4 text-gray-900 dark:text-white" />
-					</button>
+					</DarkButton>
 				</div>
 			</div>
 		</div>
@@ -68,14 +68,14 @@ import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
 import { parseAmount, type Transaction } from '@/lib/transaction'
-import { ChevronDown, ArrowUpZA, ArrowDownAZ } from 'lucide-vue-next'
+import { ChevronDown, ArrowUpZA, ArrowDownAZ, Plus, Settings2 } from 'lucide-vue-next'
 import { formatMoney, getIcon } from '@/lib/utils'
 import ModalDialog from '@/components/form/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import { isSameMonth, parseISO } from 'date-fns'
-import ButtonPlus from '@/components/form/button/ButtonPlus.vue'
-import ButtonSettings from '@/components/form/button/ButtonSettings.vue'
+import DarkButton from '@/components/button/DarkButton.vue'
+import IndigoButton from '@/components/button/IndigoButton.vue'
 
 const props = defineProps<{
 	account: Account
