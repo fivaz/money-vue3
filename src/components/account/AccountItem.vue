@@ -29,7 +29,8 @@
 						class="rounded bg-white px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
 						@click="toggleSorting"
 					>
-						<ArrowDownAZ :class="['h-4 w-4', isSortingAscending && 'rotate-180 transform']" />
+						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4" />
+						<ArrowUpZA v-else class="h-4 w-4" />
 					</button>
 				</div>
 			</div>
@@ -75,7 +76,7 @@ import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
 import { parseAmount, type Transaction } from '@/lib/transaction'
-import { Plus, Settings2, ChevronDown, ArrowDownAZ } from 'lucide-vue-next'
+import { Plus, Settings2, ChevronDown, ArrowUpZA, ArrowDownAZ } from 'lucide-vue-next'
 import { formatMoney, getIcon } from '@/lib/utils'
 import ModalDialog from '@/components/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
