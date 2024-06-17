@@ -21,29 +21,23 @@
 		</ul>
 
 		<div v-if="budgets.length === 0" class="pt-10 text-center">
-			<PiggyBank class="mx-auto h-12 w-12 text-gray-400" />
-			<h3 class="mt-2 text-sm font-semibold text-gray-900">No budget</h3>
-			<p class="mt-1 text-sm text-gray-500">Get started by creating your first budget.</p>
-			<div class="mt-6">
-				<button
-					type="button"
-					@click="addBudget"
-					class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-				>
-					<Plus class="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+			<PiggyBank class="mx-auto h-16 w-16 text-gray-400" />
+			<h3 class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">No Budget</h3>
+			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+				Get started by creating your first budget.
+			</p>
+			<div class="mt-6 flex justify-center">
+				<BigIndigoButton type="button" @click="addBudget">
+					<Plus class="h-5 w-5" aria-hidden="true" />
 					New Budget
-				</button>
+				</BigIndigoButton>
 			</div>
 		</div>
 
-		<button
-			@click="addBudget"
-			type="button"
-			class="absolute bottom-0 right-0 z-10 m-3 inline-flex rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-		>
-			<Plus class="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+		<BigIndigoButton @click="addBudget" type="button" class="absolute bottom-0 right-0 z-10 m-3">
+			<Plus class="h-5 w-5" aria-hidden="true" />
 			New Budget
-		</button>
+		</BigIndigoButton>
 
 		<ModalDialog :show="showForm" @close="showForm = false">
 			<BudgetForm @close="showForm = false" :budget="editingBudget" />
@@ -67,6 +61,7 @@ import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
 import { Plus, PiggyBank } from 'lucide-vue-next'
 import { icons } from '@/lib/utils'
 import { isSameMonth, parseISO } from 'date-fns'
+import BigIndigoButton from '@/components/button/BigIndigoButton.vue'
 
 const currentDate = ref(new Date())
 

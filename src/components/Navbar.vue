@@ -90,7 +90,7 @@
 							v-for="item in navigation"
 							:key="item.name"
 							:to="item.href"
-							class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white"
+							class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-900"
 						>
 							{{ item.name }}
 						</RouterLink>

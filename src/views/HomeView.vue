@@ -25,29 +25,23 @@
 		</ul>
 
 		<div v-if="accounts.length === 0" class="pt-10 text-center">
-			<Vault class="mx-auto h-12 w-12 text-gray-400" />
-			<h3 class="mt-2 text-sm font-semibold text-gray-900">No account</h3>
-			<p class="mt-1 text-sm text-gray-500">Get started by creating your first account.</p>
-			<div class="mt-6">
-				<button
-					type="button"
-					@click="addAccount"
-					class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-				>
-					<Plus class="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+			<Vault class="mx-auto h-16 w-16 text-gray-400" />
+			<h3 class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">No Account</h3>
+			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+				Get started by creating your first account.
+			</p>
+			<div class="mt-6 flex justify-center">
+				<BigIndigoButton type="button" @click="addAccount">
+					<Plus class="h-5 w-5" aria-hidden="true" />
 					New Account
-				</button>
+				</BigIndigoButton>
 			</div>
 		</div>
 
-		<button
-			@click="addAccount"
-			type="button"
-			class="absolute bottom-0 right-0 z-10 m-3 inline-flex rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-		>
-			<Plus class="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+		<BigIndigoButton @click="addAccount" type="button" class="absolute bottom-0 right-0 z-10 m-3">
+			<Plus class="h-5 w-5" aria-hidden="true" />
 			New Account
-		</button>
+		</BigIndigoButton>
 
 		<ModalDialog :show="showForm" @close="showForm = false">
 			<AccountForm @close="showForm = false" :account="editingAccount" :length="accounts.length" />
@@ -70,6 +64,7 @@ import type { Budget } from '@/lib/budget'
 import { Plus, Vault } from 'lucide-vue-next'
 import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
 import { formatMoney, icons } from '@/lib/utils'
+import BigIndigoButton from '@/components/button/BigIndigoButton.vue'
 
 const currentDate = ref(new Date())
 
