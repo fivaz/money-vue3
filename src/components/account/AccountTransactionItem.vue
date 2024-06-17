@@ -22,12 +22,7 @@
 					class="h-4 w-4"
 				/>
 			</span>
-			<span
-				:class="[
-					'flex items-center gap-2',
-					parseAmount(transaction, accountId) >= 0 ? 'text-green-500' : 'text-red-500',
-				]"
-			>
+			<span :class="['flex items-center gap-2', getAmountColor()]">
 				<ArrowRightLeft v-if="transaction.operation === 'transfer'" class="h-5 w-5" />
 				{{ formatAmount() }}
 			</span>
@@ -40,9 +35,15 @@ import { parseAmount, type Transaction } from '@/lib/transaction'
 import { format } from 'date-fns'
 import { ArrowRightLeft, Clock, CalendarCheck } from 'lucide-vue-next'
 import { getIcon } from '@/lib/utils'
-import { SHORT_DATETIME_FR } from '../../lib/consts'
+import { SHORT_DATETIME_FR } from '@/lib/consts'
 
 const props = defineProps<{ accountId: string; transaction: Transaction }>()
+
+function getAmountColor() {
+	if (props.transaction.isPaid) {
+		return parseAmount(props.transaction, props.accountId) >= 0 ? 'text-green-500' : 'text-red-500'
+	}
+}
 
 function formatAmount() {
 	const amount = parseAmount(props.transaction, props.accountId)
