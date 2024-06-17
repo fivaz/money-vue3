@@ -36,20 +36,7 @@
 			</div>
 
 			<div class="col-span-3">
-				<label
-					for="date"
-					class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
-				>
-					Date
-				</label>
-				<input
-					type="datetime-local"
-					name="date"
-					id="date"
-					required
-					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-					v-model="transactionIn.date"
-				/>
+				<LabelInput type="datetime-local" v-model="transactionIn.date" name="date" />
 			</div>
 		</div>
 
