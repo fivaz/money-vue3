@@ -1,6 +1,6 @@
 <template>
 	<li
-		class="border-b p-3 text-slate-500 hover:bg-gray-50 hover:text-slate-700 hover:underline dark:text-slate-400 dark:hover:bg-slate-900"
+		class="border-b p-3 text-slate-500 hover:bg-gray-50 hover:text-gray-700 hover:underline dark:text-gray-400 dark:hover:bg-slate-900 dark:hover:text-gray-300"
 	>
 		<button class="flex w-full justify-between" @click="$emit('edit', transaction)">
 			<span class="flex items-center gap-4">

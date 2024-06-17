@@ -34,9 +34,13 @@
 			<div class="col-span-2">
 				<LabelInput v-model="transactionIn.amount" name="amount" />
 			</div>
-
 			<div class="col-span-3">
-				<LabelInput type="datetime-local" v-model="transactionIn.date" name="date" />
+				<LabelInput
+					type="datetime-local"
+					v-model="transactionIn.date"
+					class="col-span-3"
+					name="date"
+				/>
 			</div>
 		</div>
 
@@ -63,13 +67,19 @@
 					<span>{{ budget.name }}</span>
 				</SelectItem>
 			</Select>
-			<span v-else class="text-sm text-red-500">no budgets created yet</span>
+			<div v-else>
+				<span class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
+					Account
+				</span>
+				<span class="text-sm text-red-500">no budgets created yet</span>
+			</div>
+
 			<label class="flex gap-2 pb-2 text-slate-900 dark:text-white">
 				is paid
 				<Toggle v-model="transactionIn.isPaid" />
 			</label>
 		</div>
-		<div class="grid grid-cols-2 gap-5">
+		<div class="grid grid-cols-2 gap-5" v-if="accounts.length">
 			<Select
 				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
 				v-model="transactionIn.account"
@@ -116,6 +126,13 @@
 					<span>{{ account.name }}</span>
 				</SelectItem>
 			</Select>
+		</div>
+
+		<div v-else>
+			<span class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
+				Account
+			</span>
+			<span class="text-sm text-red-500">no accounts created yet</span>
 		</div>
 
 		<div>
