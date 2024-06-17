@@ -32,20 +32,7 @@
 					<Logo class="h-8 w-auto" />
 				</div>
 				<div class="flex flex-1 justify-end gap-5">
-					<Toggle v-model="isDark">
-						<template v-slot:active>
-							<Sun class="h-full w-full" />
-						</template>
-						<template v-slot:inactive>
-							<Moon class="h-full w-full" />
-						</template>
-					</Toggle>
-					<button
-						@click="logout"
-						class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
-					>
-						Log out <span aria-hidden="true">&rarr;</span>
-					</button>
+					<NavbarMenu />
 				</div>
 			</nav>
 			<Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -69,20 +56,7 @@
 							<Logo class="h-8 w-auto" />
 						</div>
 						<div class="flex flex-1 justify-end gap-5">
-							<Toggle v-model="isDark">
-								<template v-slot:active>
-									<Sun class="h-full w-full" />
-								</template>
-								<template v-slot:inactive>
-									<Moon class="h-full w-full" />
-								</template>
-							</Toggle>
-							<button
-								@click="logout"
-								class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
-							>
-								Log out <span aria-hidden="true">&rarr;</span>
-							</button>
+							<NavbarMenu />
 						</div>
 					</div>
 					<div class="mt-6 space-y-2">
@@ -107,16 +81,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { signOut } from 'firebase/auth'
-import { useRouter } from 'vue-router'
-import { useFirebaseAuth } from 'vuefire'
-import { budgetsRoute, homeRoute, loginRoute } from '@/router'
+import { budgetsRoute, homeRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
-import Toggle from '@/components/form/Toggle.vue'
-import { Moon, Sun } from 'lucide-vue-next'
+import NavbarMenu from '@/components/NavbarMenu.vue'
 
 const navigation = [
 	{ name: 'Home', href: homeRoute },
@@ -124,23 +94,4 @@ const navigation = [
 ]
 
 const mobileMenuOpen = ref(false)
-
-const isDark = ref(false)
-
-watch(isDark, (newValue) => {
-	if (newValue) document.documentElement.classList.add('dark')
-	else document.documentElement.classList.remove('dark')
-
-	localStorage.setItem('darkMode', isDark.value.toString())
-})
-
-onMounted(() => (isDark.value = localStorage.getItem('darkMode') === 'true'))
-
-const router = useRouter()
-
-const auth = useFirebaseAuth()
-async function logout() {
-	await signOut(auth!)
-	void router.push(loginRoute)
-}
 </script>
