@@ -1,19 +1,11 @@
 <template>
-	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
+	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
 		{{ account.id ? 'Edit Account' : 'Add Account' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex w-[300px] flex-col gap-5">
 		<div class="grid grid-cols-2 gap-5">
 			<div class="col-span-1">
-				<label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-				<input
-					type="text"
-					name="name"
-					v-model="accountIn.name"
-					required
-					id="name"
-					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-				/>
+				<LabelInput type="text" name="name" v-model="accountIn.name" required />
 			</div>
 
 			<div class="col-span-1">
@@ -58,9 +50,10 @@ import { ref } from 'vue'
 import { addAccount, editAccount, deleteAccount, type Account } from '@/lib/account'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
-import IconSelector from '@/components/budget/IconSelector.vue'
+import IconSelector from '@/components/IconSelector.vue'
 import SelectItem from '@/components/SelectItem.vue'
 import Select from '@/components/Select.vue'
+import LabelInput from '@/components/LabelInput.vue'
 
 const props = defineProps<{ account: Account; length: number }>()
 

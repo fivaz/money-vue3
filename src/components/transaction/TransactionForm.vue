@@ -163,29 +163,20 @@
 			>
 				<div v-if="isRecurringOpen" class="grid grid-cols-2 gap-5">
 					<div class="col-span-1">
-						<label
-							for="date"
-							class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
-						>
-							Start date
-						</label>
-						<input
+						<LabelInput
 							v-model="transactionIn.startDate"
 							required
+							name="Start date"
 							type="date"
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 						/>
 					</div>
 					<div class="col-span-1">
-						<label
-							for="date"
-							class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
-						>
-							End date
-						</label>
-						<input
+						<LabelInput
 							v-model="transactionIn.endDate"
 							required
+							name="endDate"
+							label="End Date"
 							type="date"
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 						/>
