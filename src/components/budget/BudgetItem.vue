@@ -47,15 +47,15 @@
 				</DisclosurePanel>
 			</transition>
 			<DisclosureButton class="flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700">
-				<ChevronDown :class="open && 'rotate-180 transform'" />
+				<ChevronDown :class="[{ 'rotate-180 transform': open }]" />
 			</DisclosureButton>
 		</Disclosure>
 	</li>
 
 	<ModalDialog :show="showForm" @close="showForm = false">
 		<TransactionForm
-			:transaction="editingTransaction"
 			@close="showForm = false"
+			:transaction="editingTransaction"
 			:accounts="accounts"
 			:budgets="budgets"
 		/>

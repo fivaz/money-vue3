@@ -46,7 +46,7 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<AccountTransactionItem
-						v-for="transaction in sortCurrentTransactions"
+						v-for="transaction in sortedCurrentTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						:account-id="account.id"
@@ -109,7 +109,7 @@ const currentTransactions = computed(() =>
 	),
 )
 
-const sortCurrentTransactions = computed(() => {
+const sortedCurrentTransactions = computed(() => {
 	return [...currentTransactions.value].sort((a, b) => {
 		if (isSortingAscending.value) {
 			return new Date(a.date).getTime() - new Date(b.date).getTime()
