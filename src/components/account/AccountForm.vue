@@ -27,14 +27,7 @@
 		<IconSelector v-model="accountIn.icon" />
 
 		<div class="flex justify-between">
-			<button
-				v-if="account.id"
-				type="button"
-				@click="handleDelete"
-				class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-			>
-				Delete
-			</button>
+			<BigDarkButton v-if="account.id" type="button" @click="handleDelete">Delete</BigDarkButton>
 			<button
 				class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 				type="submit"
@@ -54,6 +47,7 @@ import IconSelector from '@/components/form/IconSelector.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import Select from '@/components/form/Select.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import BigDarkButton from '@/components/button/BigDarkButton.vue'
 
 const props = defineProps<{ account: Account; length: number }>()
 

@@ -10,20 +10,8 @@
 		<IconSelector v-model="budgetIn.icon" />
 
 		<div class="flex justify-between">
-			<button
-				v-if="budget.id"
-				type="button"
-				@click="handleDelete"
-				class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-			>
-				Delete
-			</button>
-			<button
-				class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-				type="submit"
-			>
-				Save
-			</button>
+			<BigDarkButton v-if="budget.id" type="button" @click="handleDelete">Delete</BigDarkButton>
+			<BigIndigoButton type="submit">Save</BigIndigoButton>
 		</div>
 	</form>
 </template>
@@ -35,6 +23,8 @@ import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import BigDarkButton from '@/components/button/BigDarkButton.vue'
+import BigIndigoButton from '@/components/button/BigIndigoButton.vue'
 
 const props = defineProps<{ budget: Budget }>()
 
