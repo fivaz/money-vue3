@@ -1,6 +1,8 @@
 <template>
 	<div class="relative flex flex-col gap-2">
-		<label for="icon" class="block text-sm font-medium leading-6 text-gray-900">Icon</label>
+		<label for="icon" class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
+			Icon
+		</label>
 		<!--    activate the research if there are too many icons-->
 		<!--		<input-->
 		<!--			type="text"-->
@@ -17,8 +19,8 @@
 			<button
 				v-for="icon in filteredIcons"
 				:class="[
-					{ 'bg-indigo-200 text-indigo-700': value === icon.name },
-					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
+					{ 'bg-indigo-700 text-indigo-100': value === icon.name },
+					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl text-slate-900 dark:text-white',
 				]"
 				@click="() => (value = icon.name)"
 				type="button"

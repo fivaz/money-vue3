@@ -3,7 +3,7 @@
 		<ListboxLabel class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
 			{{ title }}
 		</ListboxLabel>
-		<div class="relative mt-1">
+		<div class="relative">
 			<ListboxButton
 				class="relative block w-full cursor-default rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 			>
