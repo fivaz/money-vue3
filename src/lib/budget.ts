@@ -10,9 +10,9 @@ export type Budget = {
 }
 
 export function addBudget(db: ReturnType<typeof useFirestore>, budget: Budget, userId: string) {
+	const { id, ...data } = budget
 	const budgetCollectionRef = collection(db, USERS, userId, BUDGETS)
-
-	void addDoc(budgetCollectionRef, budget)
+	void addDoc(budgetCollectionRef, data)
 }
 export function editBudget(db: ReturnType<typeof useFirestore>, budget: Budget, userId: string) {
 	const { id, ...data } = budget

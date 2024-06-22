@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 import { addBudget, editBudget, deleteBudget, type Budget } from '@/lib/budget'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
