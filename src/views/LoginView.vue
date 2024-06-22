@@ -16,10 +16,10 @@
 						class="pointer-events-none absolute inset-0 z-10 rounded-md ring-1 ring-inset ring-gray-300"
 					/>
 					<div>
-						<label for="email-address" class="sr-only">Email address</label>
+						<label for="email" class="sr-only">Email address</label>
 						<input
 							v-model="email"
-							id="email-address"
+							id="email"
 							name="email"
 							type="email"
 							autocomplete="email"
@@ -34,7 +34,7 @@
 							v-model="password"
 							id="password"
 							name="password"
-							type="password"
+							type="text"
 							autocomplete="current-password"
 							required
 							class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -66,9 +66,14 @@
 				<div>
 					<button
 						type="submit"
-						class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+						:class="[
+							isLoading ? 'bg-indigo-400' : 'bg-indigo-600',
+							'flex w-full items-center justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+						]"
+						:disabled="isLoading"
 					>
-						Sign in
+						<LoaderCircle v-if="isLoading" class="h-5 w-5 animate-spin" />
+						<span v-else>Sign in</span>
 					</button>
 				</div>
 			</form>
@@ -94,6 +99,7 @@ import { FirebaseError } from 'firebase/app'
 import { homeRoute, registerRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
 import Alert from '@/components/form/Alert.vue'
+import { LoaderCircle } from 'lucide-vue-next'
 
 const router = useRouter()
 const route = useRoute()
@@ -101,10 +107,15 @@ const route = useRoute()
 const errorMessage = ref('')
 const email = ref('')
 const password = ref('')
+const isLoading = ref(false)
 const auth = useFirebaseAuth()!
 async function handleSubmit() {
+	isLoading.value = true
+	errorMessage.value = ''
 	try {
 		await signInWithEmailAndPassword(auth, email.value, password.value)
+
+		void router.push(route.query.redirect?.toString() || homeRoute)
 	} catch (error) {
 		if (error instanceof FirebaseError) {
 			if (error.code === 'auth/invalid-credential') {
@@ -117,8 +128,7 @@ async function handleSubmit() {
 		} else {
 			errorMessage.value = error as unknown as string
 		}
+		isLoading.value = false
 	}
-
-	void router.push(route.query.redirect?.toString() || homeRoute)
 }
 </script>
