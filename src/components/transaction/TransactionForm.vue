@@ -32,7 +32,7 @@
 
 		<div class="grid grid-cols-5 gap-5">
 			<div class="col-span-2">
-				<LabelInput v-model="transactionIn.amount" name="amount" />
+				<LabelInput type="number" step="0.01" v-model="transactionIn.amount" name="amount" />
 			</div>
 			<div class="col-span-3">
 				<LabelInput
@@ -272,6 +272,11 @@ watch(
 			)
 		}
 	},
+)
+
+watch(
+	() => transactionIn.value.amount,
+	(amount) => {},
 )
 
 function submitForm() {
