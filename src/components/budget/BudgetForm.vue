@@ -18,13 +18,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { addBudget, editBudget, deleteBudget, type Budget } from '@/lib/budget'
+import { addBudget, editBudget, type Budget, deleteBudget } from '@/lib/budget'
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { DialogTitle } from '@headlessui/vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import BigDarkButton from '@/components/button/BigDarkButton.vue'
 import BigIndigoButton from '@/components/button/BigIndigoButton.vue'
+import { usePromptStore } from '@/lib/promptStore'
 
 const props = defineProps<{ budget: Budget }>()
 
@@ -35,6 +36,8 @@ const budgetIn = ref<Budget>({ ...props.budget, id: props.budget.id })
 const user = useCurrentUser()
 const db = useFirestore()
 
+const store = usePromptStore()
+
 function submitForm() {
 	if (budgetIn.value.id) {
 		editBudget(db, budgetIn.value, user.value!.uid)
@@ -44,10 +47,18 @@ function submitForm() {
 	emit('close')
 }
 
-function handleDelete() {
-	if (budgetIn.value.id) {
-		deleteBudget(db, budgetIn.value.id, user.value!.uid)
-		emit('close')
-	}
+async function handleDelete() {
+	if (
+		await store.createModal({
+			title: 'Delete Budget',
+			message: 'Are you sure you want to delete this budget ?',
+			cancelText: 'Cancel',
+			confirmText: 'Delete',
+		})
+	)
+		if (budgetIn.value.id) {
+			deleteBudget(db, budgetIn.value.id, user.value!.uid)
+			emit('close')
+		}
 }
 </script>
