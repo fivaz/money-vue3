@@ -21,6 +21,6 @@ const sizeClass = {
 const colorClass = {
 	indigo: 'bg-indigo-500 text-white hover:bg-indigo-400',
 	white:
-		'bg-white text-gray-900 hover:bg-gray-50 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30',
+		'bg-white text-gray-900 hover:bg-gray-100 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30',
 }
 </script>
