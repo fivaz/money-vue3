@@ -27,8 +27,10 @@
 		<IconSelector v-model="accountIn.icon" />
 
 		<div class="flex justify-between">
-			<BigDarkButton v-if="account.id" type="button" @click="handleDelete">Delete</BigDarkButton>
-			<BigIndigoButton type="submit">Save</BigIndigoButton>
+			<Button size="big" color="white" v-if="account.id" type="button" @click="handleDelete">
+				Delete
+			</Button>
+			<Button size="big" color="indigo" type="submit">Save</Button>
 		</div>
 	</form>
 </template>
@@ -42,8 +44,7 @@ import IconSelector from '@/components/form/IconSelector.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import Select from '@/components/form/Select.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
-import BigDarkButton from '@/components/button/BigDarkButton.vue'
-import BigIndigoButton from '@/components/button/BigIndigoButton.vue'
+import Button from '@/components/Button.vue'
 
 const props = defineProps<{ account: Account; length: number }>()
 
