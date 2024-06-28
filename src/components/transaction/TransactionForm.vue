@@ -274,11 +274,6 @@ watch(
 	},
 )
 
-watch(
-	() => transactionIn.value.amount,
-	(amount) => {},
-)
-
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)
 
