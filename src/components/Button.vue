@@ -3,8 +3,10 @@
 		:class="[
 			'flex items-center gap-2 rounded-md text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500',
 			sizeClass[size],
-			colorClass[color],
+			colorClass[color].core,
+			colorClass[color][isLoading ? 'loading' : 'normal'],
 		]"
+		:disabled="isLoading"
 	>
 		<slot />
 	</button>
@@ -19,8 +21,9 @@ const sizeClass = {
 }
 
 const colorClass = {
-	indigo: 'bg-indigo-500 text-white hover:bg-indigo-400',
-	white:
-		'bg-white text-gray-900 hover:bg-gray-100 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30',
+	indigo: {loading : 'bg-indigo-400', normal: 'bg-indigo-600', core: 'text-white hover:bg-indigo-400'},
+	white: {loading: 'bg-gray-100', normal: 'bg-white', core: 'text-gray-900 hover:bg-gray-100 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30'},
 }
+
+const isLoading =
 </script>

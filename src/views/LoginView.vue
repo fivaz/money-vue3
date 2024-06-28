@@ -66,7 +66,7 @@
 						type="submit"
 						:class="[
 							isLoading ? 'bg-indigo-400' : 'bg-indigo-600',
-							'flex w-full items-center justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+							'flex w-full items-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
 						]"
 						:disabled="isLoading"
 					>
