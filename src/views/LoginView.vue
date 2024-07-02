@@ -62,17 +62,15 @@
 				</div>
 
 				<div>
-					<button
+					<MButton
 						type="submit"
-						:class="[
-							isLoading ? 'bg-indigo-400' : 'bg-indigo-600',
-							'flex w-full items-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
-						]"
-						:disabled="isLoading"
+						size="big"
+						color="indigo"
+						class="w-full justify-center"
+						:is-loading="isLoading"
 					>
-						<LoaderCircle v-if="isLoading" class="h-5 w-5 animate-spin" />
-						<span v-else>Sign in</span>
-					</button>
+						Sign in
+					</MButton>
 				</div>
 			</form>
 
@@ -97,7 +95,7 @@ import { FirebaseError } from 'firebase/app'
 import { homeRoute, registerRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
 import Alert from '@/components/form/Alert.vue'
-import { LoaderCircle } from 'lucide-vue-next'
+import MButton from '@/components/MButton.vue'
 
 const router = useRouter()
 const route = useRoute()

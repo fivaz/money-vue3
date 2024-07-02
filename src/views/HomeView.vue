@@ -31,14 +31,14 @@
 				Get started by creating your first account.
 			</p>
 			<div class="mt-6 flex justify-center">
-				<Button size="big" color="indigo" type="button" @click="addAccount">
+				<MButton size="big" color="indigo" type="button" @click="addAccount">
 					<Plus class="h-5 w-5" aria-hidden="true" />
 					New Account
-				</Button>
+				</MButton>
 			</div>
 		</div>
 
-		<Button
+		<MButton
 			size="big"
 			color="indigo"
 			type="button"
@@ -47,7 +47,7 @@
 		>
 			<Plus class="h-5 w-5" aria-hidden="true" />
 			New Account
-		</Button>
+		</MButton>
 
 		<ModalDialog :show="showForm" @close="showForm = false">
 			<AccountForm @close="showForm = false" :account="editingAccount" :length="accounts.length" />
@@ -70,7 +70,7 @@ import type { Budget } from '@/lib/budget'
 import { Plus, Vault } from 'lucide-vue-next'
 import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
 import { formatMoney, icons } from '@/lib/utils'
-import Button from '@/components/Button.vue'
+import MButton from '@/components/MButton.vue'
 
 const currentDate = ref(new Date())
 

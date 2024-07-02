@@ -10,10 +10,10 @@
 		<IconSelector v-model="budgetIn.icon" />
 
 		<div class="flex justify-between">
-			<Button size="big" color="white" v-if="budget.id" type="button" @click="handleDelete">
+			<MButton size="big" color="white" v-if="budget.id" type="button" @click="handleDelete">
 				Delete
-			</Button>
-			<Button size="big" color="indigo" type="submit">Save</Button>
+			</MButton>
+			<MButton size="big" color="indigo" type="submit">Save</MButton>
 		</div>
 	</form>
 </template>
@@ -26,7 +26,7 @@ import { DialogTitle } from '@headlessui/vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import { usePromptStore } from '@/lib/promptStore'
-import Button from '@/components/Button.vue'
+import MButton from '@/components/MButton.vue'
 
 const props = defineProps<{ budget: Budget }>()
 

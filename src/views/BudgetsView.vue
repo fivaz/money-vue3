@@ -27,14 +27,14 @@
 				Get started by creating your first budget.
 			</p>
 			<div class="mt-6 flex justify-center">
-				<Button size="big" color="indigo" type="button" @click="addBudget">
+				<MButton size="big" color="indigo" type="button" @click="addBudget">
 					<Plus class="h-5 w-5" aria-hidden="true" />
 					New Budget
-				</Button>
+				</MButton>
 			</div>
 		</div>
 
-		<Button
+		<MButton
 			size="big"
 			color="indigo"
 			type="button"
@@ -43,7 +43,7 @@
 		>
 			<Plus class="h-5 w-5" aria-hidden="true" />
 			New Budget
-		</Button>
+		</MButton>
 
 		<ModalDialog :show="showForm" @close="showForm = false">
 			<BudgetForm @close="showForm = false" :budget="editingBudget" />
@@ -67,7 +67,7 @@ import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
 import { Plus, PiggyBank } from 'lucide-vue-next'
 import { icons } from '@/lib/utils'
 import { isSameMonth, parseISO } from 'date-fns'
-import Button from '@/components/Button.vue'
+import MButton from '@/components/MButton.vue'
 
 const currentDate = ref(new Date())
 

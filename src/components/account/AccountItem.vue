@@ -12,16 +12,16 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(balance) }}
 					</div>
-					<Button color="indigo" size="small" type="button" @click="addTransaction">
+					<MButton color="indigo" size="small" type="button" @click="addTransaction">
 						<Plus class="h-4 w-4 text-white" />
-					</Button>
-					<Button size="small" color="white" type="button" @click="$emit('editAccount', account)">
+					</MButton>
+					<MButton size="small" color="white" type="button" @click="$emit('editAccount', account)">
 						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
-					</Button>
-					<Button color="white" size="small" type="button" @click="toggleSorting">
+					</MButton>
+					<MButton color="white" size="small" type="button" @click="toggleSorting">
 						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4 text-gray-900 dark:text-white" />
 						<ArrowUpZA v-else class="h-4 w-4 text-gray-900 dark:text-white" />
-					</Button>
+					</MButton>
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@ import ModalDialog from '@/components/form/Modal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
 import { isSameMonth, parseISO } from 'date-fns'
-import Button from '@/components/Button.vue'
+import MButton from '@/components/MButton.vue'
 
 const props = defineProps<{
 	account: Account

@@ -12,12 +12,12 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(budget.value) }}
 					</div>
-					<Button size="small" color="indigo" type="button" @click="addTransaction">
+					<MButton size="small" color="indigo" type="button" @click="addTransaction">
 						<Plus class="h-4 w-4 text-white" />
-					</Button>
-					<Button size="small" color="white" type="button" @click="$emit('editBudget', budget)">
+					</MButton>
+					<MButton size="small" color="white" type="button" @click="$emit('editBudget', budget)">
 						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
-					</Button>
+					</MButton>
 				</div>
 			</div>
 			<ProgressBar :transactions="budgetTransactions" :budget="budget" />
@@ -68,7 +68,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
 import ProgressBar from '@/components/form/ProgressBar.vue'
 import { formatMoney, getIcon } from '@/lib/utils'
-import Button from '@/components/Button.vue'
+import MButton from '@/components/MButton.vue'
 
 const props = defineProps<{
 	budget: Budget

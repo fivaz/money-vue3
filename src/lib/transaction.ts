@@ -34,7 +34,7 @@ export function parseAmount(transaction: Transaction, accountId: string) {
 export function formatDateOut(transaction: Transaction): Transaction {
 	return {
 		...transaction,
-amount: Number(transaction.amount),
+		amount: Number(transaction.amount),
 		date: new Date(transaction.date).toISOString(),
 	}
 }
