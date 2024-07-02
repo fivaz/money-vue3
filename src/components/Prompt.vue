@@ -87,16 +87,16 @@ const promptStore = usePromptStore()
 
 function confirm() {
 	promptStore.prompt.resolve(true)
-	promptStore.closeModal()
+	promptStore.closePrompt()
 }
 
 function cancel() {
 	promptStore.prompt.resolve(false)
-	promptStore.closeModal()
+	promptStore.closePrompt()
 }
 
 function close() {
 	promptStore.prompt.resolve(null)
-	promptStore.closeModal()
+	promptStore.closePrompt()
 }
 </script>

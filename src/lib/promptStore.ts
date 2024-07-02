@@ -5,14 +5,14 @@ const closedPrompt = {
 	cancelText: '',
 	confirmText: '',
 	message: '',
-	resolve: (value: boolean | null) => {},
+	resolve: (_: boolean | null) => {},
 	show: false,
 	title: '',
 }
 
 export const usePromptStore = defineStore('prompt', () => {
 	const prompt = ref({ ...closedPrompt })
-	function createModal({
+	function createPrompt({
 		cancelText = 'cancel',
 		confirmText = 'confirm',
 		message = '',
@@ -33,13 +33,13 @@ export const usePromptStore = defineStore('prompt', () => {
 		})
 	}
 
-	function closeModal() {
+	function closePrompt() {
 		prompt.value.show = false
 	}
 
 	return {
 		prompt,
-		createModal,
-		closeModal,
+		createPrompt,
+		closePrompt,
 	}
 })

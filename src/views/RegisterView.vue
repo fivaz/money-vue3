@@ -1,5 +1,7 @@
 <template>
-	<div class="flex min-h-full flex-1 flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
+	<div
+		class="flex h-screen min-h-full flex-1 flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8"
+	>
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
 			<Logo class="mx-auto h-10 w-auto" />
 			<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -9,72 +11,35 @@
 
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
 			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-				<Alert v-if="!!errorMessage">{{ errorMessage }}</Alert>
 				<form class="space-y-6" @submit.prevent="handleSubmit">
+					<Alert v-if="!!errorMessage">{{ errorMessage }}</Alert>
 					<div v-if="email" class="flex flex-col justify-center">
 						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
 						</h3>
 						<img alt="your avatar" class="h-10 w-auto" :src="codedAvatar" />
 					</div>
+
 					<div>
-						<label class="block text-sm font-medium leading-6 text-gray-900" for="name">
-							Full Name
-						</label>
-						<div class="mt-2">
-							<input
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								id="name"
-								name="displayName"
-								type="text"
-								v-model="name"
-							/>
-						</div>
+						<LabelInput label="Full Name" name="name" required type="text" v-model="name" />
 					</div>
 					<div>
-						<label class="block text-sm font-medium leading-6 text-gray-900" for="email">
-							Email address
-						</label>
-						<div class="mt-2">
-							<input
-								autocomplete="email"
-								v-model="email"
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								id="email"
-								name="email"
-								type="email"
-							/>
-						</div>
+						<LabelInput label="Email address" name="email" required type="email" v-model="email" />
+					</div>
+					<div>
+						<LabelInput name="password" required type="password" v-model="password" />
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium leading-6 text-gray-900" for="password">
-							Password
-						</label>
-						<div class="mt-2">
-							<input
-								autocomplete="current-password"
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								id="password"
-								name="password"
-								type="password"
-								v-model="password"
-							/>
-						</div>
-					</div>
-
-					<div>
-						<button
+						<MButton
+							:is-loading="isLoading"
+							color="indigo"
+							size="big"
 							type="submit"
-							:class="[
-								isLoading ? 'bg-indigo-400' : 'bg-indigo-600',
-								'flex w-full items-center justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
-							]"
-							:disabled="isLoading"
+							class="w-full justify-center"
 						>
-							<LoaderCircle v-if="isLoading" class="h-5 w-5 animate-spin" />
-							<span v-else>Register</span>
-						</button>
+							Register
+						</MButton>
 					</div>
 				</form>
 			</div>
@@ -102,11 +67,12 @@ import { doc, setDoc } from 'firebase/firestore'
 import { AVATARS, USERS } from '@/lib/consts'
 import { homeRoute, loginRoute } from '@/router'
 import Logo from '@/components/Logo.vue'
-import { LoaderCircle } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
 import Alert from '@/components/form/Alert.vue'
 import type { Auth } from 'firebase/auth'
+import MButton from '@/components/MButton.vue'
+import LabelInput from '@/components/form/LabelInput.vue'
 
 const errorMessage = ref('')
 const name = ref('')

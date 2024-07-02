@@ -50,7 +50,7 @@ function submitForm() {
 
 async function handleDelete() {
 	if (
-		await store.createModal({
+		await store.createPrompt({
 			title: 'Delete Budget',
 			message: 'Are you sure you want to delete this budget ?',
 			cancelText: 'Cancel',

@@ -206,12 +206,7 @@
 			<MButton size="big" color="white" type="button" v-if="transaction.id" @click="handleDelete">
 				Delete
 			</MButton>
-			<button
-				type="submit"
-				class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-			>
-				Save
-			</button>
+			<MButton type="submit" size="big" color="indigo"> Save </MButton>
 		</div>
 	</form>
 </template>
