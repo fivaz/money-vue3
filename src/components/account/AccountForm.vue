@@ -45,6 +45,7 @@ import SelectItem from '@/components/form/SelectItem.vue'
 import Select from '@/components/form/Select.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MButton from '@/components/MButton.vue'
+import { usePromptStore } from '@/lib/promptStore'
 
 const props = defineProps<{ account: Account; length: number }>()
 
@@ -55,6 +56,8 @@ const accountIn = ref<Account>({ ...props.account, id: props.account.id })
 const user = useCurrentUser()
 const db = useFirestore()
 
+const store = usePromptStore()
+
 function submitForm() {
 	if (accountIn.value.id) {
 		editAccount(db, accountIn.value, user.value!.uid)
@@ -64,10 +67,18 @@ function submitForm() {
 	emit('close')
 }
 
-function handleDelete() {
-	if (accountIn.value.id) {
-		deleteAccount(db, accountIn.value.id, user.value!.uid)
-		emit('close')
-	}
+async function handleDelete() {
+	if (
+		await store.createPrompt({
+			title: 'Delete Budget',
+			message: 'Are you sure you want to delete this budget ?',
+			cancelText: 'Cancel',
+			confirmText: 'Delete',
+		})
+	)
+		if (accountIn.value.id) {
+			deleteAccount(db, accountIn.value.id, user.value!.uid)
+			emit('close')
+		}
 }
 </script>

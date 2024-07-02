@@ -234,6 +234,7 @@ import { DATETIME_OUT } from '@/lib/consts'
 import Toggle from '@/components/form/Toggle.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MButton from '@/components/MButton.vue'
+import { usePromptStore } from '@/lib/promptStore'
 
 const props = defineProps<{
 	budgets: Budget[]
@@ -247,6 +248,7 @@ const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 
 const user = useCurrentUser()
 const db = useFirestore()
+const store = usePromptStore()
 
 const isRecurring = ref(!!(props.transaction.startDate && props.transaction.endDate))
 const isRecurringOpen = ref(false)
@@ -282,10 +284,18 @@ function submitForm() {
 	emit('close')
 }
 
-function handleDelete() {
-	if (transactionIn.value.id) {
-		deleteTransaction(db, transactionIn.value.id, user.value!.uid)
-		emit('close')
-	}
+async function handleDelete() {
+	if (
+		await store.createPrompt({
+			title: 'Delete Budget',
+			message: 'Are you sure you want to delete this budget ?',
+			cancelText: 'Cancel',
+			confirmText: 'Delete',
+		})
+	)
+		if (transactionIn.value.id) {
+			deleteTransaction(db, transactionIn.value.id, user.value!.uid)
+			emit('close')
+		}
 }
 </script>
