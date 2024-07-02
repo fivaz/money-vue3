@@ -46,14 +46,14 @@
 		</Disclosure>
 	</li>
 
-	<ModalDialog :show="showForm" @close="showForm = false">
+	<MModal :show="showForm" @close="showForm = false">
 		<TransactionForm
 			@close="showForm = false"
 			:transaction="editingTransaction"
 			:accounts="accounts"
 			:budgets="budgets"
 		/>
-	</ModalDialog>
+	</MModal>
 </template>
 
 <script setup lang="ts">
@@ -63,7 +63,7 @@ import type { Budget } from '@/lib/budget'
 import type { Account } from '@/lib/account'
 import { type Transaction } from '@/lib/transaction'
 import { ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
-import ModalDialog from '@/components/form/Modal.vue'
+import MModal from '@/components/form/MModal.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
 import ProgressBar from '@/components/form/ProgressBar.vue'

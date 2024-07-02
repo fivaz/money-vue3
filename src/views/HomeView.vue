@@ -49,9 +49,9 @@
 			New Account
 		</MButton>
 
-		<ModalDialog :show="showForm" @close="showForm = false">
+		<MModal :show="showForm" @close="showForm = false">
 			<AccountForm @close="showForm = false" :account="editingAccount" :length="accounts.length" />
-		</ModalDialog>
+		</MModal>
 	</Navbar>
 </template>
 
@@ -63,7 +63,7 @@ import type { Account } from '@/lib/account'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import ModalDialog from '@/components/form/Modal.vue'
+import MModal from '@/components/form/MModal.vue'
 import Navbar from '@/components/Navbar.vue'
 import DateHeader from '@/components/DateHeader.vue'
 import type { Budget } from '@/lib/budget'

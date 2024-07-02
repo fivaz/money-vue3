@@ -45,9 +45,9 @@
 			New Budget
 		</MButton>
 
-		<ModalDialog :show="showForm" @close="showForm = false">
+		<MModal :show="showForm" @close="showForm = false">
 			<BudgetForm @close="showForm = false" :budget="editingBudget" />
-		</ModalDialog>
+		</MModal>
 	</Navbar>
 </template>
 
@@ -59,7 +59,7 @@ import type { Budget } from '@/lib/budget'
 import { collection } from 'firebase/firestore'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import ModalDialog from '@/components/form/Modal.vue'
+import MModal from '@/components/form/MModal.vue'
 import Navbar from '@/components/Navbar.vue'
 import DateHeader from '@/components/DateHeader.vue'
 import type { Account } from '@/lib/account'
