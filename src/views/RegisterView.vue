@@ -20,15 +20,9 @@
 						<img alt="your avatar" class="h-10 w-auto" :src="codedAvatar" />
 					</div>
 
-					<div>
-						<LabelInput label="Full Name" name="name" required type="text" v-model="name" />
-					</div>
-					<div>
-						<LabelInput label="Email address" name="email" required type="email" v-model="email" />
-					</div>
-					<div>
-						<LabelInput name="password" required type="password" v-model="password" />
-					</div>
+					<LabelInput label="Full Name" required type="text" v-model="name" />
+					<LabelInput label="Email address" required type="email" v-model="email" />
+					<LabelInput label="password" required type="password" v-model="password" />
 
 					<div>
 						<MButton

@@ -4,24 +4,20 @@
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex w-[300px] flex-col gap-5">
 		<div class="grid grid-cols-2 gap-5">
-			<div class="col-span-1">
-				<LabelInput type="text" name="name" v-model="accountIn.name" required />
-			</div>
+			<LabelInput type="text" label="name" v-model="accountIn.name" required />
 
-			<div class="col-span-1">
-				<Select v-model="accountIn.order" title="Order">
-					<template v-slot:placeholder>
-						<span class="block truncate">{{ accountIn.order || 'no order selected' }}</span>
-					</template>
-					<SelectItem
-						:key="order"
-						v-for="order in Array.from({ length }, (_, i) => i + 1)"
-						:value="order"
-					>
-						{{ order }}
-					</SelectItem>
-				</Select>
-			</div>
+			<Select v-model="accountIn.order" title="Order">
+				<template v-slot:placeholder>
+					<span class="block truncate">{{ accountIn.order || 'no order selected' }}</span>
+				</template>
+				<SelectItem
+					:key="order"
+					v-for="order in Array.from({ length }, (_, i) => i + 1)"
+					:value="order"
+				>
+					{{ order }}
+				</SelectItem>
+			</Select>
 		</div>
 
 		<IconSelector v-model="accountIn.icon" />

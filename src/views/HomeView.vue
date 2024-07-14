@@ -114,6 +114,7 @@ function getEmptyAccount(): Account {
 		name: '',
 		icon: icons[1].name,
 		order: null,
+		currentAmount: 0,
 	}
 }
 

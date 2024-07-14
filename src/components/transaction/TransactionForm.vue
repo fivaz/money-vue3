@@ -32,14 +32,14 @@
 
 		<div class="grid grid-cols-5 gap-5">
 			<div class="col-span-2">
-				<LabelInput type="number" step="0.01" v-model="transactionIn.amount" name="amount" />
+				<LabelInput type="number" step="0.01" v-model="transactionIn.amount" label="amount" />
 			</div>
 			<div class="col-span-3">
 				<LabelInput
 					type="datetime-local"
 					v-model="transactionIn.date"
 					class="col-span-3"
-					name="date"
+					label="date"
 				/>
 			</div>
 		</div>
@@ -179,25 +179,8 @@
 				leave-to-class="transform scale-95 opacity-0"
 			>
 				<div v-if="isRecurringOpen" class="grid grid-cols-2 gap-5">
-					<div class="col-span-1">
-						<LabelInput
-							v-model="transactionIn.startDate"
-							required
-							name="Start date"
-							type="date"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
-						/>
-					</div>
-					<div class="col-span-1">
-						<LabelInput
-							v-model="transactionIn.endDate"
-							required
-							name="endDate"
-							label="End Date"
-							type="date"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
-						/>
-					</div>
+					<LabelInput v-model="transactionIn.startDate" required label="Start date" type="date" />
+					<LabelInput v-model="transactionIn.endDate" required label="End Date" type="date" />
 				</div>
 			</transition>
 		</div>
