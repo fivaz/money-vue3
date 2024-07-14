@@ -18,12 +18,24 @@
 				</div>
 			</div>
 		</div>
-		<div class="mt-5 gap-3 sm:mt-4 sm:flex sm:flex-row-reverse">
-			<MButton @click="confirm" color="red" size="big" type="button">
+		<div class="mt-5 flex flex-col gap-3 sm:mt-4 sm:flex-row-reverse">
+			<MButton
+				@click="confirm"
+				class="w-full justify-center sm:w-auto"
+				color="red"
+				size="big"
+				type="button"
+			>
 				{{ promptStore.prompt.confirmText }}
 			</MButton>
 
-			<MButton @click="cancel" color="white" size="big" type="button">
+			<MButton
+				@click="cancel"
+				class="w-full justify-center sm:w-auto"
+				color="white"
+				size="big"
+				type="button"
+			>
 				{{ promptStore.prompt.cancelText }}
 			</MButton>
 		</div>
