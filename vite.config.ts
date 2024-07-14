@@ -14,6 +14,10 @@ export default defineConfig({
 				config: true,
 				disabled: false,
 			},
+			manifest: {
+				theme_color: '#4f46e5',
+				background_color: '#fff',
+			},
 		}),
 	],
 	resolve: {
