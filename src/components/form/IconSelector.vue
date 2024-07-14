@@ -18,9 +18,10 @@
 		>
 			<button
 				v-for="icon in filteredIcons"
+				:key="icon.name"
 				:class="[
-					{ 'bg-indigo-700 text-indigo-100': value === icon.name },
-					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl text-slate-900 dark:text-white',
+					value === icon.name ? 'bg-indigo-700 text-white' : 'text-slate-900 dark:text-white',
+					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
 				]"
 				@click="() => (value = icon.name)"
 				type="button"

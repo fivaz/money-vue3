@@ -9,6 +9,9 @@
 					</span>
 				</div>
 				<div class="flex items-center gap-2">
+					<div :class="['text-sm font-medium leading-6', getAmountDifferenceColor()]">
+						({{ formatMoney(amountDifference) }})
+					</div>
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(balance) }}
 					</div>
@@ -119,9 +122,17 @@ const balance = computed(() =>
 	),
 )
 
+const amountDifference = computed(() => balance.value - props.account.currentAmount)
+
 const showForm = ref(false)
 
 const editingTransaction = ref<Transaction>(getEmptyTransactionFromAccount())
+
+function getAmountDifferenceColor() {
+	if (amountDifference.value === 0) return 'text-gray-900 dark:text-white'
+	if (amountDifference.value > 0) return 'text-green-500'
+	else return 'text-red-500'
+}
 
 function getEmptyTransactionFromAccount(): Transaction {
 	return {

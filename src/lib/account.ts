@@ -7,6 +7,7 @@ export type Account = {
 	name: string
 	icon: string
 	order: number | null
+	currentAmount: number
 }
 
 export function addAccount(db: ReturnType<typeof useFirestore>, account: Account, userId: string) {
