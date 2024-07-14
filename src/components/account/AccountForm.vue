@@ -3,10 +3,10 @@
 		{{ account.id ? 'Edit Account' : 'Add Account' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex w-[300px] flex-col gap-5">
-		<div class="grid grid-cols-2 gap-5">
-			<LabelInput type="text" label="name" v-model="accountIn.name" required />
+		<LabelInput type="text" label="Name" v-model="accountIn.name" required />
 
-			<Select v-model="accountIn.order" title="Order">
+		<div class="grid grid-cols-2 gap-5">
+			<Select v-model="accountIn.order" label="Order">
 				<template v-slot:placeholder>
 					<span class="block truncate">{{ accountIn.order || 'no order selected' }}</span>
 				</template>
@@ -18,6 +18,13 @@
 					{{ order }}
 				</SelectItem>
 			</Select>
+
+			<LabelInput
+				type="number"
+				step="0.01"
+				label="Current amount"
+				v-model="accountIn.currentAmount"
+			/>
 		</div>
 
 		<IconSelector v-model="accountIn.icon" />
