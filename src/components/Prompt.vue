@@ -4,7 +4,7 @@
 			<div
 				class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 			>
-				<ExclamationTriangleIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
+				<ExclamationTriangleIcon aria-hidden="true" class="h-6 w-6 text-red-600" />
 			</div>
 			<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
 				<DialogTitle
@@ -13,17 +13,17 @@
 				>
 					{{ promptStore.prompt.title }}
 				</DialogTitle>
-				<div v-if="promptStore.prompt.message" class="mt-2">
+				<div class="mt-2" v-if="promptStore.prompt.message">
 					<p class="text-sm text-gray-500 dark:text-gray-300">{{ promptStore.prompt.message }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="mt-5 gap-3 sm:mt-4 sm:flex sm:flex-row-reverse">
-			<MButton color="red" size="big" type="button" @click="confirm">
+			<MButton @click="confirm" color="red" size="big" type="button">
 				{{ promptStore.prompt.confirmText }}
 			</MButton>
 
-			<MButton color="white" size="big" type="button" @click="cancel">
+			<MButton @click="cancel" color="white" size="big" type="button">
 				{{ promptStore.prompt.cancelText }}
 			</MButton>
 		</div>
@@ -31,11 +31,11 @@
 </template>
 
 <script setup lang="ts">
-import { DialogTitle } from '@headlessui/vue'
-import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
-import { usePromptStore } from '@/lib/promptStore'
 import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
+import { usePromptStore } from '@/lib/promptStore'
+import { DialogTitle } from '@headlessui/vue'
+import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 
 const promptStore = usePromptStore()
 

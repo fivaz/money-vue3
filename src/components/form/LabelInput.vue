@@ -16,7 +16,7 @@
 <script setup lang="ts">
 defineProps<{ label: string }>()
 
-const value = defineModel<string | number | null>()
+const value = defineModel<null | number | string>()
 
 defineOptions({
 	inheritAttrs: false,

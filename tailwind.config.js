@@ -4,6 +4,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 export default {
 	content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
 	darkMode: 'selector',
+	plugins: [require('@tailwindcss/forms')],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -11,5 +12,4 @@ export default {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/forms')],
 }

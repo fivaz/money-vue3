@@ -38,8 +38,8 @@ export const usePromptStore = defineStore('prompt', () => {
 	}
 
 	return {
-		prompt,
-		createPrompt,
 		closePrompt,
+		createPrompt,
+		prompt,
 	}
 })

@@ -1,13 +1,13 @@
-import { useFirestore } from 'vuefire'
-import { addDoc, collection, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { ACCOUNTS, USERS } from '@/lib/consts'
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
 
 export type Account = {
+	currentAmount: number
+	icon: string
 	id: string
 	name: string
-	icon: string
-	order: number | null
-	currentAmount: number
+	order: null | number
 }
 
 export function addAccount(db: ReturnType<typeof useFirestore>, account: Account, userId: string) {

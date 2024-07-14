@@ -2,7 +2,7 @@
 	<li
 		class="border-b p-3 text-slate-500 hover:bg-gray-50 hover:text-gray-700 hover:underline dark:text-gray-400 dark:hover:bg-slate-900 dark:hover:text-gray-300"
 	>
-		<button class="flex w-full justify-between" @click="$emit('edit', transaction)">
+		<button @click="$emit('edit', transaction)" class="flex w-full justify-between">
 			<span class="flex items-center gap-4">
 				<span class="block w-20 text-left md:hidden">
 					{{ format(transaction.date, SHORT_DATETIME_FR) }}
@@ -19,13 +19,13 @@
 				</span>
 				<span v-if="transaction.description">{{ transaction.description }}</span>
 				<component
-					v-if="transaction.budget"
 					:is="getIcon(transaction.budget.icon)"
 					class="h-4 w-4"
+					v-if="transaction.budget"
 				/>
 			</span>
 			<span :class="['flex items-center gap-2', getAmountColor()]">
-				<ArrowRightLeft v-if="transaction.operation === 'transfer'" class="h-5 w-5" />
+				<ArrowRightLeft class="h-5 w-5" v-if="transaction.operation === 'transfer'" />
 				{{ formatAmount() }}
 			</span>
 		</button>
@@ -33,11 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { parseAmount, type Transaction } from '@/lib/transaction'
-import { format } from 'date-fns'
-import { ArrowRightLeft, Clock, CalendarCheck } from 'lucide-vue-next'
-import { getIcon } from '@/lib/utils'
 import { SHORT_DATETIME_FR } from '@/lib/consts'
+import { type Transaction, parseAmount } from '@/lib/transaction'
+import { getIcon } from '@/lib/utils'
+import { format } from 'date-fns'
+import { ArrowRightLeft, CalendarCheck, Clock } from 'lucide-vue-next'
 
 const props = defineProps<{ accountId: string; transaction: Transaction }>()
 

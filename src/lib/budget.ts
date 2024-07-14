@@ -1,12 +1,12 @@
-import { useFirestore } from 'vuefire'
-import { addDoc, collection, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { BUDGETS, USERS } from '@/lib/consts'
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
 
 export type Budget = {
+	icon: string
 	id: string
 	name: string
 	value: number
-	icon: string
 }
 
 export function addBudget(db: ReturnType<typeof useFirestore>, budget: Budget, userId: string) {

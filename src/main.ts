@@ -1,12 +1,11 @@
-import './assets/main.css'
-
-import { createApp } from 'vue'
+import { firebaseApp } from '@/lib/firebaseConfig'
 import { createPinia } from 'pinia'
-import { getCurrentUser, VueFire, VueFireAuth } from 'vuefire'
+import { createApp } from 'vue'
+import { VueFire, VueFireAuth, getCurrentUser } from 'vuefire'
 
 import App from './App.vue'
+import './assets/main.css'
 import router, { loginRoute } from './router'
-import { firebaseApp } from '@/lib/firebaseConfig'
 
 const app = createApp(App)
 

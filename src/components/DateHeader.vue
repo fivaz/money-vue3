@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { addMonths, format, isThisYear, subMonths } from 'date-fns'
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 const currentDate = defineModel<Date>({ required: true })
 

@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import BudgetsView from '@/views/BudgetsView.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import BudgetsView from '@/views/BudgetsView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 export const homeRoute = '/'
 export const budgetsRoute = '/budgets'
@@ -14,26 +14,26 @@ const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
-			path: homeRoute,
-			name: 'home',
 			component: HomeView,
 			meta: { requiresAuth: true },
+			name: 'home',
+			path: homeRoute,
 		},
 		{
-			path: budgetsRoute,
-			name: 'budgets',
 			component: BudgetsView,
 			meta: { requiresAuth: true },
+			name: 'budgets',
+			path: budgetsRoute,
 		},
 		{
-			path: loginRoute,
-			name: 'login',
 			component: LoginView,
+			name: 'login',
+			path: loginRoute,
 		},
 		{
-			path: registerRoute,
-			name: 'register',
 			component: RegisterView,
+			name: 'register',
+			path: registerRoute,
 		},
 	],
 })

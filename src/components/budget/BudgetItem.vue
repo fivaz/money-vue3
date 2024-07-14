@@ -12,17 +12,17 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(budget.value) }}
 					</div>
-					<MButton size="small" color="indigo" type="button" @click="addTransaction">
+					<MButton @click="addTransaction" color="indigo" size="small" type="button">
 						<Plus class="h-4 w-4 text-white" />
 					</MButton>
-					<MButton size="small" color="white" type="button" @click="$emit('editBudget', budget)">
+					<MButton @click="$emit('editBudget', budget)" color="white" size="small" type="button">
 						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
 					</MButton>
 				</div>
 			</div>
-			<ProgressBar :transactions="budgetTransactions" :budget="budget" />
+			<ProgressBar :budget="budget" :transactions="budgetTransactions" />
 		</div>
-		<Disclosure v-slot="{ open }" default-open>
+		<Disclosure default-open v-slot="{ open }">
 			<transition
 				enter-active-class="transition duration-100 ease-out"
 				enter-from-class="transform scale-95 opacity-0"
@@ -33,10 +33,10 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<BudgetTransactionItem
-						v-for="transaction in budgetTransactions"
 						:key="transaction.id"
 						:transaction="transaction"
 						@edit="editTransaction"
+						v-for="transaction in budgetTransactions"
 					/>
 				</DisclosurePanel>
 			</transition>
@@ -48,34 +48,35 @@
 
 	<MModal :show="showForm" @close="showForm = false">
 		<TransactionForm
-			@close="showForm = false"
-			:transaction="editingTransaction"
 			:accounts="accounts"
 			:budgets="budgets"
+			:transaction="editingTransaction"
+			@close="showForm = false"
 		/>
 	</MModal>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import TransactionForm from '@/components/transaction/TransactionForm.vue'
-import type { Budget } from '@/lib/budget'
 import type { Account } from '@/lib/account'
-import { type Transaction } from '@/lib/transaction'
-import { ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
-import MModal from '@/components/form/MModal.vue'
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
-import ProgressBar from '@/components/form/ProgressBar.vue'
-import { formatMoney, getIcon } from '@/lib/utils'
+import type { Budget } from '@/lib/budget'
+
 import MButton from '@/components/MButton.vue'
+import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
+import MModal from '@/components/form/MModal.vue'
+import ProgressBar from '@/components/form/ProgressBar.vue'
+import TransactionForm from '@/components/transaction/TransactionForm.vue'
+import { type Transaction } from '@/lib/transaction'
+import { formatMoney, getIcon } from '@/lib/utils'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
-	budget: Budget
 	accounts: Account[]
+	budget: Budget
 	budgets: Budget[]
-	transactions: Transaction[]
 	currentDate: Date
+	transactions: Transaction[]
 }>()
 
 defineEmits<{ (e: 'editBudget', value: Budget): void }>()
@@ -94,17 +95,17 @@ const editingTransaction = ref<Transaction>(getEmptyTransactionFromBudget())
 
 function getEmptyTransactionFromBudget(): Transaction {
 	return {
-		id: '',
+		account: props.accounts[0],
+		amount: 0,
+		budget: props.budget,
 		date: props.currentDate.toISOString(),
 		description: '',
-		amount: 0,
-		account: props.accounts[0],
-		budget: props.budget,
 		destination: null,
+		endDate: null,
+		id: '',
+		isPaid: true,
 		operation: 'expense',
 		startDate: null,
-		endDate: null,
-		isPaid: true,
 	}
 }
 

@@ -8,7 +8,7 @@
 		]"
 		:disabled="isLoading"
 	>
-		<LoaderCircle v-if="isLoading" class="h-5 w-5 animate-spin" />
+		<LoaderCircle class="h-5 w-5 animate-spin" v-if="isLoading" />
 		<slot />
 	</button>
 </template>
@@ -16,28 +16,28 @@
 <script setup lang="ts">
 import { LoaderCircle } from 'lucide-vue-next'
 
-defineProps<{ size: keyof typeof sizeClass; color: keyof typeof colorClass; isLoading?: boolean }>()
+defineProps<{ color: keyof typeof colorClass; isLoading?: boolean; size: keyof typeof sizeClass }>()
 
 const colorClass = {
 	indigo: {
+		core: 'text-white hover:bg-indigo-400',
 		loading: 'bg-indigo-400',
 		normal: 'bg-indigo-600',
-		core: 'text-white hover:bg-indigo-400',
 	},
 	red: {
+		core: 'text-white hover:bg-red-400',
 		loading: 'bg-red-400',
 		normal: 'bg-red-600',
-		core: 'text-white hover:bg-red-400',
 	},
 	white: {
+		core: 'ring-1 ring-inset ring-gray-300 text-gray-900 hover:bg-gray-100 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30',
 		loading: 'bg-gray-100',
 		normal: 'bg-white',
-		core: 'ring-1 ring-inset ring-gray-300 text-gray-900 hover:bg-gray-100 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30',
 	},
 }
 
 const sizeClass = {
-	small: 'px-1.5 py-1',
 	big: 'px-3 py-2',
+	small: 'px-1.5 py-1',
 }
 </script>

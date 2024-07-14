@@ -11,13 +11,13 @@
 
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
 			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-				<form class="space-y-6" @submit.prevent="handleSubmit">
+				<form @submit.prevent="handleSubmit" class="space-y-6">
 					<Alert v-if="!!errorMessage">{{ errorMessage }}</Alert>
-					<div v-if="email" class="flex flex-col justify-center">
+					<div class="flex flex-col justify-center" v-if="email">
 						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
 						</h3>
-						<img alt="your avatar" class="h-10 w-auto" :src="codedAvatar" />
+						<img :src="codedAvatar" alt="your avatar" class="h-10 w-auto" />
 					</div>
 
 					<LabelInput label="Full name" required type="text" v-model="name" />
@@ -27,10 +27,10 @@
 					<div>
 						<MButton
 							:is-loading="isLoading"
+							class="w-full justify-center"
 							color="indigo"
 							size="big"
 							type="submit"
-							class="w-full justify-center"
 						>
 							Register
 						</MButton>
@@ -41,8 +41,8 @@
 			<p class="mt-10 text-center text-sm text-gray-500">
 				Already a member?
 				<RouterLink
-					class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
 					:to="loginRoute"
+					class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
 				>
 					Log in
 				</RouterLink>
@@ -52,21 +52,22 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { minidenticon } from 'minidenticons'
-import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
-import { doc, setDoc } from 'firebase/firestore'
+import type { Auth } from 'firebase/auth'
+
+import Logo from '@/components/Logo.vue'
+import MButton from '@/components/MButton.vue'
+import Alert from '@/components/form/Alert.vue'
+import LabelInput from '@/components/form/LabelInput.vue'
 import { AVATARS, USERS } from '@/lib/consts'
 import { homeRoute, loginRoute } from '@/router'
-import Logo from '@/components/Logo.vue'
-import { useRouter } from 'vue-router'
 import { FirebaseError } from 'firebase/app'
-import Alert from '@/components/form/Alert.vue'
-import type { Auth } from 'firebase/auth'
-import MButton from '@/components/MButton.vue'
-import LabelInput from '@/components/form/LabelInput.vue'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
+import { getDownloadURL, ref as storageRef, uploadBytes } from 'firebase/storage'
+import { minidenticon } from 'minidenticons'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useFirebaseAuth, useFirebaseStorage, useFirestore } from 'vuefire'
 
 const errorMessage = ref('')
 const name = ref('')

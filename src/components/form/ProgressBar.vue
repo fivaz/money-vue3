@@ -12,11 +12,12 @@
 
 <script setup lang="ts">
 import type { Budget } from '@/lib/budget'
-import { computed } from 'vue'
 import type { Transaction } from '@/lib/transaction'
-import { formatMoney } from '@/lib/utils'
 
-const props = defineProps<{ transactions: Transaction[]; budget: Budget }>()
+import { formatMoney } from '@/lib/utils'
+import { computed } from 'vue'
+
+const props = defineProps<{ budget: Budget; transactions: Transaction[] }>()
 
 const spent = computed(() =>
 	props.transactions.reduce((sum, transaction) => sum + transaction.amount, 0),

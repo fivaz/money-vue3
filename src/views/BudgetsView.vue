@@ -7,67 +7,68 @@
 			<!--			</h2>-->
 		</div>
 
-		<ul role="list" class="flex flex-col gap-5">
+		<ul class="flex flex-col gap-5" role="list">
 			<BudgetItem
+				:accounts="accounts"
+				:budget="budget"
+				:budgets="budgets"
+				:current-date="currentDate"
+				:key="budget.id"
+				:transactions="currentTransactions"
 				@edit-budget="(a) => editBudget(a)"
 				v-for="budget in budgets"
-				:key="budget.id"
-				:budget="budget"
-				:transactions="currentTransactions"
-				:budgets="budgets"
-				:accounts="accounts"
-				:current-date="currentDate"
 			/>
 		</ul>
 
-		<div v-if="budgets.length === 0" class="pt-10 text-center">
+		<div class="pt-10 text-center" v-if="budgets.length === 0">
 			<PiggyBank class="mx-auto h-16 w-16 text-gray-400" />
 			<h3 class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">No Budget</h3>
 			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
 				Get started by creating your first budget.
 			</p>
 			<div class="mt-6 flex justify-center">
-				<MButton size="big" color="indigo" type="button" @click="addBudget">
-					<Plus class="h-5 w-5" aria-hidden="true" />
+				<MButton @click="addBudget" color="indigo" size="big" type="button">
+					<Plus aria-hidden="true" class="h-5 w-5" />
 					New Budget
 				</MButton>
 			</div>
 		</div>
 
 		<MButton
-			size="big"
-			color="indigo"
-			type="button"
 			@click="addBudget"
 			class="absolute bottom-0 right-0 z-10 m-3"
+			color="indigo"
+			size="big"
+			type="button"
 		>
-			<Plus class="h-5 w-5" aria-hidden="true" />
+			<Plus aria-hidden="true" class="h-5 w-5" />
 			New Budget
 		</MButton>
 
 		<MModal :show="showForm" @close="showForm = false">
-			<BudgetForm @close="showForm = false" :budget="editingBudget" />
+			<BudgetForm :budget="editingBudget" @close="showForm = false" />
 		</MModal>
 	</Navbar>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import BudgetItem from '@/components/budget/BudgetItem.vue'
-import BudgetForm from '@/components/budget/BudgetForm.vue'
-import type { Budget } from '@/lib/budget'
-import { collection } from 'firebase/firestore'
-import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
-import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
-import MModal from '@/components/form/MModal.vue'
-import Navbar from '@/components/Navbar.vue'
-import DateHeader from '@/components/DateHeader.vue'
 import type { Account } from '@/lib/account'
-import { getHistoricalTransactions, type Transaction } from '@/lib/transaction'
-import { Plus, PiggyBank } from 'lucide-vue-next'
+import type { Budget } from '@/lib/budget'
+
+import DateHeader from '@/components/DateHeader.vue'
+import MButton from '@/components/MButton.vue'
+import Navbar from '@/components/Navbar.vue'
+import BudgetForm from '@/components/budget/BudgetForm.vue'
+import BudgetItem from '@/components/budget/BudgetItem.vue'
+import MModal from '@/components/form/MModal.vue'
+import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
 import { icons } from '@/lib/utils'
 import { isSameMonth, parseISO } from 'date-fns'
-import MButton from '@/components/MButton.vue'
+import { collection } from 'firebase/firestore'
+import { PiggyBank, Plus } from 'lucide-vue-next'
+import { computed, ref } from 'vue'
+import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 
 const currentDate = ref(new Date())
 
@@ -97,10 +98,10 @@ function editBudget(budget: Budget) {
 
 function getEmptyBudget(): Budget {
 	return {
+		icon: icons[0].name,
 		id: '',
 		name: '',
 		value: 0,
-		icon: icons[0].name,
 	}
 }
 

@@ -1,6 +1,6 @@
 <template>
 	<div class="relative flex flex-col gap-2">
-		<label for="icon" class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
+		<label class="block text-sm font-medium leading-6 text-slate-900 dark:text-white" for="icon">
 			Icon
 		</label>
 		<!--    activate the research if there are too many icons-->
@@ -17,14 +17,14 @@
 			class="grid grid-cols-10 justify-between gap-1 overflow-y-auto rounded-lg border border-gray-300 p-2 shadow-sm"
 		>
 			<button
-				v-for="icon in filteredIcons"
-				:key="icon.name"
 				:class="[
 					value === icon.name ? 'bg-indigo-700 text-white' : 'text-slate-900 dark:text-white',
 					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
 				]"
+				:key="icon.name"
 				@click="() => (value = icon.name)"
 				type="button"
+				v-for="icon in filteredIcons"
 			>
 				<component :is="icon.icon" class="h-6" />
 			</button>
@@ -32,8 +32,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { icons } from '@/lib/utils'
+import { computed, ref } from 'vue'
 
 const value = defineModel<string>({ required: true })
 

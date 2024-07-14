@@ -6,14 +6,14 @@
 		<div class="flex justify-center">
 			<fieldset aria-label="transaction operation">
 				<RadioGroup
-					v-model="transactionIn.operation"
 					class="grid grid-cols-3 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
+					v-model="transactionIn.operation"
 				>
 					<RadioGroupOption
-						as="template"
-						v-for="operationObject in operationsObject"
 						:key="operationObject.operation"
 						:value="operationObject.operation"
+						as="template"
+						v-for="operationObject in operationsObject"
 						v-slot="{ checked }"
 					>
 						<div
@@ -32,25 +32,25 @@
 
 		<div class="grid grid-cols-5 gap-5">
 			<div class="col-span-2">
-				<LabelInput type="number" step="0.01" v-model="transactionIn.amount" label="Amount" />
+				<LabelInput label="Amount" step="0.01" type="number" v-model="transactionIn.amount" />
 			</div>
 			<div class="col-span-3">
 				<LabelInput
-					type="datetime-local"
-					v-model="transactionIn.date"
 					class="col-span-3"
 					label="Date"
+					type="datetime-local"
+					v-model="transactionIn.date"
 				/>
 			</div>
 		</div>
 
 		<div class="flex items-end gap-5">
 			<Select
-				v-if="budgets.length"
-				v-model="transactionIn.budget"
-				label="Budgets"
 				by="id"
 				class="grow"
+				label="Budgets"
+				v-if="budgets.length"
+				v-model="transactionIn.budget"
 			>
 				<template v-slot:placeholder>
 					<span class="block truncate">
@@ -58,10 +58,10 @@
 					</span>
 				</template>
 				<SelectItem
-					v-for="budget in budgets"
 					:key="budget.id"
 					:value="budget"
 					class="flex items-center gap-2"
+					v-for="budget in budgets"
 				>
 					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
 					<span>{{ budget.name }}</span>
@@ -82,8 +82,8 @@
 		<div class="grid grid-cols-2 gap-5" v-if="accounts.length">
 			<Select
 				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
-				v-model="transactionIn.account"
 				label="Origin"
+				v-model="transactionIn.account"
 			>
 				<template v-slot:placeholder>
 					<span class="block truncate">
@@ -92,11 +92,11 @@
 				</template>
 
 				<SelectItem
-					v-for="account in accounts"
 					:key="account.id"
 					:value="account"
 					by="id"
 					class="flex items-center gap-2"
+					v-for="account in accounts"
 				>
 					<component :is="getIcon(account.icon)" class="h-4 w-4" />
 					<span>{{ account.name }}</span>
@@ -105,9 +105,9 @@
 
 			<Select
 				class="grid-cols-1"
+				label="Destination"
 				v-if="transactionIn.operation === 'transfer'"
 				v-model="transactionIn.destination"
-				label="Destination"
 			>
 				<template v-slot:placeholder>
 					<span class="block truncate">
@@ -116,11 +116,11 @@
 				</template>
 
 				<SelectItem
-					v-for="account in accounts"
 					:key="account.id"
 					:value="account"
 					by="id"
 					class="flex items-center gap-2"
+					v-for="account in accounts"
 				>
 					<component :is="getIcon(account.icon)" class="h-4 w-4" />
 					<span>{{ account.name }}</span>
@@ -137,24 +137,22 @@
 
 		<div>
 			<label
-				for="description"
 				class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
+				for="description"
 			>
 				Description
 			</label>
 			<textarea
-				v-model="transactionIn.description"
+				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
 				id="description"
 				name="description"
-				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
+				v-model="transactionIn.description"
 			/>
 		</div>
 
 		<div class="flex flex-col gap-2 rounded-lg border bg-white p-2 dark:bg-slate-800">
 			<div class="flex items-center justify-between">
 				<button
-					class="flex flex-grow text-start text-sm font-medium leading-6 text-slate-900 dark:text-white"
-					type="button"
 					@click="
 						() => {
 							if (isRecurring) {
@@ -164,6 +162,8 @@
 							}
 						}
 					"
+					class="flex flex-grow text-start text-sm font-medium leading-6 text-slate-900 dark:text-white"
+					type="button"
 				>
 					Recurring
 				</button>
@@ -178,50 +178,51 @@
 				leave-from-class="transform scale-100 opacity-100"
 				leave-to-class="transform scale-95 opacity-0"
 			>
-				<div v-if="isRecurringOpen" class="grid grid-cols-2 gap-5">
-					<LabelInput v-model="transactionIn.startDate" required label="Start date" type="Date" />
-					<LabelInput v-model="transactionIn.endDate" required label="End Date" type="Date" />
+				<div class="grid grid-cols-2 gap-5" v-if="isRecurringOpen">
+					<LabelInput label="Start date" required type="Date" v-model="transactionIn.startDate" />
+					<LabelInput label="End Date" required type="Date" v-model="transactionIn.endDate" />
 				</div>
 			</transition>
 		</div>
 
 		<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
-			<MButton size="big" color="white" type="button" v-if="transaction.id" @click="handleDelete">
+			<MButton @click="handleDelete" color="white" size="big" type="button" v-if="transaction.id">
 				Delete
 			</MButton>
-			<MButton type="submit" size="big" color="indigo"> Save </MButton>
+			<MButton color="indigo" size="big" type="submit"> Save </MButton>
 		</div>
 	</form>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import type { Account } from '@/lib/account'
+import type { Budget } from '@/lib/budget'
+
+import MButton from '@/components/MButton.vue'
+import LabelInput from '@/components/form/LabelInput.vue'
+import Select from '@/components/form/Select.vue'
+import SelectItem from '@/components/form/SelectItem.vue'
+import Toggle from '@/components/form/Toggle.vue'
+import { DATETIME_OUT } from '@/lib/consts'
+import { usePromptStore } from '@/lib/promptStore'
 import {
+	type Transaction,
 	addTransaction,
 	deleteTransaction,
 	editTransaction,
 	formatDateIn,
 	formatDateOut,
-	type Transaction,
 } from '@/lib/transaction'
-import { useCurrentUser, useFirestore } from 'vuefire'
-import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
-import type { Budget } from '@/lib/budget'
-import Select from '@/components/form/Select.vue'
-import type { Account } from '@/lib/account'
-import SelectItem from '@/components/form/SelectItem.vue'
 import { getIcon } from '@/lib/utils'
-import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
+import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import { format, getMonth, parseISO, set } from 'date-fns'
-import { DATETIME_OUT } from '@/lib/consts'
-import Toggle from '@/components/form/Toggle.vue'
-import LabelInput from '@/components/form/LabelInput.vue'
-import MButton from '@/components/MButton.vue'
-import { usePromptStore } from '@/lib/promptStore'
+import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
+import { ref, watch } from 'vue'
+import { useCurrentUser, useFirestore } from 'vuefire'
 
 const props = defineProps<{
-	budgets: Budget[]
 	accounts: Account[]
+	budgets: Budget[]
 	transaction: Transaction
 }>()
 
@@ -237,9 +238,9 @@ const isRecurring = ref(!!(props.transaction.startDate && props.transaction.endD
 const isRecurringOpen = ref(false)
 
 const operationsObject = [
-	{ operation: 'expense', icon: ArrowLeftFromLine },
-	{ operation: 'transfer', icon: ArrowLeftRight },
-	{ operation: 'income', icon: ArrowRightToLine },
+	{ icon: ArrowLeftFromLine, operation: 'expense' },
+	{ icon: ArrowLeftRight, operation: 'transfer' },
+	{ icon: ArrowRightToLine, operation: 'income' },
 ]
 
 watch(
@@ -270,10 +271,10 @@ function submitForm() {
 async function handleDelete() {
 	if (
 		await store.createPrompt({
-			title: 'Delete Budget',
-			message: 'Are you sure you want to delete this budget ?',
 			cancelText: 'Cancel',
 			confirmText: 'Delete',
+			message: 'Are you sure you want to delete this budget ?',
+			title: 'Delete Budget',
 		})
 	)
 		if (transactionIn.value.id) {

@@ -15,20 +15,20 @@
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
 						{{ formatMoney(balance) }}
 					</div>
-					<MButton color="indigo" size="small" type="button" @click="addTransaction">
+					<MButton @click="addTransaction" color="indigo" size="small" type="button">
 						<Plus class="h-4 w-4 text-white" />
 					</MButton>
-					<MButton size="small" color="white" type="button" @click="$emit('editAccount', account)">
+					<MButton @click="$emit('editAccount', account)" color="white" size="small" type="button">
 						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
 					</MButton>
-					<MButton color="white" size="small" type="button" @click="toggleSorting">
-						<ArrowDownAZ v-if="isSortingAscending" class="h-4 w-4 text-gray-900 dark:text-white" />
-						<ArrowUpZA v-else class="h-4 w-4 text-gray-900 dark:text-white" />
+					<MButton @click="toggleSorting" color="white" size="small" type="button">
+						<ArrowDownAZ class="h-4 w-4 text-gray-900 dark:text-white" v-if="isSortingAscending" />
+						<ArrowUpZA class="h-4 w-4 text-gray-900 dark:text-white" v-else />
 					</MButton>
 				</div>
 			</div>
 		</div>
-		<Disclosure v-slot="{ open }" default-open>
+		<Disclosure default-open v-slot="{ open }">
 			<transition
 				enter-active-class="transition duration-100 ease-out"
 				enter-from-class="transform scale-95 opacity-0"
@@ -39,11 +39,11 @@
 			>
 				<DisclosurePanel as="ul" class="-my-3 py-3 text-sm leading-6">
 					<AccountTransactionItem
-						v-for="transaction in sortedCurrentTransactions"
+						:account-id="account.id"
 						:key="transaction.id"
 						:transaction="transaction"
-						:account-id="account.id"
 						@edit="editTransaction"
+						v-for="transaction in sortedCurrentTransactions"
 					/>
 				</DisclosurePanel>
 			</transition>
@@ -57,34 +57,36 @@
 
 	<MModal :show="showForm" @close="showForm = false">
 		<TransactionForm
-			:transaction="editingTransaction"
-			@close="showForm = false"
 			:accounts="accounts"
 			:budgets="budgets"
+			:transaction="editingTransaction"
+			@close="showForm = false"
 		/>
 	</MModal>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import TransactionForm from '@/components/transaction/TransactionForm.vue'
-import AccountTransactionItem from './AccountTransactionItem.vue'
 import type { Account } from '@/lib/account'
-import { parseAmount, type Transaction } from '@/lib/transaction'
-import { ChevronDown, ArrowUpZA, ArrowDownAZ, Plus, Settings2 } from 'lucide-vue-next'
-import { formatMoney, getIcon } from '@/lib/utils'
-import MModal from '@/components/form/MModal.vue'
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import type { Budget } from '@/lib/budget'
-import { isSameMonth, parseISO } from 'date-fns'
+
 import MButton from '@/components/MButton.vue'
+import MModal from '@/components/form/MModal.vue'
+import TransactionForm from '@/components/transaction/TransactionForm.vue'
+import { type Transaction, parseAmount } from '@/lib/transaction'
+import { formatMoney, getIcon } from '@/lib/utils'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { isSameMonth, parseISO } from 'date-fns'
+import { ArrowDownAZ, ArrowUpZA, ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
+import { computed, ref } from 'vue'
+
+import AccountTransactionItem from './AccountTransactionItem.vue'
 
 const props = defineProps<{
 	account: Account
 	accounts: Account[]
 	budgets: Budget[]
-	historicalTransactions: Transaction[]
 	currentDate: Date
+	historicalTransactions: Transaction[]
 }>()
 
 defineEmits<{ (e: 'editAccount', value: Account): void }>()
@@ -136,17 +138,17 @@ function getAmountDifferenceColor() {
 
 function getEmptyTransactionFromAccount(): Transaction {
 	return {
-		id: '',
+		account: props.account,
+		amount: 0,
+		budget: null,
 		date: props.currentDate.toISOString(),
 		description: '',
-		amount: 0,
-		account: props.account,
-		budget: null,
 		destination: null,
+		endDate: null,
+		id: '',
+		isPaid: true,
 		operation: 'expense',
 		startDate: null,
-		endDate: null,
-		isPaid: true,
 	}
 }
 

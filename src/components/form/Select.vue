@@ -1,5 +1,5 @@
 <template>
-	<Listbox v-model="model" as="div" :by="by">
+	<Listbox :by="by" as="div" v-model="model">
 		<ListboxLabel class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
 			{{ label }}
 		</ListboxLabel>
@@ -9,7 +9,7 @@
 			>
 				<slot name="placeholder" />
 				<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-					<ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<ChevronUpDownIcon aria-hidden="true" class="h-5 w-5 text-gray-400" />
 				</span>
 			</ListboxButton>
 			<transition
@@ -28,10 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { Listbox, ListboxButton, ListboxLabel, ListboxOptions } from '@headlessui/vue'
+import { ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
-defineProps<{ label: string; by?: string }>()
+defineProps<{ by?: string; label: string }>()
 
-const model = defineModel<string | number | boolean | object | null | undefined>({ required: true })
+const model = defineModel<boolean | null | number | object | string | undefined>({ required: true })
 </script>

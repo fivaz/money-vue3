@@ -3,30 +3,30 @@
 		{{ budget.id ? 'Edit Budget' : 'Add Budget' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
-		<LabelInput type="text" label="Name" v-model="budgetIn.name" required />
+		<LabelInput label="Name" required type="text" v-model="budgetIn.name" />
 
-		<LabelInput type="number" label="Value" step="0.01" v-model="budgetIn.value" required />
+		<LabelInput label="Value" required step="0.01" type="number" v-model="budgetIn.value" />
 
 		<IconSelector v-model="budgetIn.icon" />
 
 		<div class="flex justify-between">
-			<MButton size="big" color="white" v-if="budget.id" type="button" @click="handleDelete">
+			<MButton @click="handleDelete" color="white" size="big" type="button" v-if="budget.id">
 				Delete
 			</MButton>
-			<MButton size="big" color="indigo" type="submit">Save</MButton>
+			<MButton color="indigo" size="big" type="submit">Save</MButton>
 		</div>
 	</form>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { addBudget, editBudget, type Budget, deleteBudget } from '@/lib/budget'
-import { useCurrentUser, useFirestore } from 'vuefire'
-import { DialogTitle } from '@headlessui/vue'
+import MButton from '@/components/MButton.vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import { type Budget, addBudget, deleteBudget, editBudget } from '@/lib/budget'
 import { usePromptStore } from '@/lib/promptStore'
-import MButton from '@/components/MButton.vue'
+import { DialogTitle } from '@headlessui/vue'
+import { ref } from 'vue'
+import { useCurrentUser, useFirestore } from 'vuefire'
 
 const props = defineProps<{ budget: Budget }>()
 
@@ -51,10 +51,10 @@ function submitForm() {
 async function handleDelete() {
 	if (
 		await store.createPrompt({
-			title: 'Delete Budget',
-			message: 'Are you sure you want to delete this budget ?',
 			cancelText: 'Cancel',
 			confirmText: 'Delete',
+			message: 'Are you sure you want to delete this budget ?',
+			title: 'Delete Budget',
 		})
 	)
 		if (budgetIn.value.id) {

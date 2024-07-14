@@ -56,14 +56,14 @@
 </template>
 
 <script setup lang="ts">
-import { Moon, Sun, Settings } from 'lucide-vue-next'
 import Toggle from '@/components/form/Toggle.vue'
+import { loginRoute } from '@/router'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { signOut } from 'firebase/auth'
+import { Moon, Settings, Sun } from 'lucide-vue-next'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
-import { signOut } from 'firebase/auth'
-import { loginRoute } from '@/router'
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 const isDark = ref(false)
 

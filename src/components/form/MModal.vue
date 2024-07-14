@@ -1,6 +1,6 @@
 <template>
 	<TransitionRoot :show="show" as="template">
-		<Dialog as="div" class="relative z-10" @keyup.esc="$emit('close')">
+		<Dialog @keyup.esc="$emit('close')" as="div" class="relative z-10">
 			<TransitionChild
 				enter="duration-300 ease-out"
 				enter-from="opacity-0"
@@ -27,12 +27,12 @@
 						>
 							<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
 								<button
-									type="button"
-									class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
 									@click="$emit('close')"
+									class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
+									type="button"
 								>
 									<span class="sr-only">Close</span>
-									<XMarkIcon class="h-6 w-6" aria-hidden="true" />
+									<XMarkIcon aria-hidden="true" class="h-6 w-6" />
 								</button>
 							</div>
 							<slot />

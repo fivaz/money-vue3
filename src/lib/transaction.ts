@@ -1,24 +1,25 @@
-import { useFirestore } from 'vuefire'
-import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
+import type { Account } from '@/lib/account'
 import type { Budget } from '@/lib/budget'
+
 import { DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { endOfMonth, format, isBefore, isSameDay, parseISO } from 'date-fns'
-import type { Account } from '@/lib/account'
+import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
 
-export type Operation = 'expense' | 'transfer' | 'income'
+export type Operation = 'expense' | 'income' | 'transfer'
 
 export type Transaction = {
-	id: string
-	amount: number
-	description: string
-	date: string
-	budget: Budget | null
 	account: Account
+	amount: number
+	budget: Budget | null
+	date: string
+	description: string
 	destination: Account | null
-	operation: Operation
-	startDate: string | null
-	endDate: string | null
+	endDate: null | string
+	id: string
 	isPaid: boolean
+	operation: Operation
+	startDate: null | string
 }
 
 export function parseAmount(transaction: Transaction, accountId: string) {
@@ -47,16 +48,16 @@ export function getData(transaction: Transaction): Omit<Transaction, 'id'> {
 			...transaction.account,
 			id: transaction.account.id,
 		},
-		destination: transaction.destination
-			? {
-					...transaction.destination,
-					id: transaction.destination.id,
-				}
-			: null,
 		budget: transaction.budget
 			? {
 					...transaction.budget,
 					id: transaction.budget.id,
+				}
+			: null,
+		destination: transaction.destination
+			? {
+					...transaction.destination,
+					id: transaction.destination.id,
 				}
 			: null,
 	}
@@ -89,8 +90,8 @@ export function deleteTransaction(db: ReturnType<typeof useFirestore>, id: strin
 export function formatDateIn(transaction: Transaction): Transaction {
 	return {
 		...transaction,
-		id: transaction.id,
 		date: format(parseISO(transaction.date), DATETIME_OUT),
+		id: transaction.id,
 	}
 }
 
@@ -105,8 +106,8 @@ function expandTransaction(currentDate: Date, transaction: Transaction) {
 		if (currentOccurrence >= new Date(transaction.startDate!)) {
 			transactions.push({
 				...transaction,
-				id: transaction.id,
 				date: currentOccurrence.toISOString(),
+				id: transaction.id,
 			})
 		}
 		currentOccurrence.setMonth(currentOccurrence.getMonth() + 1)
