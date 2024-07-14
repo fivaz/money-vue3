@@ -32,14 +32,14 @@
 
 		<div class="grid grid-cols-5 gap-5">
 			<div class="col-span-2">
-				<LabelInput type="number" step="0.01" v-model="transactionIn.amount" label="amount" />
+				<LabelInput type="number" step="0.01" v-model="transactionIn.amount" label="Amount" />
 			</div>
 			<div class="col-span-3">
 				<LabelInput
 					type="datetime-local"
 					v-model="transactionIn.date"
 					class="col-span-3"
-					label="date"
+					label="Date"
 				/>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 			<Select
 				v-if="budgets.length"
 				v-model="transactionIn.budget"
-				title="Budgets"
+				label="Budgets"
 				by="id"
 				class="grow"
 			>
@@ -83,7 +83,7 @@
 			<Select
 				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
 				v-model="transactionIn.account"
-				title="Origin"
+				label="Origin"
 			>
 				<template v-slot:placeholder>
 					<span class="block truncate">
@@ -107,7 +107,7 @@
 				class="grid-cols-1"
 				v-if="transactionIn.operation === 'transfer'"
 				v-model="transactionIn.destination"
-				title="Destination"
+				label="Destination"
 			>
 				<template v-slot:placeholder>
 					<span class="block truncate">
@@ -179,8 +179,8 @@
 				leave-to-class="transform scale-95 opacity-0"
 			>
 				<div v-if="isRecurringOpen" class="grid grid-cols-2 gap-5">
-					<LabelInput v-model="transactionIn.startDate" required label="Start date" type="date" />
-					<LabelInput v-model="transactionIn.endDate" required label="End Date" type="date" />
+					<LabelInput v-model="transactionIn.startDate" required label="Start date" type="Date" />
+					<LabelInput v-model="transactionIn.endDate" required label="End Date" type="Date" />
 				</div>
 			</transition>
 		</div>

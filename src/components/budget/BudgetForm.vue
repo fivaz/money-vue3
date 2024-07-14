@@ -3,9 +3,9 @@
 		{{ budget.id ? 'Edit Budget' : 'Add Budget' }}
 	</DialogTitle>
 	<form @submit.prevent="submitForm" class="mt-2 flex flex-col gap-5">
-		<LabelInput type="text" label="name" v-model="budgetIn.name" required />
+		<LabelInput type="text" label="Name" v-model="budgetIn.name" required />
 
-		<LabelInput type="number" label="value" step="0.01" v-model="budgetIn.value" required />
+		<LabelInput type="number" label="Value" step="0.01" v-model="budgetIn.value" required />
 
 		<IconSelector v-model="budgetIn.icon" />
 

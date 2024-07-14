@@ -1,7 +1,7 @@
 <template>
 	<Listbox v-model="model" as="div" :by="by">
 		<ListboxLabel class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
-			{{ title }}
+			{{ label }}
 		</ListboxLabel>
 		<div class="relative">
 			<ListboxButton
@@ -31,7 +31,7 @@
 import { ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { Listbox, ListboxButton, ListboxLabel, ListboxOptions } from '@headlessui/vue'
 
-defineProps<{ title: string; by?: string }>()
+defineProps<{ label: string; by?: string }>()
 
 const model = defineModel<string | number | boolean | object | null | undefined>({ required: true })
 </script>

@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<label
-			:for="label"
-			class="block text-sm font-medium capitalize leading-6 text-slate-900 dark:text-white"
-		>
+		<label :for="label" class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
 			{{ label }}
 		</label>
 
