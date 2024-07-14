@@ -10,6 +10,8 @@ export default defineConfig({
 		VitePWA({
 			manifest: {
 				background_color: '#fff',
+				name: 'Money',
+				short_name: 'Money',
 				theme_color: '#4f46e5',
 			},
 			pwaAssets: {
