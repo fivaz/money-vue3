@@ -234,7 +234,7 @@ const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 watch(
 	() => props.transaction,
 	(newValue) => {
-		transactionIn.value = { ...newValue, id: newValue.id }
+		transactionIn.value = formatDateIn(newValue)
 	},
 )
 
