@@ -1,8 +1,19 @@
 <template>
-	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
-		{{ account.id ? 'Edit Account' : 'Add Account' }}
-	</DialogTitle>
-	<form @submit.prevent="submitForm" class="mt-2 flex w-[300px] flex-col gap-5">
+	<form @submit.prevent="submitForm" class="flex w-[300px] flex-col gap-5">
+		<div class="flex items-center justify-between">
+			<h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+				{{ account.id ? 'Edit Account' : 'Add Account' }}
+			</h3>
+			<button
+				@click="$emit('close')"
+				class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
+				type="button"
+			>
+				<span class="sr-only">Close</span>
+				<XMarkIcon aria-hidden="true" class="h-6 w-6" />
+			</button>
+		</div>
+
 		<LabelInput label="Name" required type="text" v-model="accountIn.name" />
 
 		<div class="grid grid-cols-2 gap-5">
@@ -47,6 +58,7 @@ import SelectItem from '@/components/form/SelectItem.vue'
 import { type Account, addAccount, deleteAccount, editAccount } from '@/lib/account'
 import { usePromptStore } from '@/lib/promptStore'
 import { DialogTitle } from '@headlessui/vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import { useCurrentUser, useFirestore } from 'vuefire'
 

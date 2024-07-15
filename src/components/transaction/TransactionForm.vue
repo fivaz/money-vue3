@@ -1,8 +1,19 @@
 <template>
-	<DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
-		{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
-	</DialogTitle>
-	<form @submit.prevent="submitForm" class="mt-2 flex w-[320px] flex-col gap-5">
+	<form @submit.prevent="submitForm" class="flex w-[320px] flex-col gap-5">
+		<div class="flex items-center justify-between">
+			<h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+				{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
+			</h3>
+			<button
+				@click="$emit('close')"
+				class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
+				type="button"
+			>
+				<span class="sr-only">Close</span>
+				<XMarkIcon aria-hidden="true" class="h-6 w-6" />
+			</button>
+		</div>
+
 		<div class="flex justify-center">
 			<fieldset aria-label="transaction operation">
 				<RadioGroup
@@ -215,6 +226,7 @@ import {
 } from '@/lib/transaction'
 import { getIcon } from '@/lib/utils'
 import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { format, getMonth, parseISO, set } from 'date-fns'
 import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
