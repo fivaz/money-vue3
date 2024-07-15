@@ -23,6 +23,7 @@
 					</span>
 				</span>
 				<span v-if="transaction.description">{{ transaction.description }}</span>
+				<span v-else>{{ transaction.budget?.name }}</span>
 				<component
 					:is="getIcon(transaction.budget.icon)"
 					class="h-4 w-4"
