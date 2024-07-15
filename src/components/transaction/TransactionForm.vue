@@ -82,13 +82,11 @@
 				</SelectItem>
 			</MSelect>
 			<div v-else>
-				<span class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
-					Account
-				</span>
+				<span class="block text-sm font-medium leading-6"> Account </span>
 				<span class="text-sm text-red-500">no budgets created yet</span>
 			</div>
 
-			<label class="flex gap-2 pb-2 text-slate-900 dark:text-white">
+			<label class="flex gap-2 pb-2">
 				is paid
 				<MToggle v-model="transactionIn.isPaid" />
 			</label>
@@ -143,21 +141,14 @@
 		</div>
 
 		<div v-else>
-			<span class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
-				Account
-			</span>
+			<span class="block text-sm font-medium leading-6"> Account </span>
 			<span class="text-sm text-red-500">no accounts created yet</span>
 		</div>
 
 		<div>
-			<label
-				class="block text-sm font-medium leading-6 text-slate-900 dark:text-white"
-				for="description"
-			>
-				Description
-			</label>
+			<label class="block text-sm font-medium leading-6" for="description"> Description </label>
 			<textarea
-				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
+				class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:ring-white/10 dark:focus:ring-indigo-500"
 				id="description"
 				name="description"
 				v-model="transactionIn.description"
@@ -176,7 +167,7 @@
 							}
 						}
 					"
-					class="flex flex-grow text-start text-sm font-medium leading-6 text-slate-900 dark:text-white"
+					class="flex flex-grow text-start text-sm font-medium leading-6"
 					type="button"
 				>
 					Recurring

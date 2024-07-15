@@ -1,14 +1,12 @@
 <template>
 	<div class="relative flex flex-col gap-2">
-		<label class="block text-sm font-medium leading-6 text-slate-900 dark:text-white" for="icon">
-			Icon
-		</label>
+		<label class="block text-sm font-medium leading-6" for="icon"> Icon </label>
 		<!--    activate the research if there are too many icons-->
 		<!--		<input-->
 		<!--			type="text"-->
 		<!--			id="icon"-->
 		<!--			name="icon"-->
-		<!--			class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+		<!--			class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
 		<!--			autocomplete="off"-->
 		<!--			v-model="searchQuery"-->
 		<!--			placeholder="Search icon..."-->
@@ -18,7 +16,7 @@
 		>
 			<button
 				:class="[
-					value === icon.name ? 'bg-indigo-700 text-white' : 'text-slate-900 dark:text-white',
+					value === icon.name ? 'bg-indigo-700 text-white' : '',
 					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
 				]"
 				:key="icon.name"

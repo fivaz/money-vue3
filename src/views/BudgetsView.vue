@@ -2,7 +2,7 @@
 	<MNavbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
-			<!--			<h2 class="text-sm font-semibold leading-6 text-gray-900">-->
+			<!--			<h2 class="text-sm font-semibold leading-6 ">-->
 			<!--				{{ formatMoney(balance) }}-->
 			<!--			</h2>-->
 		</div>
@@ -22,7 +22,7 @@
 
 		<div class="pt-10 text-center" v-if="budgets.length === 0">
 			<PiggyBank class="mx-auto h-16 w-16 text-gray-400" />
-			<h3 class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">No Budget</h3>
+			<h3 class="mt-2 text-sm font-semibold">No Budget</h3>
 			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
 				Get started by creating your first budget.
 			</p>

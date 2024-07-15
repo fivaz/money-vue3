@@ -20,7 +20,7 @@
 			<div class="col-span-3">
 				<LabelInput label="Value" required step="0.01" type="number" v-model="budgetIn.value" />
 			</div>
-			<label class="cols-span-1 flex flex-col gap-2 text-slate-900 dark:text-white">
+			<label class="cols-span-1 flex flex-col gap-2">
 				is default
 				<MToggle v-model="budgetIn.isDefault" />
 			</label>

@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screen bg-white text-green-500 dark:bg-slate-800 dark:text-yellow-500">
+	<div class="min-h-screen bg-white text-gray-900 dark:bg-slate-800 dark:text-white">
 		<header>
 			<nav
 				aria-label="Global"
@@ -64,7 +64,7 @@
 							:key="item.name"
 							:to="item.href"
 							@click="mobileMenuOpen = false"
-							class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-900"
+							class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-900"
 							v-for="item in navigation"
 						>
 							{{ item.name }}

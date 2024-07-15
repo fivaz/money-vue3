@@ -4,7 +4,7 @@
 			<div
 				:style="{ zIndex }"
 				@keyup.esc="$emit('close')"
-				class="fixed inset-0 flex items-center justify-center"
+				class="fixed inset-0 flex items-center justify-center text-gray-900 dark:text-white"
 				tabindex="-1"
 			>
 				<TransitionChild

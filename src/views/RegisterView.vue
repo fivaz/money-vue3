@@ -4,7 +4,7 @@
 	>
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
 			<MLogo class="mx-auto h-10 w-auto" />
-			<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+			<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight">
 				Create your account
 			</h2>
 		</div>
@@ -14,9 +14,7 @@
 				<form @submit.prevent="handleSubmit" class="space-y-6">
 					<MAlert v-if="!!errorMessage">{{ errorMessage }}</MAlert>
 					<div class="flex flex-col justify-center" v-if="email">
-						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
-							Your Avatar
-						</h3>
+						<h3 class="block text-center text-sm font-medium leading-6">Your Avatar</h3>
 						<img :src="codedAvatar" alt="your avatar" class="h-10 w-auto" />
 					</div>
 

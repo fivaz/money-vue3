@@ -5,7 +5,7 @@
 		<div class="w-full max-w-sm space-y-10">
 			<div>
 				<MLogo class="mx-auto h-10 w-auto" />
-				<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+				<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
 					Sign in to your account
 				</h2>
 			</div>
@@ -18,7 +18,7 @@
 					<div>
 						<label class="sr-only" for="email">Email address</label>
 						<input
-							class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							class="relative block w-full rounded-t-md border-0 py-1.5 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="email"
 							name="email"
 							placeholder="Email address"
@@ -30,7 +30,7 @@
 					<div>
 						<label class="sr-only" for="password">Password</label>
 						<input
-							class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							class="relative block w-full rounded-b-md border-0 py-1.5 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="password"
 							name="password"
 							placeholder="Password"
@@ -49,9 +49,7 @@
 							name="remember-me"
 							type="checkbox"
 						/>
-						<label class="ml-3 block text-sm leading-6 text-gray-900" for="remember-me">
-							Remember me
-						</label>
+						<label class="ml-3 block text-sm leading-6" for="remember-me"> Remember me </label>
 					</div>
 
 					<div class="text-sm leading-6">

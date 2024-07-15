@@ -1,7 +1,7 @@
 <template>
 	<button
 		:class="[
-			'flex items-center gap-2 rounded-md text-sm font-semibold text-gray-900 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500',
+			'flex items-center gap-2 rounded-md text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500',
 			sizeClass[size],
 			colorClass[color].core,
 			colorClass[color][isLoading ? 'loading' : 'normal'],
@@ -30,7 +30,7 @@ const colorClass = {
 		normal: 'bg-red-600',
 	},
 	white: {
-		core: 'ring-1 ring-inset ring-gray-300 text-gray-900 hover:bg-gray-100 dark:bg-slate-700 dark:text-white dark:hover:bg-gray-100 dark:hover:bg-white/30',
+		core: 'ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-gray-100 dark:hover:bg-white/30',
 		loading: 'bg-gray-100',
 		normal: 'bg-white',
 	},

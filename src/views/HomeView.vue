@@ -32,7 +32,7 @@
 
 		<div class="pt-10 text-center" v-if="accounts.length === 0">
 			<Vault class="mx-auto h-16 w-16 text-gray-400" />
-			<h3 class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">No Account</h3>
+			<h3 class="mt-2 text-sm font-semibold">No Account</h3>
 			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
 				Get started by creating your first account.
 			</p>

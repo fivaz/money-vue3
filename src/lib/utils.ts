@@ -18,7 +18,7 @@ export function formatMoney(cents: number) {
 }
 
 export function getAmountColor(amount: number) {
-	if (amount === 0) return 'text-gray-900 dark:text-white'
+	if (amount === 0) return ''
 	if (amount > 0) return 'text-green-500'
 	else return 'text-red-500'
 }
