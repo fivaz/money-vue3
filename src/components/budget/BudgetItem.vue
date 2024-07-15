@@ -46,7 +46,7 @@
 		</Disclosure>
 	</li>
 
-	<MModal :show="showForm" @close="showForm = false">
+	<MModal @close="showForm = false" v-if="showForm">
 		<TransactionForm
 			:accounts="accounts"
 			:budgets="budgets"

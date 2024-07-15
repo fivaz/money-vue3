@@ -49,7 +49,7 @@
 			New Account
 		</MButton>
 
-		<MModal :show="showForm" @close="showForm = false">
+		<MModal @close="showForm = false" v-if="showForm">
 			<AccountForm :account="editingAccount" :length="accounts.length" @close="showForm = false" />
 		</MModal>
 	</Navbar>
