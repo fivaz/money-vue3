@@ -21,7 +21,7 @@
 		</ul>
 
 		<div class="pt-10 text-center" v-if="budgets.length === 0">
-			<PiggyBank class="mx-auto h-16 w-16 text-gray-400" />
+			<PiggyBank :class="['mx-auto h-16 w-16', SECONDARY_COLOR_TEXT]" />
 			<h3 class="mt-2 text-sm font-semibold">No Budget</h3>
 			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
 				Get started by creating your first budget.
@@ -61,7 +61,7 @@ import MNavbar from '@/components/MNavbar.vue'
 import BudgetForm from '@/components/budget/BudgetForm.vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import MModal from '@/components/form/MModal.vue'
-import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
 import { icons } from '@/lib/utils'
 import { isSameMonth, parseISO } from 'date-fns'

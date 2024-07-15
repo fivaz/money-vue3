@@ -1,5 +1,13 @@
 <template>
-	<div class="min-h-screen bg-white text-gray-900 dark:bg-slate-800 dark:text-white">
+	<div
+		:class="[
+			'min-h-screen',
+			MAIN_COLOR_BG,
+			MAIN_DARK_COLOR_BG,
+			MAIN_COLOR_TEXT,
+			MAIN_DARK_COLOR_TEXT,
+		]"
+	>
 		<header>
 			<nav
 				aria-label="Global"
@@ -37,9 +45,7 @@
 			</nav>
 			<Dialog :open="mobileMenuOpen" @close="mobileMenuOpen = false" class="lg:hidden">
 				<div class="fixed inset-0 z-10" />
-				<DialogPanel
-					class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 dark:bg-slate-800"
-				>
+				<DialogPanel class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto px-6 py-6">
 					<div class="flex items-center justify-between">
 						<div class="flex flex-1">
 							<button
@@ -84,6 +90,12 @@
 <script setup lang="ts">
 import MLogo from '@/components/MLogo.vue'
 import NavbarMenu from '@/components/NavbarMenu.vue'
+import {
+	MAIN_COLOR_BG,
+	MAIN_COLOR_TEXT,
+	MAIN_DARK_COLOR_BG,
+	MAIN_DARK_COLOR_TEXT,
+} from '@/lib/consts'
 import { budgetsRoute, homeRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'

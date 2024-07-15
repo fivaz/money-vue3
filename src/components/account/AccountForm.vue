@@ -6,7 +6,7 @@
 			</h3>
 			<button
 				@click="$emit('close')"
-				class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
+				class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				type="button"
 			>
 				<span class="sr-only">Close</span>

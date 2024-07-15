@@ -2,9 +2,13 @@
 	<Teleport to="body">
 		<TransitionRoot :show="show" as="template">
 			<div
+				:class="[
+					MAIN_COLOR_TEXT,
+					MAIN_DARK_COLOR_TEXT,
+					'fixed inset-0 flex items-center justify-center',
+				]"
 				:style="{ zIndex }"
 				@keyup.esc="$emit('close')"
-				class="fixed inset-0 flex items-center justify-center text-gray-900 dark:text-white"
 				tabindex="-1"
 			>
 				<TransitionChild
@@ -27,8 +31,8 @@
 					leave-to="opacity-0 scale-95"
 				>
 					<div
+						:class="['relative rounded-lg p-4', MAIN_COLOR_BG, MAIN_DARK_COLOR_BG]"
 						:style="{ zIndex }"
-						class="relative rounded-lg bg-white p-4 dark:bg-slate-800"
 						ref="modalContent"
 					>
 						<slot />
@@ -40,6 +44,12 @@
 </template>
 
 <script setup lang="ts">
+import {
+	MAIN_COLOR_BG,
+	MAIN_COLOR_TEXT,
+	MAIN_DARK_COLOR_BG,
+	MAIN_DARK_COLOR_TEXT,
+} from '@/lib/consts'
 import { TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { nextTick, ref, watch } from 'vue'
 

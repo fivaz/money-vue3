@@ -5,8 +5,11 @@
 				{{ budget.id ? 'Edit Budget' : 'Add Budget' }}
 			</h3>
 			<button
+				:class="[
+					SECONDARY_COLOR_TEXT,
+					'rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+				]"
 				@click="$emit('close')"
-				class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
 				type="button"
 			>
 				<span class="sr-only">Close</span>
@@ -43,6 +46,7 @@ import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MToggle from '@/components/form/MToggle.vue'
 import { type Budget, addBudget, deleteBudget, editBudget } from '@/lib/budget'
+import { SECONDARY_COLOR_TEXT, SECONDARY_DARK_COLOR_TEXT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
