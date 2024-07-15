@@ -58,7 +58,7 @@
 		</Disclosure>
 	</div>
 
-	<MModal @close="showForm = false" v-if="showForm">
+	<MModal :show="showForm" @close="showForm = false">
 		<TransactionForm
 			:accounts="accounts"
 			:budgets="budgets"

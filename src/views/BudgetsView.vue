@@ -45,7 +45,7 @@
 			New Budget
 		</MButton>
 
-		<MModal @close="showForm = false" v-if="showForm">
+		<MModal :show="showForm" @close="showForm = false">
 			<BudgetForm :budget="editingBudget" @close="showForm = false" />
 		</MModal>
 	</MNavbar>

@@ -1,5 +1,5 @@
 <template>
-	<MModal :z-index="20" @close="close" v-if="promptStore.prompt.show">
+	<MModal :show="promptStore.prompt.show" :z-index="20" @close="close">
 		<div class="sm:flex sm:items-start">
 			<div
 				class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
