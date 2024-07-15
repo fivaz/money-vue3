@@ -2,7 +2,7 @@
 	<MNavbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
-			<h2 class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+			<h2 class="text-sm font-semibold leading-6">
 				<span
 					:class="['text-sm font-medium leading-6', getAmountColor(amountDifference)]"
 					v-if="isSameMonth(currentDate, new Date())"

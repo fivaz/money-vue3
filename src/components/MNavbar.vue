@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screen bg-white dark:bg-slate-800">
+	<div class="min-h-screen bg-white text-green-500 dark:bg-slate-800 dark:text-yellow-500">
 		<header>
 			<nav
 				aria-label="Global"
@@ -10,7 +10,7 @@
 						<RouterLink
 							:key="item.name"
 							:to="item.href"
-							class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
+							class="text-sm font-semibold leading-6"
 							v-for="item in navigation"
 						>
 							{{ item.name }}

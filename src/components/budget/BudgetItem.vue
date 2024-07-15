@@ -3,20 +3,20 @@
 		<div class="border-b border-gray-200 bg-gray-50 p-3 dark:bg-gray-900">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
-					<component :is="getIcon(budget.icon)" class="h-4 w-4 text-gray-900 dark:text-white" />
-					<span class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
+					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
+					<span class="text-sm font-medium leading-6">
 						{{ budget.name }}
 					</span>
 				</div>
 				<div class="flex items-center gap-2">
-					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
+					<div class="text-sm font-medium leading-6">
 						{{ formatMoney(budget.value) }}
 					</div>
 					<MButton @click="addTransaction" color="indigo" size="small" type="button">
 						<Plus class="h-4 w-4 text-white" />
 					</MButton>
 					<MButton @click="$emit('editBudget', budget)" color="white" size="small" type="button">
-						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
+						<Settings2 class="h-4 w-4" />
 					</MButton>
 				</div>
 			</div>

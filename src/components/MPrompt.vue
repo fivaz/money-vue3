@@ -7,7 +7,7 @@
 				<ExclamationTriangleIcon aria-hidden="true" class="h-6 w-6 text-red-600" />
 			</div>
 			<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-				<h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+				<h3 class="text-base font-semibold leading-6">
 					{{ promptStore.prompt.title }}
 				</h3>
 				<div class="absolute right-0 top-0 pr-3 pt-3">

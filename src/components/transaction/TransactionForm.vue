@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submitForm" class="flex w-[320px] flex-col gap-5">
 		<div class="flex items-center justify-between">
-			<h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+			<h3 class="text-lg font-medium leading-6">
 				{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
 			</h3>
 			<button

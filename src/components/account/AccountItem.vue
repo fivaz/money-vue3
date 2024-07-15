@@ -3,8 +3,8 @@
 		<div class="border-b border-gray-200 bg-gray-50 p-3 dark:bg-slate-900">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
-					<component :is="getIcon(account.icon)" class="h-4 w-4 text-gray-900 dark:text-white" />
-					<span class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
+					<component :is="getIcon(account.icon)" class="h-4 w-4" />
+					<span class="text-sm font-medium leading-6">
 						{{ account.name }}
 					</span>
 				</div>
@@ -15,18 +15,18 @@
 					>
 						({{ formatMoney(amountDifference) }})
 					</div>
-					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
+					<div class="text-sm font-medium leading-6">
 						{{ formatMoney(balance) }}
 					</div>
 					<MButton @click="addTransaction" color="indigo" size="small" type="button">
 						<Plus class="h-4 w-4 text-white" />
 					</MButton>
 					<MButton @click="$emit('editAccount', account)" color="white" size="small" type="button">
-						<Settings2 class="h-4 w-4 text-gray-900 dark:text-white" />
+						<Settings2 class="h-4 w-4" />
 					</MButton>
 					<MButton @click="toggleSorting" color="white" size="small" type="button">
-						<ArrowDownAZ class="h-4 w-4 text-gray-900 dark:text-white" v-if="isSortingAscending" />
-						<ArrowUpZA class="h-4 w-4 text-gray-900 dark:text-white" v-else />
+						<ArrowDownAZ class="h-4 w-4" v-if="isSortingAscending" />
+						<ArrowUpZA class="h-4 w-4" v-else />
 					</MButton>
 				</div>
 			</div>
