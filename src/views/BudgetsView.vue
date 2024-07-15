@@ -36,7 +36,7 @@
 
 		<MButton
 			@click="addBudget"
-			class="absolute bottom-0 right-0 z-10 m-3"
+			class="fixed bottom-0 right-0 z-10 m-3"
 			color="indigo"
 			size="big"
 			type="button"

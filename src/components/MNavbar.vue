@@ -73,7 +73,7 @@
 				</DialogPanel>
 			</Dialog>
 		</header>
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-7xl bg-white px-4 pb-4 sm:px-6 lg:px-8 dark:bg-slate-800">
 			<div class="mx-auto max-w-3xl">
 				<slot />
 			</div>
