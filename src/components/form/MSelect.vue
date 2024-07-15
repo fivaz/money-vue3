@@ -18,9 +18,12 @@
 				leave-to-class="opacity-0"
 			>
 				<ListboxOptions
-					class="absolute z-10 mt-1 block max-h-60 w-full overflow-auto rounded-md border-0 py-1.5 text-base shadow-sm ring-1 ring-inset ring-black/5 ring-slate-300 placeholder:text-slate-400 sm:text-sm sm:leading-6 dark:ring-white/10"
+					:class="[
+						MAIN_COLOR_BG,
+						'absolute z-10 mt-1 block max-h-60 w-full overflow-auto rounded-md border-0 bg-red-500 py-1.5 text-base shadow-sm ring-1 ring-inset ring-black/5 ring-slate-300 placeholder:text-slate-400 sm:text-sm sm:leading-6 dark:ring-white/10',
+					]"
 				>
-					<slot></slot>
+					<slot />
 				</ListboxOptions>
 			</transition>
 		</div>
@@ -28,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import { MAIN_COLOR_BG, SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { Listbox, ListboxButton, ListboxLabel, ListboxOptions } from '@headlessui/vue'
 import { ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 

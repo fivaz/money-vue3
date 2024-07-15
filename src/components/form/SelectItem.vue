@@ -2,7 +2,7 @@
 	<ListboxOption :value="value" as="template" v-slot="{ active, selected }">
 		<li
 			:class="[
-				active ? MAIN_COLORFUL_COLOR_BG : MAIN_COLOR_BG,
+				{ [MAIN_COLORFUL_COLOR_BG]: active },
 				'relative cursor-default select-none py-2 pl-10 pr-4',
 			]"
 		>

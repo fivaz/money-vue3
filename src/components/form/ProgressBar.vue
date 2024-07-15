@@ -1,10 +1,10 @@
 <template>
-	<div class="relative mt-2 overflow-hidden rounded-full bg-slate-200">
+	<div class="relative mt-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
 		<span class="absolute right-3 text-xs">{{ formatMoney(budget.value) }}</span>
 		<div
 			:class="[
-				'relative z-10 h-4 rounded-full',
-				percentage > 100 ? 'bg-red-600' : MAIN_COLORFUL_COLOR_BG,
+				'relative z-10 h-4 rounded-full text-white',
+				percentage > 100 ? 'bg-red-600' : 'bg-indigo-600',
 			]"
 			:style="{ width: computedWidth }"
 		>
@@ -17,7 +17,7 @@
 import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transaction'
 
-import { MAIN_COLORFUL_COLOR_BG } from '@/lib/consts'
+import { MAIN_COLORFUL_COLOR_BG, SECONDARY_COLOR_BG } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import { computed } from 'vue'
 
