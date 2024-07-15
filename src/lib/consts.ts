@@ -20,8 +20,8 @@ export const MAIN_COLOR_TEXT = 'text-gray-900 dark:text-white'
 // 700 - 300
 export const MAIN_HOVER_COLOR_TEXT = 'hover:text-gray-700 dark:hover:text-gray-300'
 
-//50 - 1000
-export const SECONDARY_COLOR_BG = 'bg-gray-50 dark:bg-black'
+//50 - 900
+export const SECONDARY_COLOR_BG = 'bg-gray-50 dark:bg-gray-900'
 
 //500 - 400
 export const SECONDARY_COLOR_TEXT = 'text-gray-500 dark:text-gray-400'

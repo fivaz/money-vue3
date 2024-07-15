@@ -229,6 +229,13 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 
 const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 
+watch(
+	() => props.transaction,
+	(newValue) => {
+		transactionIn.value = { ...newValue, id: newValue.id }
+	},
+)
+
 const user = useCurrentUser()
 const db = useFirestore()
 const store = usePromptStore()

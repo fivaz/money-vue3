@@ -33,7 +33,7 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MToggle from '@/components/form/MToggle.vue'
 import { type Budget, addBudget, deleteBudget, editBudget } from '@/lib/budget'
 import { usePromptStore } from '@/lib/promptStore'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
 const props = defineProps<{ budget: Budget; show: boolean }>()
@@ -42,9 +42,15 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 
 const budgetIn = ref<Budget>({ ...props.budget, id: props.budget.id })
 
+watch(
+	() => props.budget,
+	(newValue) => {
+		budgetIn.value = { ...newValue, id: newValue.id }
+	},
+)
+
 const user = useCurrentUser()
 const db = useFirestore()
-
 const store = usePromptStore()
 
 function submitForm() {

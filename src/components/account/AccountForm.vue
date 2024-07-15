@@ -50,7 +50,7 @@ import MSelect from '@/components/form/MSelect.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import { type Account, addAccount, deleteAccount, editAccount } from '@/lib/account'
 import { usePromptStore } from '@/lib/promptStore'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
 const props = defineProps<{ account: Account; length: number; show: boolean }>()
@@ -59,9 +59,15 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 
 const accountIn = ref<Account>({ ...props.account, id: props.account.id })
 
+watch(
+	() => props.account,
+	(newValue) => {
+		accountIn.value = { ...newValue, id: newValue.id }
+	},
+)
+
 const user = useCurrentUser()
 const db = useFirestore()
-
 const store = usePromptStore()
 
 function submitForm() {
