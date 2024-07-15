@@ -45,9 +45,7 @@
 			New Budget
 		</MButton>
 
-		<MModal :show="showForm" @close="showForm = false">
-			<BudgetForm :budget="editingBudget" @close="showForm = false" />
-		</MModal>
+		<BudgetForm :budget="editingBudget" :show="showForm" @close="showForm = false" />
 	</MNavbar>
 </template>
 
@@ -58,6 +56,7 @@ import type { Budget } from '@/lib/budget'
 import DateHeader from '@/components/DateHeader.vue'
 import MButton from '@/components/MButton.vue'
 import MNavbar from '@/components/MNavbar.vue'
+import AccountForm from '@/components/account/AccountForm.vue'
 import BudgetForm from '@/components/budget/BudgetForm.vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import MModal from '@/components/form/MModal.vue'

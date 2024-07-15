@@ -61,14 +61,13 @@
 		</Disclosure>
 	</div>
 
-	<MModal :show="showForm" @close="showForm = false">
-		<TransactionForm
-			:accounts="accounts"
-			:budgets="budgets"
-			:transaction="editingTransaction"
-			@close="showForm = false"
-		/>
-	</MModal>
+	<TransactionForm
+		:accounts="accounts"
+		:budgets="budgets"
+		:show="showForm"
+		:transaction="editingTransaction"
+		@close="showForm = false"
+	/>
 </template>
 
 <script setup lang="ts">

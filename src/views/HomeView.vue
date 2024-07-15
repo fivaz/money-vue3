@@ -53,9 +53,12 @@
 			New Account
 		</MButton>
 
-		<MModal :show="showForm" @close="showForm = false">
-			<AccountForm :account="editingAccount" :length="accounts.length" @close="showForm = false" />
-		</MModal>
+		<AccountForm
+			:account="editingAccount"
+			:length="accounts.length"
+			:show="showForm"
+			@close="showForm = false"
+		/>
 	</MNavbar>
 </template>
 
