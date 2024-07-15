@@ -1,5 +1,5 @@
 <template>
-	<MModal :show="show">
+	<MModal :show="show" @close="$emit('close')">
 		<div class="mb-5 flex items-center justify-between">
 			<h3 class="text-lg font-medium leading-6">
 				{{ title }}
@@ -22,7 +22,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import MModal from '@/components/form/MModal.vue'
 import { MAIN_COLOR_TEXT, SECONDARY_HOVER_COLOR_TEXT } from '@/lib/consts'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
