@@ -7,7 +7,8 @@
 			<button
 				:class="[
 					MAIN_COLOR_TEXT,
-					'rounded-md hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+					SECONDARY_HOVER_COLOR_TEXT,
+					'rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
 				]"
 				@click="$emit('close')"
 				type="button"
@@ -25,7 +26,7 @@ import type { Budget } from '@/lib/budget'
 
 import BudgetForm from '@/components/budget/BudgetForm.vue'
 import MModal from '@/components/form/MModal.vue'
-import { MAIN_COLOR_TEXT, MAIN_HOVER_COLOR_TEXT } from '@/lib/consts'
+import { MAIN_COLOR_TEXT, MAIN_HOVER_COLOR_TEXT, SECONDARY_HOVER_COLOR_TEXT } from '@/lib/consts'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps<{ show: boolean; title: string }>()

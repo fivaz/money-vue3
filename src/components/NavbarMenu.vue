@@ -1,13 +1,10 @@
 <template>
 	<Menu as="div" class="relative inline-block text-left">
 		<div>
-			<MenuButton
-				:class="[
-					MAIN_COLOR_BG,
-					'rounded px-1.5 py-1 text-sm font-semibold leading-6 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:bg-white/30',
-				]"
-			>
-				<Settings class="h-4 w-4" />
+			<MenuButton>
+				<MButton color="white" size="small">
+					<Settings class="h-4 w-4" />
+				</MButton>
 			</MenuButton>
 			<transition
 				enter-active-class="transition duration-100 ease-out"
@@ -20,7 +17,7 @@
 				<MenuItems
 					:class="[
 						MAIN_COLOR_BG,
-						'absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-200 rounded-md border border-gray-200 shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-gray-700 dark:border-gray-700',
+						'absolute right-0 mt-2 w-24 origin-top-right divide-y divide-slate-200 rounded-md border border-slate-200 shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-slate-700 dark:border-slate-700',
 					]"
 				>
 					<MenuItem v-slot="{ active }">
@@ -59,6 +56,7 @@
 </template>
 
 <script setup lang="ts">
+import MButton from '@/components/MButton.vue'
 import MToggle from '@/components/form/MToggle.vue'
 import { MAIN_COLOR_BG, SECONDARY_COLORFUL_COLOR_BG } from '@/lib/consts'
 import { loginRoute } from '@/router'

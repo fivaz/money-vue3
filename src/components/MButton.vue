@@ -15,7 +15,9 @@
 
 <script setup lang="ts">
 import {
+	MAIN_COLOR_BG,
 	MAIN_COLORFUL_COLOR_BG,
+	MAIN_HOVER_COLOR_BG,
 	MAIN_HOVER_COLORFUL_COLOR_BG,
 	SECONDARY_COLORFUL_COLOR_BG,
 } from '@/lib/consts'
@@ -35,8 +37,8 @@ const colorClass = {
 		normal: 'bg-red-600',
 	},
 	white: {
-		core: 'ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-gray-100 dark:hover:bg-white/30',
-		loading: 'bg-gray-100',
+		core: `${MAIN_HOVER_COLOR_BG} ${MAIN_COLOR_BG} ring-1 ring-inset ring-slate-300`,
+		loading: 'bg-slate-100',
 		normal: '',
 	},
 }

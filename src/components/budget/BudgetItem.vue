@@ -1,6 +1,6 @@
 <template>
-	<li class="overflow-hidden rounded-xl border border-gray-200">
-		<div :class="[SECONDARY_COLOR_BG, 'border-b border-gray-200 p-3']">
+	<li class="overflow-hidden rounded-xl border border-slate-200">
+		<div :class="[SECONDARY_COLOR_BG, 'border-b border-slate-200 p-3']">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
 					<component :is="getIcon(budget.icon)" class="h-4 w-4" />

@@ -13,8 +13,9 @@
 				<div class="absolute right-0 top-0 pr-3 pt-3">
 					<button
 						:class="[
-							SECONDARY_COLOR_TEXT,
-							'rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+							MAIN_COLOR_TEXT,
+							SECONDARY_HOVER_COLOR_TEXT,
+							'rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
 						]"
 						@click="close"
 						type="button"
@@ -56,7 +57,12 @@
 <script setup lang="ts">
 import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
-import { SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import {
+	MAIN_COLOR_TEXT,
+	MAIN_HOVER_COLOR_TEXT,
+	SECONDARY_COLOR_TEXT,
+	SECONDARY_HOVER_COLOR_TEXT,
+} from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 

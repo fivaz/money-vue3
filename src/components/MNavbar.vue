@@ -41,7 +41,11 @@
 			<Dialog :open="mobileMenuOpen" @close="mobileMenuOpen = false" class="lg:hidden">
 				<div class="fixed inset-0 z-10" />
 				<DialogPanel
-					:class="[MAIN_COLOR_BG, 'fixed inset-y-0 left-0 z-10 w-full overflow-y-auto px-6 py-6']"
+					:class="[
+						MAIN_COLOR_BG,
+						MAIN_COLOR_TEXT,
+						'fixed inset-y-0 left-0 z-10 w-full overflow-y-auto p-6',
+					]"
 				>
 					<div class="flex items-center justify-between">
 						<div class="flex flex-1">
@@ -62,11 +66,11 @@
 							<NavbarMenu />
 						</div>
 					</div>
-					<div class="mt-6 space-y-2 bg-white">
+					<div class="mt-6 space-y-2">
 						<RouterLink
 							:class="[
 								MAIN_HOVER_COLOR_BG,
-								'-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 dark:hover:bg-gray-900',
+								'-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7',
 							]"
 							:key="item.name"
 							:to="item.href"
