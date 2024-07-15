@@ -32,7 +32,7 @@
 					>
 						<div
 							:class="[
-								checked ? 'bg-indigo-600 text-white' : 'text-gray-500 dark:text-gray-200',
+								checked ? 'bg-indigo-600 text-white' : SECONDARY_COLOR_TEXT,
 								'flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1',
 							]"
 						>

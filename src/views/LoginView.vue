@@ -72,7 +72,7 @@
 				</div>
 			</form>
 
-			<p class="text-center text-sm leading-6 text-gray-500">
+			<p :class="['text-center text-sm leading-6', SECONDARY_COLOR_TEXT]">
 				Not a member?
 				{{ ' ' }}
 				<RouterLink :to="registerRoute" class="font-semibold text-indigo-600 hover:text-indigo-500">
@@ -87,6 +87,7 @@
 import MButton from '@/components/MButton.vue'
 import MLogo from '@/components/MLogo.vue'
 import MAlert from '@/components/form/MAlert.vue'
+import { SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { homeRoute, registerRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'
 import { signInWithEmailAndPassword } from 'firebase/auth'

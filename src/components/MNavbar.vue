@@ -40,7 +40,9 @@
 			</nav>
 			<Dialog :open="mobileMenuOpen" @close="mobileMenuOpen = false" class="lg:hidden">
 				<div class="fixed inset-0 z-10" />
-				<DialogPanel class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto px-6 py-6">
+				<DialogPanel
+					:class="[MAIN_COLOR_BG, 'fixed inset-y-0 left-0 z-10 w-full overflow-y-auto px-6 py-6']"
+				>
 					<div class="flex items-center justify-between">
 						<div class="flex flex-1">
 							<button
@@ -60,7 +62,7 @@
 							<NavbarMenu />
 						</div>
 					</div>
-					<div class="mt-6 space-y-2">
+					<div class="mt-6 space-y-2 bg-white">
 						<RouterLink
 							:key="item.name"
 							:to="item.href"
