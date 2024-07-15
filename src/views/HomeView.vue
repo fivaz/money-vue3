@@ -63,7 +63,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Account } from '@/lib/account'
 import type { Budget } from '@/lib/budget'
 
 import DateHeader from '@/components/DateHeader.vue'
@@ -71,6 +70,7 @@ import MButton from '@/components/MButton.vue'
 import MNavbar from '@/components/MNavbar.vue'
 import AccountForm from '@/components/account/AccountForm.vue'
 import AccountItem from '@/components/account/AccountItem.vue'
+import { type Account } from '@/lib/account'
 import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, icons } from '@/lib/utils'
@@ -101,11 +101,13 @@ const historicalTransactions = computed(() =>
 
 const balance = computed(() =>
 	historicalTransactions.value.reduce((sum, transaction) => {
-		if (transaction.operation == 'income') {
-			return sum + transaction.amount
-		}
-		if (transaction.operation == 'expense') {
-			return sum - transaction.amount
+		if (transaction.isPaid) {
+			if (transaction.operation == 'income') {
+				return sum + transaction.amount
+			}
+			if (transaction.operation == 'expense') {
+				return sum - transaction.amount
+			}
 		}
 		return sum
 	}, 0),

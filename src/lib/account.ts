@@ -1,3 +1,5 @@
+import type { Transaction } from '@/lib/transaction'
+
 import { ACCOUNTS, TRANSACTIONS, USERS } from '@/lib/consts'
 import {
 	addDoc,

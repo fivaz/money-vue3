@@ -73,11 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Account } from '@/lib/account'
 import type { Budget } from '@/lib/budget'
 
 import MButton from '@/components/MButton.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
+import { type Account } from '@/lib/account'
 import {
 	MAIN_HOVER_COLOR_BG,
 	MAIN_HOVER_COLOR_TEXT,
@@ -130,10 +130,12 @@ const sortedCurrentTransactions = computed(() => {
 })
 
 const balance = computed(() =>
-	accountTransactions.value.reduce(
-		(sum, transaction) => sum + parseAmount(transaction, props.account.id),
-		0,
-	),
+	accountTransactions.value.reduce((sum, transaction) => {
+		if (transaction.isPaid) {
+			return sum + parseAmount(transaction, props.account.id)
+		}
+		return sum
+	}, 0),
 )
 
 const amountDifference = computed(() => balance.value - props.account.currentAmount)
