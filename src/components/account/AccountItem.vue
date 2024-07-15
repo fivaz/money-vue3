@@ -10,7 +10,7 @@
 				</div>
 				<div class="flex items-center gap-2">
 					<div
-						:class="['text-sm font-medium leading-6', getAmountDifferenceColor()]"
+						:class="['text-sm font-medium leading-6', getAmountColor(amountDifference)]"
 						v-if="isSameMonth(props.currentDate, new Date())"
 					>
 						({{ formatMoney(amountDifference) }})
@@ -76,7 +76,7 @@ import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import { type Transaction, parseAmount } from '@/lib/transaction'
-import { formatMoney, getIcon } from '@/lib/utils'
+import { formatMoney, getAmountColor, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { isSameMonth, parseISO } from 'date-fns'
 import { ArrowDownAZ, ArrowUpZA, ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
@@ -132,12 +132,6 @@ const amountDifference = computed(() => balance.value - props.account.currentAmo
 const showForm = ref(false)
 
 const editingTransaction = ref<Transaction>(getEmptyTransactionFromAccount())
-
-function getAmountDifferenceColor() {
-	if (amountDifference.value === 0) return 'text-gray-900 dark:text-white'
-	if (amountDifference.value > 0) return 'text-green-500'
-	else return 'text-red-500'
-}
 
 function getEmptyTransactionFromAccount(): Transaction {
 	return {

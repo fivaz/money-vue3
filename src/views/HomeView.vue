@@ -3,7 +3,13 @@
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
 			<h2 class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-				{{ formatMoney(balance) }}
+				<span
+					:class="['text-sm font-medium leading-6', getAmountColor(amountDifference)]"
+					v-if="isSameMonth(currentDate, new Date())"
+				>
+					({{ formatMoney(amountDifference) }})
+				</span>
+				<span>{{ formatMoney(balance) }}</span>
 			</h2>
 		</div>
 
@@ -67,7 +73,8 @@ import AccountItem from '@/components/account/AccountItem.vue'
 import MModal from '@/components/form/MModal.vue'
 import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
-import { formatMoney, icons } from '@/lib/utils'
+import { formatMoney, getAmountColor, icons } from '@/lib/utils'
+import { isSameMonth } from 'date-fns'
 import { collection } from 'firebase/firestore'
 import { Plus, Vault } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
@@ -103,6 +110,14 @@ const balance = computed(() =>
 		return sum
 	}, 0),
 )
+
+const amountDifference = computed(() => {
+	const sumOfCurrentAmounts = accounts.value.reduce(
+		(sum, account) => sum + account.currentAmount,
+		0,
+	)
+	return balance.value - sumOfCurrentAmounts
+})
 
 function editAccount(account: Account) {
 	showForm.value = true

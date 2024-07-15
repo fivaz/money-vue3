@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { nextTick, onMounted, ref, watch } from 'vue'
+import { TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { nextTick, ref, watch } from 'vue'
 
 defineEmits<{ (e: 'close'): void }>()
 const props = withDefaults(defineProps<{ show: boolean; zIndex?: number }>(), { zIndex: 10 })

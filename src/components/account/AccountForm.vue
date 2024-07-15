@@ -58,7 +58,7 @@ import SelectItem from '@/components/form/SelectItem.vue'
 import { type Account, addAccount, deleteAccount, editAccount } from '@/lib/account'
 import { usePromptStore } from '@/lib/promptStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
 const props = defineProps<{ account: Account; length: number }>()

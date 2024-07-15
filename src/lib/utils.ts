@@ -17,6 +17,12 @@ export function formatMoney(cents: number) {
 	return `$${cents.toFixed(2)}`
 }
 
+export function getAmountColor(amount: number) {
+	if (amount === 0) return 'text-gray-900 dark:text-white'
+	if (amount > 0) return 'text-green-500'
+	else return 'text-red-500'
+}
+
 export const icons = [
 	{
 		icon: ShoppingCart,
