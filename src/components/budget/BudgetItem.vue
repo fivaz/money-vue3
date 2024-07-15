@@ -104,6 +104,7 @@ function getEmptyTransactionFromBudget(): Transaction {
 		id: '',
 		isPaid: true,
 		operation: 'expense',
+		referenceDate: null,
 		startDate: null,
 	}
 }

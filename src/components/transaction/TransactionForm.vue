@@ -181,6 +181,8 @@
 				</transition>
 			</div>
 
+			<LabelInput label="Reference date" type="date" v-model="transactionIn.referenceDate" />
+
 			<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
 				<MButton @click="handleDelete" color="white" size="big" type="button" v-if="transaction.id">
 					Delete

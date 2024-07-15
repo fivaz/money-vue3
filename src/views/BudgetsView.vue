@@ -83,8 +83,8 @@ const allTransactions = useCollection<Transaction>(
 )
 
 const currentTransactions = computed(() =>
-	getHistoricalTransactions(currentDate.value, allTransactions.value).filter((transaction) =>
-		isSameMonth(currentDate.value, parseISO(transaction.date)),
+	getHistoricalTransactions(currentDate.value, allTransactions.value, true).filter((transaction) =>
+		isSameMonth(currentDate.value, parseISO(transaction.referenceDate || transaction.date)),
 	),
 )
 

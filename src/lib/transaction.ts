@@ -19,6 +19,7 @@ export type Transaction = {
 	id: string
 	isPaid: boolean
 	operation: Operation
+	referenceDate: null | string
 	startDate: null | string
 }
 
@@ -126,11 +127,18 @@ export function getExpandedTransactions(currentDate: Date, transactions: Transac
 	})
 }
 
-export function getHistoricalTransactions(currentDate: Date, transactions: Transaction[]) {
+export function getHistoricalTransactions(
+	currentDate: Date,
+	transactions: Transaction[],
+	useReferenceDate = false,
+) {
 	const expandedTransactions = getExpandedTransactions(currentDate, transactions)
 	return expandedTransactions.filter((transaction) => {
 		const endOfCurrentMonth = endOfMonth(currentDate)
-		const transactionDate = new Date(transaction.date)
+
+		const transactionDate = new Date(
+			useReferenceDate && transaction.referenceDate ? transaction.referenceDate : transaction.date,
+		)
 		return (
 			isBefore(transactionDate, endOfCurrentMonth) || isSameDay(transactionDate, endOfCurrentMonth)
 		)
