@@ -86,8 +86,8 @@ async function handleDelete() {
 		await store.createPrompt({
 			cancelText: 'Cancel',
 			confirmText: 'Delete',
-			message: 'Are you sure you want to delete this budget ?',
-			title: 'Delete Budget',
+			message: 'Are you sure you want to delete this account ?',
+			title: 'Delete Account',
 		})
 	)
 		if (accountIn.value.id) {
