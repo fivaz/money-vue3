@@ -68,6 +68,9 @@
 						{{ transactionIn.budget?.name || 'no budget selected' }}
 					</span>
 				</template>
+				<SelectItem :value="null" class="flex items-center gap-2">
+					<span>no budget</span>
+				</SelectItem>
 				<SelectItem
 					:key="budget.id"
 					:value="budget"
