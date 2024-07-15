@@ -1,6 +1,6 @@
 <template>
 	<div class="overflow-hidden rounded-xl border border-gray-200">
-		<div class="border-b border-gray-200 bg-gray-50 p-3 dark:bg-slate-900">
+		<div :class="['border-b border-gray-200 p-3', SECONDARY_COLOR_BG]">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
 					<component :is="getIcon(account.icon)" class="h-4 w-4" />
@@ -51,7 +51,10 @@
 				</DisclosurePanel>
 			</transition>
 			<DisclosureButton
-				class="flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-slate-900 dark:hover:text-gray-300"
+				:class="[
+					SECONDARY_COLOR_TEXT,
+					'flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-slate-900 dark:hover:text-gray-300',
+				]"
 			>
 				<ChevronDown :class="open && 'rotate-180 transform'" />
 			</DisclosureButton>
@@ -75,6 +78,7 @@ import type { Budget } from '@/lib/budget'
 import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
+import { SECONDARY_COLOR_BG, SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { type Transaction, parseAmount } from '@/lib/transaction'
 import { formatMoney, getAmountColor, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'

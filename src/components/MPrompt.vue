@@ -13,7 +13,7 @@
 				<div class="absolute right-0 top-0 pr-3 pt-3">
 					<button
 						@click="close"
-						class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
+						class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						type="button"
 					>
 						<span class="sr-only">Close</span>
@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="mt-2" v-if="promptStore.prompt.message">
-					<p class="text-sm text-gray-500 dark:text-gray-300">{{ promptStore.prompt.message }}</p>
+					<p :class="[SECONDARY_COLOR_TEXT, 'text-sm']">{{ promptStore.prompt.message }}</p>
 				</div>
 			</div>
 		</div>
@@ -53,6 +53,7 @@
 <script setup lang="ts">
 import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
+import { SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 

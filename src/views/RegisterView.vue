@@ -1,6 +1,9 @@
 <template>
 	<div
-		class="flex h-screen min-h-full flex-1 flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8"
+		:class="[
+			SECONDARY_COLOR_BG,
+			'flex h-screen min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8',
+		]"
 	>
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
 			<MLogo class="mx-auto h-10 w-auto" />
@@ -10,7 +13,7 @@
 		</div>
 
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+			<div class="px-6 py-12 shadow sm:rounded-lg sm:px-12">
 				<form @submit.prevent="handleSubmit" class="space-y-6">
 					<MAlert v-if="!!errorMessage">{{ errorMessage }}</MAlert>
 					<div class="flex flex-col justify-center" v-if="email">
@@ -36,7 +39,7 @@
 				</form>
 			</div>
 
-			<p class="mt-10 text-center text-sm text-gray-500">
+			<p :class="['mt-10 text-center text-sm', SECONDARY_COLOR_TEXT]">
 				Already a member?
 				<RouterLink
 					:to="loginRoute"
@@ -56,7 +59,7 @@ import MButton from '@/components/MButton.vue'
 import MLogo from '@/components/MLogo.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MAlert from '@/components/form/MAlert.vue'
-import { AVATARS, USERS } from '@/lib/consts'
+import { AVATARS, SECONDARY_COLOR_BG, SECONDARY_COLOR_TEXT, USERS } from '@/lib/consts'
 import { homeRoute, loginRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'

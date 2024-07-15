@@ -32,7 +32,7 @@ const colorClass = {
 	white: {
 		core: 'ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-gray-100 dark:hover:bg-white/30',
 		loading: 'bg-gray-100',
-		normal: 'bg-white',
+		normal: '',
 	},
 }
 

@@ -1,13 +1,5 @@
 <template>
-	<div
-		:class="[
-			'min-h-screen',
-			MAIN_COLOR_BG,
-			MAIN_DARK_COLOR_BG,
-			MAIN_COLOR_TEXT,
-			MAIN_DARK_COLOR_TEXT,
-		]"
-	>
+	<div :class="['min-h-screen', MAIN_COLOR_BG, MAIN_COLOR_TEXT]">
 		<header>
 			<nav
 				aria-label="Global"
@@ -90,12 +82,7 @@
 <script setup lang="ts">
 import MLogo from '@/components/MLogo.vue'
 import NavbarMenu from '@/components/NavbarMenu.vue'
-import {
-	MAIN_COLOR_BG,
-	MAIN_COLOR_TEXT,
-	MAIN_DARK_COLOR_BG,
-	MAIN_DARK_COLOR_TEXT,
-} from '@/lib/consts'
+import { MAIN_COLOR_BG, MAIN_COLOR_TEXT } from '@/lib/consts'
 import { budgetsRoute, homeRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'

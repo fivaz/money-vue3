@@ -2,7 +2,7 @@
 	<Menu as="div" class="relative inline-block text-left">
 		<div>
 			<MenuButton
-				class="rounded bg-white px-1.5 py-1 text-sm font-semibold leading-6 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-gray-100 dark:hover:bg-white/30"
+				class="rounded px-1.5 py-1 text-sm font-semibold leading-6 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-gray-100 dark:hover:bg-white/30"
 			>
 				<Settings class="h-4 w-4" />
 			</MenuButton>
@@ -15,7 +15,7 @@
 				leave-to-class="transform scale-95 opacity-0"
 			>
 				<MenuItems
-					class="absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-200 rounded-md border border-gray-200 bg-white shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-gray-700 dark:border-gray-700 dark:bg-slate-800"
+					class="absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-200 rounded-md border border-gray-200 shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-gray-700 dark:border-gray-700"
 				>
 					<MenuItem v-slot="{ active }">
 						<div

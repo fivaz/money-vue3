@@ -6,7 +6,7 @@
 			</h3>
 			<button
 				@click="$emit('close')"
-				class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-800"
+				class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				type="button"
 			>
 				<span class="sr-only">Close</span>
@@ -155,7 +155,7 @@
 			/>
 		</div>
 
-		<div class="flex flex-col gap-2 rounded-lg border bg-white p-2 dark:bg-slate-800">
+		<div class="flex flex-col gap-2 rounded-lg border p-2">
 			<div class="flex items-center justify-between">
 				<button
 					@click="
