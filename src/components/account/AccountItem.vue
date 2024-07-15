@@ -19,7 +19,7 @@
 						{{ formatMoney(balance) }}
 					</div>
 					<MButton @click="addTransaction" color="indigo" size="small" type="button">
-						<Plus class="h-4 w-4 text-white" />
+						<Plus class="h-4 w-4" />
 					</MButton>
 					<MButton @click="$emit('editAccount', account)" color="white" size="small" type="button">
 						<Settings2 class="h-4 w-4" />

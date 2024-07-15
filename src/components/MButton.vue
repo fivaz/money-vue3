@@ -14,15 +14,20 @@
 </template>
 
 <script setup lang="ts">
+import {
+	MAIN_COLORFUL_COLOR_BG,
+	MAIN_HOVER_COLORFUL_COLOR_BG,
+	SECONDARY_COLORFUL_COLOR_BG,
+} from '@/lib/consts'
 import { LoaderCircle } from 'lucide-vue-next'
 
 defineProps<{ color: keyof typeof colorClass; isLoading?: boolean; size: keyof typeof sizeClass }>()
 
 const colorClass = {
 	indigo: {
-		core: 'text-white hover:bg-indigo-400',
-		loading: 'bg-indigo-400',
-		normal: 'bg-indigo-600',
+		core: MAIN_HOVER_COLORFUL_COLOR_BG,
+		loading: SECONDARY_COLORFUL_COLOR_BG,
+		normal: MAIN_COLORFUL_COLOR_BG,
 	},
 	red: {
 		core: 'text-white hover:bg-red-400',

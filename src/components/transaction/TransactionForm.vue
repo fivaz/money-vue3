@@ -32,7 +32,7 @@
 					>
 						<div
 							:class="[
-								checked ? `${MAIN_COLORFUL_COLOR_BG} text-white` : SECONDARY_COLOR_TEXT,
+								checked ? MAIN_COLORFUL_COLOR_BG : SECONDARY_COLOR_TEXT,
 								'flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1',
 							]"
 						>

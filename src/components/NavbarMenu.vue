@@ -2,7 +2,10 @@
 	<Menu as="div" class="relative inline-block text-left">
 		<div>
 			<MenuButton
-				class="rounded px-1.5 py-1 text-sm font-semibold leading-6 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-gray-100 dark:hover:bg-white/30"
+				:class="[
+					MAIN_COLOR_BG,
+					'rounded px-1.5 py-1 text-sm font-semibold leading-6 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:bg-white/30',
+				]"
 			>
 				<Settings class="h-4 w-4" />
 			</MenuButton>
@@ -23,7 +26,7 @@
 					<MenuItem v-slot="{ active }">
 						<div
 							:class="[
-								active ? 'bg-violet-500 text-white' : '',
+								{ [SECONDARY_COLORFUL_COLOR_BG]: active },
 								'group flex w-full items-center justify-center rounded-md px-2 py-2 text-sm',
 							]"
 						>
@@ -40,11 +43,11 @@
 					<MenuItem v-slot="{ active }">
 						<div
 							:class="[
-								active ? 'bg-violet-500 text-white' : '',
+								{ [SECONDARY_COLORFUL_COLOR_BG]: active },
 								'group flex w-full items-center justify-center rounded-md px-2 py-2 text-sm',
 							]"
 						>
-							<button @click="logout" class="text-sm font-semibold leading-6 hover:text-white">
+							<button @click="logout" class="text-sm font-semibold leading-6">
 								Log out <span aria-hidden="true">&rarr;</span>
 							</button>
 						</div>
@@ -57,7 +60,7 @@
 
 <script setup lang="ts">
 import MToggle from '@/components/form/MToggle.vue'
-import { MAIN_COLOR_BG } from '@/lib/consts'
+import { MAIN_COLOR_BG, SECONDARY_COLORFUL_COLOR_BG } from '@/lib/consts'
 import { loginRoute } from '@/router'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { signOut } from 'firebase/auth'

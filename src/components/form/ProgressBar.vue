@@ -8,7 +8,7 @@
 			]"
 			:style="{ width: computedWidth }"
 		>
-			<span class="absolute right-3 text-xs text-white">{{ formatMoney(spent) }}</span>
+			<span class="absolute right-3 text-xs">{{ formatMoney(spent) }}</span>
 		</div>
 	</div>
 </template>
