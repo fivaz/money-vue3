@@ -9,12 +9,6 @@
 					</span>
 				</div>
 				<div class="flex items-center gap-2">
-					<div
-						:class="['text-sm font-medium leading-6', getAmountColor(amountDifference)]"
-						v-if="isSameMonth(props.currentDate, new Date())"
-					>
-						({{ formatMoney(amountDifference) }})
-					</div>
 					<div class="text-sm font-medium leading-6">
 						{{ formatMoney(balance) }}
 					</div>
@@ -85,7 +79,7 @@ import {
 	SECONDARY_COLOR_TEXT,
 } from '@/lib/consts'
 import { type Transaction, parseAmount } from '@/lib/transaction'
-import { formatMoney, getAmountColor, getIcon } from '@/lib/utils'
+import { formatMoney, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { isSameMonth, parseISO } from 'date-fns'
 import { ArrowDownAZ, ArrowUpZA, ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
@@ -137,8 +131,6 @@ const balance = computed(() =>
 		return sum
 	}, 0),
 )
-
-const amountDifference = computed(() => balance.value - props.account.currentAmount)
 
 const showForm = ref(false)
 

@@ -1,4 +1,3 @@
-import type { Transaction } from '@/lib/transaction'
 
 import { ACCOUNTS, TRANSACTIONS, USERS } from '@/lib/consts'
 import {
@@ -15,7 +14,6 @@ import {
 import { useFirestore } from 'vuefire'
 
 export type Account = {
-	currentAmount: number
 	icon: string
 	id: string
 	name: string

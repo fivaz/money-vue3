@@ -68,7 +68,7 @@ async function handleDelete() {
 			cancelText: 'Cancel',
 			confirmText: 'Delete',
 			message: 'Are you sure you want to delete this budget ?',
-			title: 'Delete Budget',
+			title: 'Delete budget',
 		})
 	)
 		if (budgetIn.value.id) {

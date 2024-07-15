@@ -282,7 +282,7 @@ async function handleDelete() {
 			cancelText: 'Cancel',
 			confirmText: 'Delete',
 			message: 'Are you sure you want to delete this transaction ?',
-			title: 'Delete Transaction',
+			title: 'Delete transaction',
 		})
 	)
 		if (transactionIn.value.id) {

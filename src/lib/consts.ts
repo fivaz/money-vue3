@@ -1,6 +1,7 @@
 export const TRANSACTIONS = 'transactions'
 export const BUDGETS = 'budgets'
 export const ACCOUNTS = 'accounts'
+export const SOURCES = 'sources'
 export const USERS = 'users'
 export const AVATARS = 'avatars'
 

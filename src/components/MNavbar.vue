@@ -100,7 +100,7 @@ import {
 	MAIN_HOVER_COLOR_BG,
 	SECONDARY_COLOR_TEXT,
 } from '@/lib/consts'
-import { budgetsRoute, homeRoute } from '@/router'
+import { budgetsRoute, homeRoute, sourcesRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
@@ -108,6 +108,7 @@ import { ref } from 'vue'
 const navigation = [
 	{ href: homeRoute, name: 'Home' },
 	{ href: budgetsRoute, name: 'Budgets' },
+	{ href: sourcesRoute, name: 'Sources' },
 ]
 
 const mobileMenuOpen = ref(false)

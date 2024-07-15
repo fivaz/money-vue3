@@ -64,6 +64,7 @@
 
 <script setup lang="ts">
 import type { Budget } from '@/lib/budget'
+import type { Source } from '@/lib/source'
 
 import DateHeader from '@/components/DateHeader.vue'
 import MButton from '@/components/MButton.vue'
@@ -71,7 +72,7 @@ import MNavbar from '@/components/MNavbar.vue'
 import AccountForm from '@/components/account/AccountForm.vue'
 import AccountItem from '@/components/account/AccountItem.vue'
 import { type Account } from '@/lib/account'
-import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/lib/consts'
+import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, SOURCES, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, icons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
@@ -91,6 +92,7 @@ const user = useCurrentUser()
 
 const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, ACCOUNTS))
+const sources = useCollection<Source>(collection(db, USERS, user.value!.uid, SOURCES))
 const allTransactions = useCollection<Transaction>(
 	query(collection(db, USERS, user.value!.uid, TRANSACTIONS), where('isDeleted', '==', null)),
 )
@@ -114,11 +116,8 @@ const balance = computed(() =>
 )
 
 const amountDifference = computed(() => {
-	const sumOfCurrentAmounts = accounts.value.reduce(
-		(sum, account) => sum + account.currentAmount,
-		0,
-	)
-	return balance.value - sumOfCurrentAmounts
+	const sumOfBalances = sources.value.reduce((sum, source) => sum + source.balance, 0)
+	return balance.value - sumOfBalances
 })
 
 function editAccount(account: Account) {
@@ -128,7 +127,6 @@ function editAccount(account: Account) {
 
 function getEmptyAccount(): Account {
 	return {
-		currentAmount: 0,
 		icon: icons[1].name,
 		id: '',
 		name: '',
