@@ -8,7 +8,7 @@
 			<div class="flex justify-center">
 				<fieldset aria-label="transaction operation">
 					<RadioGroup
-						class="grid grid-cols-3 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-slate-200"
+						class="grid grid-cols-3 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
 						v-model="transactionIn.operation"
 					>
 						<RadioGroupOption
@@ -139,7 +139,7 @@
 			<div>
 				<label class="block text-sm font-medium leading-6" for="description"> Description </label>
 				<textarea
-					class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:ring-white/10 dark:focus:ring-indigo-500"
+					class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:ring-white/10 dark:focus:ring-indigo-500"
 					id="description"
 					name="description"
 					v-model="transactionIn.description"

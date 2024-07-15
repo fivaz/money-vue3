@@ -1,5 +1,5 @@
 <template>
-	<div class="relative mt-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+	<div class="relative mt-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
 		<span class="absolute right-3 text-xs">{{ formatMoney(budget.value) }}</span>
 		<div
 			:class="[

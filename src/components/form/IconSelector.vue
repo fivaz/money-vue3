@@ -2,7 +2,7 @@
 	<div class="relative flex flex-col gap-2">
 		<label class="block text-sm font-medium leading-6" for="icon">Icon</label>
 		<div
-			class="grid grid-cols-10 justify-between gap-1 overflow-y-auto rounded-lg border border-slate-300 p-2 shadow-sm"
+			class="grid grid-cols-10 justify-between gap-1 overflow-y-auto rounded-lg border border-gray-300 p-2 shadow-sm"
 		>
 			<button
 				:class="[

@@ -17,7 +17,7 @@
 				<MenuItems
 					:class="[
 						MAIN_COLOR_BG,
-						'absolute right-0 mt-2 w-24 origin-top-right divide-y divide-slate-200 rounded-md border border-slate-200 shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-slate-700 dark:border-slate-700',
+						'absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-200 rounded-md border border-gray-200 shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-gray-700 dark:border-gray-700',
 					]"
 				>
 					<MenuItem v-slot="{ active }">

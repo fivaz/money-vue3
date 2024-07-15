@@ -37,8 +37,8 @@ const colorClass = {
 		normal: 'bg-red-600',
 	},
 	white: {
-		core: `${MAIN_HOVER_COLOR_BG} ${MAIN_COLOR_BG} ring-1 ring-inset ring-slate-300`,
-		loading: 'bg-slate-100',
+		core: `${MAIN_HOVER_COLOR_BG} ${MAIN_COLOR_BG} ring-1 ring-inset ring-gray-300`,
+		loading: 'bg-gray-100',
 		normal: '',
 	},
 }

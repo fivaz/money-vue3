@@ -13,12 +13,12 @@
 			<form @submit.prevent="handleSubmit" class="space-y-6">
 				<div class="relative -space-y-px rounded-md shadow-sm">
 					<div
-						class="pointer-events-none absolute inset-0 z-10 rounded-md ring-1 ring-inset ring-slate-300"
+						class="pointer-events-none absolute inset-0 z-10 rounded-md ring-1 ring-inset ring-gray-300"
 					/>
 					<div>
 						<label class="sr-only" for="email">Email address</label>
 						<input
-							class="relative block w-full rounded-t-md border-0 py-1.5 ring-1 ring-inset ring-slate-100 placeholder:text-slate-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							class="relative block w-full rounded-t-md border-0 py-1.5 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="email"
 							name="email"
 							placeholder="Email address"
@@ -30,7 +30,7 @@
 					<div>
 						<label class="sr-only" for="password">Password</label>
 						<input
-							class="relative block w-full rounded-b-md border-0 py-1.5 ring-1 ring-inset ring-slate-100 placeholder:text-slate-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							class="relative block w-full rounded-b-md border-0 py-1.5 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="password"
 							name="password"
 							placeholder="Password"
@@ -45,7 +45,7 @@
 					<div class="flex items-center">
 						<input
 							:class="[
-								'h-4 w-4 rounded border-slate-300 focus:ring-indigo-600',
+								'h-4 w-4 rounded border-gray-300 focus:ring-indigo-600',
 								MAIN_COLORFUL_COLOR_TEXT,
 							]"
 							id="remember-me"
