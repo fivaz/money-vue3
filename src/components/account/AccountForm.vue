@@ -89,7 +89,7 @@ async function handleDelete() {
 		})
 	)
 		if (accountIn.value.id) {
-			deleteAccount(db, accountIn.value.id, user.value!.uid)
+			void deleteAccount(db, accountIn.value.id, user.value!.uid)
 			emit('close')
 		}
 }
