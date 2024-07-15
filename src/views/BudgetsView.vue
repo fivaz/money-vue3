@@ -23,7 +23,7 @@
 		<div class="pt-10 text-center" v-if="budgets.length === 0">
 			<PiggyBank :class="['mx-auto h-16 w-16', SECONDARY_COLOR_TEXT]" />
 			<h3 class="mt-2 text-sm font-semibold">No Budget</h3>
-			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+			<p :class="['mt-1 text-sm', SECONDARY_COLOR_TEXT]">
 				Get started by creating your first budget.
 			</p>
 			<div class="mt-6 flex justify-center">

@@ -5,8 +5,11 @@
 				{{ account.id ? 'Edit Account' : 'Add Account' }}
 			</h3>
 			<button
+				:class="[
+					SECONDARY_COLOR_TEXT,
+					'rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+				]"
 				@click="$emit('close')"
-				class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				type="button"
 			>
 				<span class="sr-only">Close</span>
@@ -56,6 +59,7 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MSelect from '@/components/form/MSelect.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import { type Account, addAccount, deleteAccount, editAccount } from '@/lib/account'
+import { SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'

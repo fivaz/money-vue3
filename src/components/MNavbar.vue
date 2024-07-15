@@ -18,8 +18,11 @@
 					</div>
 					<div class="flex lg:hidden">
 						<button
+							:class="[
+								'-m-2.5 inline-flex items-center justify-center rounded-md p-2.5',
+								SECONDARY_COLOR_TEXT,
+							]"
 							@click="mobileMenuOpen = true"
-							class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-slate-400"
 							type="button"
 						>
 							<span class="sr-only">Open main menu</span>
@@ -41,8 +44,8 @@
 					<div class="flex items-center justify-between">
 						<div class="flex flex-1">
 							<button
+								:class="['-m-2.5 rounded-md p-2.5', SECONDARY_COLOR_TEXT]"
 								@click="mobileMenuOpen = false"
-								class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-slate-400"
 								type="button"
 							>
 								<span class="sr-only">Close menu</span>
@@ -82,7 +85,7 @@
 <script setup lang="ts">
 import MLogo from '@/components/MLogo.vue'
 import NavbarMenu from '@/components/NavbarMenu.vue'
-import { MAIN_COLOR_BG, MAIN_COLOR_TEXT } from '@/lib/consts'
+import { MAIN_COLOR_BG, MAIN_COLOR_TEXT, SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { budgetsRoute, homeRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'

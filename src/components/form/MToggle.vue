@@ -19,7 +19,7 @@
 				]"
 				aria-hidden="true"
 			>
-				<span class="h-3 w-3 text-gray-400">
+				<span :class="['h-3 w-3', SECONDARY_COLOR_TEXT]">
 					<slot name="inactive">
 						<svg fill="none" viewBox="0 0 12 12">
 							<path
@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import { SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { Switch } from '@headlessui/vue'
 
 const value = defineModel<boolean>()

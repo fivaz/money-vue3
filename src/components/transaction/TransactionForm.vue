@@ -5,8 +5,11 @@
 				{{ transaction.id ? 'Edit Transaction' : 'Add Transaction' }}
 			</h3>
 			<button
+				:class="[
+					SECONDARY_COLOR_TEXT,
+					'rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+				]"
 				@click="$emit('close')"
-				class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				type="button"
 			>
 				<span class="sr-only">Close</span>
@@ -208,7 +211,7 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MSelect from '@/components/form/MSelect.vue'
 import MToggle from '@/components/form/MToggle.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
-import { DATETIME_OUT } from '@/lib/consts'
+import { DATETIME_OUT, SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import {
 	type Transaction,

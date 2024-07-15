@@ -12,8 +12,11 @@
 				</h3>
 				<div class="absolute right-0 top-0 pr-3 pt-3">
 					<button
+						:class="[
+							SECONDARY_COLOR_TEXT,
+							'rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+						]"
 						@click="close"
-						class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						type="button"
 					>
 						<span class="sr-only">Close</span>

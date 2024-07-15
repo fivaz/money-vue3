@@ -30,12 +30,10 @@
 			</li>
 		</ul>
 
-		<div class="pt-10 text-center" v-if="accounts.length === 0">
-			<Vault class="mx-auto h-16 w-16 text-gray-400" />
+		<div :class="['pt-10 text-center', SECONDARY_COLOR_TEXT]" v-if="accounts.length === 0">
+			<Vault class="mx-auto h-16 w-16" />
 			<h3 class="mt-2 text-sm font-semibold">No Account</h3>
-			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
-				Get started by creating your first account.
-			</p>
+			<p class="mt-1 text-sm">Get started by creating your first account.</p>
 			<div class="mt-6 flex justify-center">
 				<MButton @click="addAccount" color="indigo" size="big" type="button">
 					<Plus aria-hidden="true" class="h-5 w-5" />
@@ -71,7 +69,7 @@ import MNavbar from '@/components/MNavbar.vue'
 import AccountForm from '@/components/account/AccountForm.vue'
 import AccountItem from '@/components/account/AccountItem.vue'
 import MModal from '@/components/form/MModal.vue'
-import { ACCOUNTS, BUDGETS, TRANSACTIONS, USERS } from '@/lib/consts'
+import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, icons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
