@@ -54,10 +54,10 @@
 <script setup lang="ts">
 import type { Auth } from 'firebase/auth'
 
-import Logo from '@/components/Logo.vue'
 import MButton from '@/components/MButton.vue'
-import Alert from '@/components/form/Alert.vue'
+import Logo from '@/components/MLogo.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import Alert from '@/components/form/MAlert.vue'
 import { AVATARS, USERS } from '@/lib/consts'
 import { homeRoute, loginRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'

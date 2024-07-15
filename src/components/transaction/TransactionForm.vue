@@ -211,9 +211,9 @@ import type { Budget } from '@/lib/budget'
 
 import MButton from '@/components/MButton.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
-import Select from '@/components/form/Select.vue'
+import Select from '@/components/form/MSelect.vue'
+import Toggle from '@/components/form/MToggle.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
-import Toggle from '@/components/form/Toggle.vue'
 import { DATETIME_OUT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import {
@@ -225,7 +225,7 @@ import {
 	formatDateOut,
 } from '@/lib/transaction'
 import { getIcon } from '@/lib/utils'
-import { DialogTitle, RadioGroup, RadioGroupOption } from '@headlessui/vue'
+import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { format, getMonth, parseISO, set } from 'date-fns'
 import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'

@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import Prompt from '@/components/Prompt.vue'
+import Prompt from '@/components/MPrompt.vue'
 </script>

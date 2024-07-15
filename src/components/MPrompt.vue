@@ -54,7 +54,6 @@
 import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
 import { usePromptStore } from '@/lib/promptStore'
-import { DialogTitle } from '@headlessui/vue'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const promptStore = usePromptStore()

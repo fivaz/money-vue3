@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import Toggle from '@/components/form/Toggle.vue'
+import Toggle from '@/components/form/MToggle.vue'
 import { loginRoute } from '@/router'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { signOut } from 'firebase/auth'

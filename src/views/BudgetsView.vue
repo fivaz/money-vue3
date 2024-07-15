@@ -57,7 +57,7 @@ import type { Budget } from '@/lib/budget'
 
 import DateHeader from '@/components/DateHeader.vue'
 import MButton from '@/components/MButton.vue'
-import Navbar from '@/components/Navbar.vue'
+import Navbar from '@/components/MNavbar.vue'
 import BudgetForm from '@/components/budget/BudgetForm.vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import MModal from '@/components/form/MModal.vue'

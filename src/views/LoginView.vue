@@ -86,9 +86,9 @@
 </template>
 
 <script setup lang="ts">
-import Logo from '@/components/Logo.vue'
 import MButton from '@/components/MButton.vue'
-import Alert from '@/components/form/Alert.vue'
+import Logo from '@/components/MLogo.vue'
+import Alert from '@/components/form/MAlert.vue'
 import { homeRoute, registerRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'
 import { signInWithEmailAndPassword } from 'firebase/auth'

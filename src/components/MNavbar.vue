@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import Logo from '@/components/Logo.vue'
+import Logo from '@/components/MLogo.vue'
 import NavbarMenu from '@/components/NavbarMenu.vue'
 import { budgetsRoute, homeRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'
