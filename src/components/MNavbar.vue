@@ -29,7 +29,7 @@
 				</div>
 				<div class="-m-1.5 p-1.5">
 					<span class="sr-only">Money</span>
-					<Logo class="h-8 w-auto" />
+					<MLogo class="h-8 w-auto" />
 				</div>
 				<div class="flex flex-1 justify-end gap-5">
 					<NavbarMenu />
@@ -53,7 +53,7 @@
 						</div>
 						<div class="-m-1.5 p-1.5">
 							<span class="sr-only">Money</span>
-							<Logo class="h-8 w-auto" />
+							<MLogo class="h-8 w-auto" />
 						</div>
 						<div class="flex flex-1 justify-end gap-5">
 							<NavbarMenu />
@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import Logo from '@/components/MLogo.vue'
+import MLogo from '@/components/MLogo.vue'
 import NavbarMenu from '@/components/NavbarMenu.vue'
 import { budgetsRoute, homeRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'

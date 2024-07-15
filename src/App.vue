@@ -3,9 +3,9 @@
 </style>
 <template>
 	<RouterView />
-	<Prompt />
+	<MPrompt />
 </template>
 
 <script setup lang="ts">
-import Prompt from '@/components/MPrompt.vue'
+import MPrompt from '@/components/MPrompt.vue'
 </script>

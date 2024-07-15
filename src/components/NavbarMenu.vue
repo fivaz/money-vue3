@@ -24,14 +24,14 @@
 								'group flex w-full items-center justify-center rounded-md px-2 py-2 text-sm',
 							]"
 						>
-							<Toggle v-model="isDark">
+							<MToggle v-model="isDark">
 								<template v-slot:active>
 									<Sun class="h-full w-full" />
 								</template>
 								<template v-slot:inactive>
 									<Moon class="h-full w-full" />
 								</template>
-							</Toggle>
+							</MToggle>
 						</div>
 					</MenuItem>
 					<MenuItem v-slot="{ active }">
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import Toggle from '@/components/form/MToggle.vue'
+import MToggle from '@/components/form/MToggle.vue'
 import { loginRoute } from '@/router'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { signOut } from 'firebase/auth'

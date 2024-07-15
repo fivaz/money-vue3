@@ -3,7 +3,7 @@
 		class="flex h-screen min-h-full flex-1 flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8"
 	>
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
-			<Logo class="mx-auto h-10 w-auto" />
+			<MLogo class="mx-auto h-10 w-auto" />
 			<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 				Create your account
 			</h2>
@@ -12,7 +12,7 @@
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
 			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
 				<form @submit.prevent="handleSubmit" class="space-y-6">
-					<Alert v-if="!!errorMessage">{{ errorMessage }}</Alert>
+					<MAlert v-if="!!errorMessage">{{ errorMessage }}</MAlert>
 					<div class="flex flex-col justify-center" v-if="email">
 						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
@@ -55,9 +55,9 @@
 import type { Auth } from 'firebase/auth'
 
 import MButton from '@/components/MButton.vue'
-import Logo from '@/components/MLogo.vue'
+import MLogo from '@/components/MLogo.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
-import Alert from '@/components/form/MAlert.vue'
+import MAlert from '@/components/form/MAlert.vue'
 import { AVATARS, USERS } from '@/lib/consts'
 import { homeRoute, loginRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'

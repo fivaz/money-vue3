@@ -4,12 +4,12 @@
 	>
 		<div class="w-full max-w-sm space-y-10">
 			<div>
-				<Logo class="mx-auto h-10 w-auto" />
+				<MLogo class="mx-auto h-10 w-auto" />
 				<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Sign in to your account
 				</h2>
 			</div>
-			<Alert v-if="!!errorMessage">{{ errorMessage }}</Alert>
+			<MAlert v-if="!!errorMessage">{{ errorMessage }}</MAlert>
 			<form @submit.prevent="handleSubmit" class="space-y-6">
 				<div class="relative -space-y-px rounded-md shadow-sm">
 					<div
@@ -87,8 +87,8 @@
 
 <script setup lang="ts">
 import MButton from '@/components/MButton.vue'
-import Logo from '@/components/MLogo.vue'
-import Alert from '@/components/form/MAlert.vue'
+import MLogo from '@/components/MLogo.vue'
+import MAlert from '@/components/form/MAlert.vue'
 import { homeRoute, registerRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'
 import { signInWithEmailAndPassword } from 'firebase/auth'

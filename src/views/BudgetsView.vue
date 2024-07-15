@@ -1,5 +1,5 @@
 <template>
-	<Navbar>
+	<MNavbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
 			<!--			<h2 class="text-sm font-semibold leading-6 text-gray-900">-->
@@ -48,7 +48,7 @@
 		<MModal @close="showForm = false" v-if="showForm">
 			<BudgetForm :budget="editingBudget" @close="showForm = false" />
 		</MModal>
-	</Navbar>
+	</MNavbar>
 </template>
 
 <script setup lang="ts">
@@ -57,7 +57,7 @@ import type { Budget } from '@/lib/budget'
 
 import DateHeader from '@/components/DateHeader.vue'
 import MButton from '@/components/MButton.vue'
-import Navbar from '@/components/MNavbar.vue'
+import MNavbar from '@/components/MNavbar.vue'
 import BudgetForm from '@/components/budget/BudgetForm.vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import MModal from '@/components/form/MModal.vue'
@@ -100,6 +100,7 @@ function getEmptyBudget(): Budget {
 	return {
 		icon: icons[0].name,
 		id: '',
+		isDefault: false,
 		name: '',
 		value: 0,
 	}

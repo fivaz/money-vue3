@@ -17,7 +17,7 @@
 		<LabelInput label="Name" required type="text" v-model="accountIn.name" />
 
 		<div class="grid grid-cols-2 gap-5">
-			<Select label="Order" v-model="accountIn.order">
+			<MSelect label="Order" v-model="accountIn.order">
 				<template v-slot:placeholder>
 					<span class="block truncate">{{ accountIn.order || 'no order selected' }}</span>
 				</template>
@@ -28,7 +28,7 @@
 				>
 					{{ order }}
 				</SelectItem>
-			</Select>
+			</MSelect>
 
 			<LabelInput
 				label="Current amount"
@@ -53,7 +53,7 @@
 import MButton from '@/components/MButton.vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
-import Select from '@/components/form/MSelect.vue'
+import MSelect from '@/components/form/MSelect.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import { type Account, addAccount, deleteAccount, editAccount } from '@/lib/account'
 import { usePromptStore } from '@/lib/promptStore'

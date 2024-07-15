@@ -56,7 +56,7 @@
 		</div>
 
 		<div class="flex items-end gap-5">
-			<Select
+			<MSelect
 				by="id"
 				class="grow"
 				label="Budgets"
@@ -77,7 +77,7 @@
 					<component :is="getIcon(budget.icon)" class="h-4 w-4" />
 					<span>{{ budget.name }}</span>
 				</SelectItem>
-			</Select>
+			</MSelect>
 			<div v-else>
 				<span class="block text-sm font-medium leading-6 text-slate-900 dark:text-white">
 					Account
@@ -87,11 +87,11 @@
 
 			<label class="flex gap-2 pb-2 text-slate-900 dark:text-white">
 				is paid
-				<Toggle v-model="transactionIn.isPaid" />
+				<MToggle v-model="transactionIn.isPaid" />
 			</label>
 		</div>
 		<div class="grid grid-cols-2 gap-5" v-if="accounts.length">
-			<Select
+			<MSelect
 				:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
 				label="Origin"
 				v-model="transactionIn.account"
@@ -112,9 +112,9 @@
 					<component :is="getIcon(account.icon)" class="h-4 w-4" />
 					<span>{{ account.name }}</span>
 				</SelectItem>
-			</Select>
+			</MSelect>
 
-			<Select
+			<MSelect
 				class="grid-cols-1"
 				label="Destination"
 				v-if="transactionIn.operation === 'transfer'"
@@ -136,7 +136,7 @@
 					<component :is="getIcon(account.icon)" class="h-4 w-4" />
 					<span>{{ account.name }}</span>
 				</SelectItem>
-			</Select>
+			</MSelect>
 		</div>
 
 		<div v-else>
@@ -178,7 +178,7 @@
 				>
 					Recurring
 				</button>
-				<Toggle v-model="isRecurring" />
+				<MToggle v-model="isRecurring" />
 			</div>
 
 			<transition
@@ -211,8 +211,8 @@ import type { Budget } from '@/lib/budget'
 
 import MButton from '@/components/MButton.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
-import Select from '@/components/form/MSelect.vue'
-import Toggle from '@/components/form/MToggle.vue'
+import MSelect from '@/components/form/MSelect.vue'
+import MToggle from '@/components/form/MToggle.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import { DATETIME_OUT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'

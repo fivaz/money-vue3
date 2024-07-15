@@ -1,5 +1,5 @@
 <template>
-	<Navbar>
+	<MNavbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
 			<h2 class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
@@ -52,7 +52,7 @@
 		<MModal @close="showForm = false" v-if="showForm">
 			<AccountForm :account="editingAccount" :length="accounts.length" @close="showForm = false" />
 		</MModal>
-	</Navbar>
+	</MNavbar>
 </template>
 
 <script setup lang="ts">
@@ -61,7 +61,7 @@ import type { Budget } from '@/lib/budget'
 
 import DateHeader from '@/components/DateHeader.vue'
 import MButton from '@/components/MButton.vue'
-import Navbar from '@/components/MNavbar.vue'
+import MNavbar from '@/components/MNavbar.vue'
 import AccountForm from '@/components/account/AccountForm.vue'
 import AccountItem from '@/components/account/AccountItem.vue'
 import MModal from '@/components/form/MModal.vue'
