@@ -16,7 +16,15 @@
 
 		<LabelInput label="Name" required type="text" v-model="budgetIn.name" />
 
-		<LabelInput label="Value" required step="0.01" type="number" v-model="budgetIn.value" />
+		<div class="grid grid-cols-4 gap-5">
+			<div class="col-span-3">
+				<LabelInput label="Value" required step="0.01" type="number" v-model="budgetIn.value" />
+			</div>
+			<label class="cols-span-1 flex flex-col gap-2 text-slate-900 dark:text-white">
+				is default
+				<MToggle v-model="budgetIn.isDefault" />
+			</label>
+		</div>
 
 		<IconSelector v-model="budgetIn.icon" />
 
@@ -33,6 +41,7 @@
 import MButton from '@/components/MButton.vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import MToggle from '@/components/form/MToggle.vue'
 import { type Budget, addBudget, deleteBudget, editBudget } from '@/lib/budget'
 import { usePromptStore } from '@/lib/promptStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'

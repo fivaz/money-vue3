@@ -5,6 +5,7 @@ import { useFirestore } from 'vuefire'
 export type Budget = {
 	icon: string
 	id: string
+	isDefault: boolean
 	name: string
 	value: number
 }
