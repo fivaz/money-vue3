@@ -56,7 +56,10 @@
 					</div>
 
 					<div class="text-sm leading-6">
-						<a :class="[MAIN_COLORFUL_COLOR_TEXT, 'font-semibold hover:text-indigo-500']" href="#">
+						<a
+							:class="[MAIN_COLORFUL_COLOR_TEXT, MAIN_HOVER_COLORFUL_COLOR_TEXT, 'font-semibold']"
+							href="#"
+						>
 							Forgot password?
 						</a>
 					</div>
@@ -79,7 +82,7 @@
 				Not a member?
 				{{ ' ' }}
 				<RouterLink
-					:class="[MAIN_COLORFUL_COLOR_TEXT, 'font-semibold hover:text-indigo-500']"
+					:class="[MAIN_COLORFUL_COLOR_TEXT, MAIN_HOVER_COLORFUL_COLOR_TEXT, 'font-semibold']"
 					:to="registerRoute"
 				>
 					Register
@@ -93,7 +96,12 @@
 import MButton from '@/components/MButton.vue'
 import MLogo from '@/components/MLogo.vue'
 import MAlert from '@/components/form/MAlert.vue'
-import { MAIN_COLORFUL_COLOR_TEXT, SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import {
+	MAIN_COLORFUL_COLOR_TEXT,
+	MAIN_HOVER_COLORFUL_COLOR_BG,
+	MAIN_HOVER_COLORFUL_COLOR_TEXT,
+	SECONDARY_COLOR_TEXT,
+} from '@/lib/consts'
 import { homeRoute, registerRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'
 import { signInWithEmailAndPassword } from 'firebase/auth'

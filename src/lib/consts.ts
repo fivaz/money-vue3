@@ -20,3 +20,4 @@ export const MAIN_COLORFUL_COLOR_BG = 'bg-indigo-600 text-white'
 export const SECONDARY_COLORFUL_COLOR_BG = 'bg-indigo-400 text-white'
 export const MAIN_HOVER_COLORFUL_COLOR_BG = `hover:bg-indigo-400`
 export const MAIN_COLORFUL_COLOR_TEXT = 'text-indigo-600'
+export const MAIN_HOVER_COLORFUL_COLOR_TEXT = 'hover:text-indigo-400'

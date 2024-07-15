@@ -42,7 +42,11 @@
 			<p :class="['mt-10 text-center text-sm', SECONDARY_COLOR_TEXT]">
 				Already a member?
 				<RouterLink
-					:class="['font-semibold leading-6 hover:text-indigo-500', MAIN_COLORFUL_COLOR_TEXT]"
+					:class="[
+						'font-semibold leading-6',
+						MAIN_HOVER_COLORFUL_COLOR_TEXT,
+						MAIN_COLORFUL_COLOR_TEXT,
+					]"
 					:to="loginRoute"
 				>
 					Log in
@@ -61,7 +65,10 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MAlert from '@/components/form/MAlert.vue'
 import {
 	AVATARS,
+	MAIN_COLOR_TEXT,
 	MAIN_COLORFUL_COLOR_TEXT,
+	MAIN_HOVER_COLORFUL_COLOR_BG,
+	MAIN_HOVER_COLORFUL_COLOR_TEXT,
 	SECONDARY_COLOR_BG,
 	SECONDARY_COLOR_TEXT,
 	USERS,

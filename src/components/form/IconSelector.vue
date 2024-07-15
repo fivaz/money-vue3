@@ -16,7 +16,7 @@
 		>
 			<button
 				:class="[
-					value === icon.name ? 'bg-indigo-700 text-white' : '',
+					{ [MAIN_COLORFUL_COLOR_BG]: value === icon.name },
 					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
 				]"
 				:key="icon.name"
@@ -30,6 +30,7 @@
 	</div>
 </template>
 <script setup lang="ts">
+import { MAIN_COLORFUL_COLOR_BG } from '@/lib/consts'
 import { icons } from '@/lib/utils'
 import { computed, ref } from 'vue'
 
