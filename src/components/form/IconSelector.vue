@@ -1,6 +1,6 @@
 <template>
 	<div class="relative flex flex-col gap-2">
-		<label class="block text-sm font-medium leading-6" for="icon"> Icon </label>
+		<label class="block text-sm font-medium leading-6" for="icon">Icon</label>
 		<!--    activate the research if there are too many icons-->
 		<!--		<input-->
 		<!--			type="text"-->

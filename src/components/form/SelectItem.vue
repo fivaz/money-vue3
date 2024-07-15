@@ -10,7 +10,7 @@
 				<slot></slot>
 			</span>
 			<span
-				class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600"
+				:class="['absolute inset-y-0 left-0 flex items-center pl-3', MAIN_COLORFUL_COLOR_TEXT]"
 				v-if="selected"
 			>
 				<CheckIcon aria-hidden="true" class="h-5 w-5" />
@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { MAIN_COLORFUL_COLOR_TEXT } from '@/lib/consts'
 import { ListboxOption } from '@headlessui/vue'
 import { CheckIcon } from '@heroicons/vue/20/solid'
 

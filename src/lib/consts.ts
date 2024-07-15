@@ -17,3 +17,7 @@ export const MAIN_COLOR_BG = 'bg-white dark:bg-slate-800'
 export const SECONDARY_COLOR_BG = 'bg-slate-50 dark:bg-black'
 
 export const SECONDARY_COLOR_TEXT = 'text-slate-500 dark:text-slate-400'
+
+export const MAIN_COLORFUL_COLOR_BG = 'bg-indigo-600'
+
+export const MAIN_COLORFUL_COLOR_TEXT = 'text-indigo-600'

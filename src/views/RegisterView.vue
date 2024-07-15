@@ -42,8 +42,8 @@
 			<p :class="['mt-10 text-center text-sm', SECONDARY_COLOR_TEXT]">
 				Already a member?
 				<RouterLink
+					:class="['font-semibold leading-6 hover:text-indigo-500', MAIN_COLORFUL_COLOR_TEXT]"
 					:to="loginRoute"
-					class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
 				>
 					Log in
 				</RouterLink>
@@ -59,7 +59,13 @@ import MButton from '@/components/MButton.vue'
 import MLogo from '@/components/MLogo.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MAlert from '@/components/form/MAlert.vue'
-import { AVATARS, SECONDARY_COLOR_BG, SECONDARY_COLOR_TEXT, USERS } from '@/lib/consts'
+import {
+	AVATARS,
+	MAIN_COLORFUL_COLOR_TEXT,
+	SECONDARY_COLOR_BG,
+	SECONDARY_COLOR_TEXT,
+	USERS,
+} from '@/lib/consts'
 import { homeRoute, loginRoute } from '@/router'
 import { FirebaseError } from 'firebase/app'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'

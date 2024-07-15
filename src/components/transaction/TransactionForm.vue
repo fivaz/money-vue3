@@ -32,7 +32,7 @@
 					>
 						<div
 							:class="[
-								checked ? 'bg-indigo-600 text-white' : SECONDARY_COLOR_TEXT,
+								checked ? `${MAIN_COLORFUL_COLOR_BG} text-white` : SECONDARY_COLOR_TEXT,
 								'flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1',
 							]"
 						>
@@ -211,7 +211,7 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MSelect from '@/components/form/MSelect.vue'
 import MToggle from '@/components/form/MToggle.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
-import { DATETIME_OUT, SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import { DATETIME_OUT, MAIN_COLORFUL_COLOR_BG, SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
 import {
 	type Transaction,
