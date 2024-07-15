@@ -75,7 +75,7 @@ import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/
 import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, icons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
-import { collection } from 'firebase/firestore'
+import { collection, query, where } from 'firebase/firestore'
 import { Plus, Vault } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
@@ -92,7 +92,7 @@ const user = useCurrentUser()
 const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, ACCOUNTS))
 const allTransactions = useCollection<Transaction>(
-	collection(db, USERS, user.value!.uid, TRANSACTIONS),
+	query(collection(db, USERS, user.value!.uid, TRANSACTIONS), where('isDeleted', '==', null)),
 )
 
 const historicalTransactions = computed(() =>

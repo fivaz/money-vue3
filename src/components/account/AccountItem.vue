@@ -152,6 +152,7 @@ function getEmptyTransactionFromAccount(): Transaction {
 		destination: null,
 		endDate: null,
 		id: '',
+		isDeleted: null,
 		isPaid: true,
 		operation: 'expense',
 		referenceDate: null,

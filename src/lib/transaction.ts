@@ -17,6 +17,7 @@ export type Transaction = {
 	destination: Account | null
 	endDate: null | string
 	id: string
+	isDeleted: null | string
 	isPaid: boolean
 	operation: Operation
 	referenceDate: null | string
