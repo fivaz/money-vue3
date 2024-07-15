@@ -9,7 +9,10 @@
 					</span>
 				</div>
 				<div class="flex items-center gap-2">
-					<div :class="['text-sm font-medium leading-6', getAmountDifferenceColor()]">
+					<div
+						:class="['text-sm font-medium leading-6', getAmountDifferenceColor()]"
+						v-if="isSameMonth(props.currentDate, new Date())"
+					>
 						({{ formatMoney(amountDifference) }})
 					</div>
 					<div class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
