@@ -53,7 +53,9 @@
 			<DisclosureButton
 				:class="[
 					SECONDARY_COLOR_TEXT,
-					'flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-slate-900 dark:hover:text-gray-300',
+					MAIN_HOVER_COLOR_BG,
+					MAIN_HOVER_COLOR_TEXT,
+					'flex w-full justify-center p-2',
 				]"
 			>
 				<ChevronDown :class="open && 'rotate-180 transform'" />
@@ -77,7 +79,12 @@ import type { Budget } from '@/lib/budget'
 import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
-import { SECONDARY_COLOR_BG, SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import {
+	MAIN_HOVER_COLOR_BG,
+	MAIN_HOVER_COLOR_TEXT,
+	SECONDARY_COLOR_BG,
+	SECONDARY_COLOR_TEXT,
+} from '@/lib/consts'
 import { type Transaction, parseAmount } from '@/lib/transaction'
 import { formatMoney, getAmountColor, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'

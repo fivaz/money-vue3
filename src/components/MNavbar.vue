@@ -64,10 +64,13 @@
 					</div>
 					<div class="mt-6 space-y-2 bg-white">
 						<RouterLink
+							:class="[
+								MAIN_HOVER_COLOR_BG,
+								'-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 dark:hover:bg-gray-900',
+							]"
 							:key="item.name"
 							:to="item.href"
 							@click="mobileMenuOpen = false"
-							class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-900"
 							v-for="item in navigation"
 						>
 							{{ item.name }}
@@ -87,7 +90,12 @@
 <script setup lang="ts">
 import MLogo from '@/components/MLogo.vue'
 import NavbarMenu from '@/components/NavbarMenu.vue'
-import { MAIN_COLOR_BG, MAIN_COLOR_TEXT, SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import {
+	MAIN_COLOR_BG,
+	MAIN_COLOR_TEXT,
+	MAIN_HOVER_COLOR_BG,
+	SECONDARY_COLOR_TEXT,
+} from '@/lib/consts'
 import { budgetsRoute, homeRoute } from '@/router'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'

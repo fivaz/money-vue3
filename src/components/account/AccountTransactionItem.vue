@@ -2,7 +2,9 @@
 	<li
 		:class="[
 			SECONDARY_COLOR_TEXT,
-			'border-b p-3 hover:bg-gray-50 hover:text-gray-700 hover:underline dark:hover:bg-slate-900 dark:hover:text-gray-300',
+			MAIN_HOVER_COLOR_BG,
+			MAIN_HOVER_COLOR_TEXT,
+			'border-b p-3 hover:underline',
 		]"
 	>
 		<button @click="$emit('edit', transaction)" class="flex w-full justify-between">
@@ -36,7 +38,12 @@
 </template>
 
 <script setup lang="ts">
-import { SECONDARY_COLOR_TEXT, SHORT_DATETIME_FR } from '@/lib/consts'
+import {
+	MAIN_HOVER_COLOR_BG,
+	MAIN_HOVER_COLOR_TEXT,
+	SECONDARY_COLOR_TEXT,
+	SHORT_DATETIME_FR,
+} from '@/lib/consts'
 import { type Transaction, parseAmount } from '@/lib/transaction'
 import { getAmountColor, getIcon } from '@/lib/utils'
 import { format } from 'date-fns'

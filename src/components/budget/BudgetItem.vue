@@ -40,7 +40,7 @@
 					/>
 				</DisclosurePanel>
 			</transition>
-			<DisclosureButton class="flex w-full justify-center p-2 hover:bg-gray-50 hover:text-gray-700">
+			<DisclosureButton :class="['flex w-full justify-center p-2', MAIN_HOVER_COLOR_BG]">
 				<ChevronDown :class="[{ 'rotate-180 transform': open }]" />
 			</DisclosureButton>
 		</Disclosure>
@@ -64,7 +64,7 @@ import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue
 import MModal from '@/components/form/MModal.vue'
 import ProgressBar from '@/components/form/ProgressBar.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
-import { SECONDARY_COLOR_BG } from '@/lib/consts'
+import { MAIN_HOVER_COLOR_BG, SECONDARY_COLOR_BG } from '@/lib/consts'
 import { type Transaction } from '@/lib/transaction'
 import { formatMoney, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
