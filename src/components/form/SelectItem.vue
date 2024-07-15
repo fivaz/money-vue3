@@ -18,12 +18,7 @@
 
 <script setup lang="ts">
 import {
-	MAIN_COLOR_BG,
 	MAIN_COLORFUL_COLOR_BG,
-	MAIN_COLORFUL_COLOR_TEXT,
-	SECONDARY_COLOR_BG,
-	SECONDARY_COLOR_TEXT,
-	SECONDARY_COLORFUL_COLOR_BG,
 } from '@/lib/consts'
 import { ListboxOption } from '@headlessui/vue'
 import { CheckIcon } from '@heroicons/vue/20/solid'

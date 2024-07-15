@@ -22,14 +22,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { Budget } from '@/lib/budget'
 
-import BudgetForm from '@/components/budget/BudgetForm.vue'
 import MModal from '@/components/form/MModal.vue'
-import { MAIN_COLOR_TEXT, MAIN_HOVER_COLOR_TEXT, SECONDARY_HOVER_COLOR_TEXT } from '@/lib/consts'
+import { MAIN_COLOR_TEXT, SECONDARY_HOVER_COLOR_TEXT } from '@/lib/consts'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 
-const props = defineProps<{ show: boolean; title: string }>()
+defineProps<{ show: boolean; title: string }>()
 
-const emit = defineEmits<{ (e: 'close'): void }>()
+defineEmits<{ (e: 'close'): void }>()
 </script>

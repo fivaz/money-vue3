@@ -61,7 +61,6 @@ import type { Budget } from '@/lib/budget'
 
 import MButton from '@/components/MButton.vue'
 import BudgetTransactionItem from '@/components/budget/BudgetTransactionItem.vue'
-import MModal from '@/components/form/MModal.vue'
 import ProgressBar from '@/components/form/ProgressBar.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import { MAIN_HOVER_COLOR_BG, SECONDARY_COLOR_BG } from '@/lib/consts'

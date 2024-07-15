@@ -65,9 +65,7 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MAlert from '@/components/form/MAlert.vue'
 import {
 	AVATARS,
-	MAIN_COLOR_TEXT,
 	MAIN_COLORFUL_COLOR_TEXT,
-	MAIN_HOVER_COLORFUL_COLOR_BG,
 	MAIN_HOVER_COLORFUL_COLOR_TEXT,
 	SECONDARY_COLOR_BG,
 	SECONDARY_COLOR_TEXT,

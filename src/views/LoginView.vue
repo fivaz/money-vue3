@@ -98,7 +98,6 @@ import MLogo from '@/components/MLogo.vue'
 import MAlert from '@/components/form/MAlert.vue'
 import {
 	MAIN_COLORFUL_COLOR_TEXT,
-	MAIN_HOVER_COLORFUL_COLOR_BG,
 	MAIN_HOVER_COLORFUL_COLOR_TEXT,
 	SECONDARY_COLOR_TEXT,
 } from '@/lib/consts'

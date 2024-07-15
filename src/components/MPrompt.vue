@@ -59,7 +59,6 @@ import MButton from '@/components/MButton.vue'
 import MModal from '@/components/form/MModal.vue'
 import {
 	MAIN_COLOR_TEXT,
-	MAIN_HOVER_COLOR_TEXT,
 	SECONDARY_COLOR_TEXT,
 	SECONDARY_HOVER_COLOR_TEXT,
 } from '@/lib/consts'

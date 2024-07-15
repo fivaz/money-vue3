@@ -17,7 +17,6 @@
 import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transaction'
 
-import { MAIN_COLORFUL_COLOR_BG, SECONDARY_COLOR_BG } from '@/lib/consts'
 import { formatMoney } from '@/lib/utils'
 import { computed } from 'vue'
 

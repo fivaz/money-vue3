@@ -33,7 +33,6 @@ import LabelInput from '@/components/form/LabelInput.vue'
 import MToggle from '@/components/form/MToggle.vue'
 import { type Budget, addBudget, deleteBudget, editBudget } from '@/lib/budget'
 import { usePromptStore } from '@/lib/promptStore'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import { useCurrentUser, useFirestore } from 'vuefire'
 

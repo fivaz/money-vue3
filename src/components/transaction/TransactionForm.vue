@@ -213,7 +213,6 @@ import {
 } from '@/lib/transaction'
 import { getIcon } from '@/lib/utils'
 import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { format, getMonth, parseISO, set } from 'date-fns'
 import { ArrowLeftFromLine, ArrowLeftRight, ArrowRightToLine } from 'lucide-vue-next'
 import { ref, watch } from 'vue'

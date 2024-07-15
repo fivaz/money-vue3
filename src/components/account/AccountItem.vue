@@ -77,7 +77,6 @@ import type { Account } from '@/lib/account'
 import type { Budget } from '@/lib/budget'
 
 import MButton from '@/components/MButton.vue'
-import MModal from '@/components/form/MModal.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import {
 	MAIN_HOVER_COLOR_BG,
