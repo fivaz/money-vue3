@@ -4,7 +4,7 @@
 			<LabelInput label="Name" required type="text" v-model="sourceIn.name" />
 
 			<div :class="[length > 1 ? 'grid-cols-2' : 'grid-cols-1', 'grid gap-5']">
-				<LabelInput label="Balance" required type="number" v-model="sourceIn.balance" />
+				<LabelInput label="Balance" required step="0.01" type="number" v-model="sourceIn.balance" />
 
 				<MSelect label="Order" v-if="length > 1" v-model="sourceIn.order">
 					<template v-slot:placeholder>
