@@ -205,14 +205,14 @@ import MToggle from '@/components/form/MToggle.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import { DATETIME_OUT, MAIN_COLORFUL_COLOR_BG, SECONDARY_COLOR_TEXT } from '@/lib/consts'
 import { usePromptStore } from '@/lib/promptStore'
+import { type Transaction } from '@/lib/transaction'
 import {
-	type Transaction,
 	addTransaction,
 	deleteTransaction,
 	editTransaction,
 	formatDateIn,
 	formatDateOut,
-} from '@/lib/transaction'
+} from '@/lib/transaction-form'
 import { getIcon } from '@/lib/utils'
 import { RadioGroup, RadioGroupOption } from '@headlessui/vue'
 import { format, getMonth, parseISO, set } from 'date-fns'

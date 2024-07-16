@@ -2,9 +2,17 @@
 	<MNavbar>
 		<div class="mb-2 flex flex-col items-center justify-between">
 			<DateHeader v-model="currentDate"></DateHeader>
-			<!--			<h2 class="text-sm font-semibold leading-6 ">-->
-			<!--				{{ formatMoney(balance) }}-->
-			<!--			</h2>-->
+			<h2 class="text-sm font-semibold leading-6">
+				<span
+					:class="[
+						'text-sm font-medium leading-6',
+						getAmountColor(expectedVsActualBalanceDifference),
+					]"
+				>
+					({{ formatMoney(expectedVsActualBalanceDifference) }})
+				</span>
+				<span>{{ formatMoney(sumOfBudgets) }}</span>
+			</h2>
 		</div>
 
 		<ul class="flex flex-col gap-5" role="list">
@@ -59,8 +67,8 @@ import MNavbar from '@/components/MNavbar.vue'
 import BudgetForm from '@/components/budget/BudgetForm.vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/lib/consts'
-import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
-import { icons } from '@/lib/utils'
+import { type Transaction, getBalance, getHistoricalTransactions } from '@/lib/transaction'
+import { formatMoney, getAmountColor, icons } from '@/lib/utils'
 import { isSameMonth, parseISO } from 'date-fns'
 import { collection } from 'firebase/firestore'
 import { PiggyBank, Plus } from 'lucide-vue-next'
@@ -87,6 +95,18 @@ const currentTransactions = computed(() =>
 		isSameMonth(currentDate.value, parseISO(transaction.referenceDate || transaction.date)),
 	),
 )
+
+const sumOfBudgets = computed(() => budgets.value.reduce((sum, budget) => sum + budget.value, 0))
+
+const expectedVsActualBalanceDifference = computed(() => {
+	const currentBudgetTransactions = currentTransactions.value.filter((transaction) =>
+		budgets.value.some((budget) => budget.id === transaction.budget?.id),
+	)
+
+	const actualBalance = computed(() => getBalance(currentBudgetTransactions))
+	//Math.abs is necessary cause actualBalance is always negative
+	return sumOfBudgets.value - Math.abs(actualBalance.value)
+})
 
 function editBudget(budget: Budget) {
 	showForm.value = true

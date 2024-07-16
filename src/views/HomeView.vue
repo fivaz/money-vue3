@@ -4,10 +4,13 @@
 			<DateHeader v-model="currentDate"></DateHeader>
 			<h2 class="text-sm font-semibold leading-6">
 				<span
-					:class="['text-sm font-medium leading-6', getAmountColor(amountDifference)]"
+					:class="[
+						'text-sm font-medium leading-6',
+						getAmountColor(balanceDifferenceSourcesAndTransactions, true),
+					]"
 					v-if="isSameMonth(currentDate, new Date())"
 				>
-					({{ formatMoney(amountDifference) }})
+					({{ formatMoney(balanceDifferenceSourcesAndTransactions) }})
 				</span>
 				<span>{{ formatMoney(balance) }}</span>
 			</h2>
@@ -73,7 +76,7 @@ import AccountForm from '@/components/account/AccountForm.vue'
 import AccountItem from '@/components/account/AccountItem.vue'
 import { type Account } from '@/lib/account'
 import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, SOURCES, TRANSACTIONS, USERS } from '@/lib/consts'
-import { type Transaction, getHistoricalTransactions } from '@/lib/transaction'
+import { type Transaction, getBalance, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, icons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
 import { collection, query, where } from 'firebase/firestore'
@@ -101,23 +104,12 @@ const historicalTransactions = computed(() =>
 	getHistoricalTransactions(currentDate.value, allTransactions.value),
 )
 
-const balance = computed(() =>
-	historicalTransactions.value.reduce((sum, transaction) => {
-		if (transaction.isPaid) {
-			if (transaction.operation == 'income') {
-				return sum + transaction.amount
-			}
-			if (transaction.operation == 'expense') {
-				return sum - transaction.amount
-			}
-		}
-		return sum
-	}, 0),
-)
+const balance = computed(() => getBalance(historicalTransactions.value))
 
-const amountDifference = computed(() => {
-	const sumOfBalances = sources.value.reduce((sum, source) => sum + source.balance, 0)
-	return balance.value - sumOfBalances
+const balanceDifferenceSourcesAndTransactions = computed(() => {
+	const sumOfSourceBalances = sources.value.reduce((sum, source) => sum + source.balance, 0)
+	//Math.abs is necessary cause balance is most likely a negative number when expense transactions surpass income transactions
+	return sumOfSourceBalances - Math.abs(balance.value)
 })
 
 function editAccount(account: Account) {

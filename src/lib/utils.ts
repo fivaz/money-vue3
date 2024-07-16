@@ -17,7 +17,8 @@ export function formatMoney(cents: number) {
 	return `$${cents.toFixed(2)}`
 }
 
-export function getAmountColor(amount: number) {
+export function getAmountColor(amount: number, debug = false) {
+	if (debug) console.log('amount', amount)
 	if (amount === 0) return ''
 	if (amount > 0) return 'text-green-500'
 	else return 'text-red-500'
