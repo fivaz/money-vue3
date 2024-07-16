@@ -34,7 +34,7 @@
 
 			<div class="grid grid-cols-5 gap-5">
 				<div class="col-span-2">
-					<LabelInput label="Amount" step="0.01" type="number" v-model="transactionIn.amount" />
+					<MoneyInput label="Amount" step="0.01" type="number" v-model="transactionIn.amount" />
 				</div>
 				<div class="col-span-3">
 					<LabelInput
@@ -199,6 +199,7 @@ import type { Budget } from '@/lib/budget'
 
 import MButton from '@/components/MButton.vue'
 import ModalForm from '@/components/ModalForm.vue'
+import MoneyInput from '@/components/MoneyInput.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MSelect from '@/components/form/MSelect.vue'
 import MToggle from '@/components/form/MToggle.vue'

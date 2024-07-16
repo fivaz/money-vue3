@@ -6,7 +6,7 @@
 				<span
 					:class="[
 						'text-sm font-medium leading-6',
-						getAmountColor(balanceDifferenceSourcesAndTransactions, true),
+						getAmountColor(balanceDifferenceSourcesAndTransactions),
 					]"
 					v-if="isSameMonth(currentDate, new Date())"
 				>
@@ -79,7 +79,7 @@ import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, SOURCES, TRANSACTIONS, USERS }
 import { type Transaction, getBalance, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, icons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
-import { collection, query, where } from 'firebase/firestore'
+import { collection, getDocs, query, where, writeBatch } from 'firebase/firestore'
 import { Plus, Vault } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'

@@ -14,11 +14,11 @@ import {
 } from 'lucide-vue-next'
 
 export function formatMoney(cents: number) {
-	return `$${cents.toFixed(2)}`
+	const decimals = cents / 100
+	return `$${decimals.toFixed(2)}`
 }
 
-export function getAmountColor(amount: number, debug = false) {
-	if (debug) console.log('amount', amount)
+export function getAmountColor(amount: number) {
 	if (amount === 0) return ''
 	if (amount > 0) return 'text-green-500'
 	else return 'text-red-500'

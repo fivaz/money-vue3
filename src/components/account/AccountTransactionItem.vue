@@ -59,7 +59,8 @@ function getTransactionAmountColor() {
 }
 
 function formatAmount() {
-	const amount = parseAmount(props.transaction, props.accountId)
-	return `$${amount > 0 ? '+' : ''}${amount.toFixed(2)}`
+	const amountInCents = parseAmount(props.transaction, props.accountId)
+	const decimals = amountInCents / 100
+	return `$${decimals > 0 ? '+' : ''}${decimals.toFixed(2)}`
 }
 </script>

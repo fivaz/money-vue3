@@ -9,7 +9,7 @@ module.exports = {
 		'@vue/eslint-config-typescript',
 		'@vue/eslint-config-prettier/skip-formatting',
 		'plugin:import/typescript',
-		"plugin:perfectionist/recommended-natural"
+		'plugin:perfectionist/recommended-natural',
 	],
 	globals: {
 		require: 'readonly',
@@ -20,7 +20,8 @@ module.exports = {
 	plugins: ['unused-imports', 'import', 'perfectionist'],
 	root: true,
 	rules: {
-		"@typescript-eslint/no-unused-vars": "off",
+		'@typescript-eslint/no-unused-vars': 'off',
+		'no-console': ['error', { allow: ['warn', 'error'] }],
 		'no-unused-vars': 'off',
 		'unused-imports/no-unused-imports': 'warn',
 		'unused-imports/no-unused-vars': [
