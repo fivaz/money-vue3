@@ -5,7 +5,7 @@
 
 			<div class="grid grid-cols-4 gap-5">
 				<div class="col-span-3">
-					<LabelInput label="Value" required step="0.01" type="number" v-model="budgetIn.value" />
+					<MoneyInput label="Value" required type="number" v-model="budgetIn.value" />
 				</div>
 				<label class="cols-span-1 flex flex-col gap-2">
 					is default
@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import MButton from '@/components/MButton.vue'
 import ModalForm from '@/components/ModalForm.vue'
+import MoneyInput from '@/components/MoneyInput.vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MToggle from '@/components/form/MToggle.vue'

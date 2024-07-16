@@ -34,7 +34,7 @@
 
 			<div class="grid grid-cols-5 gap-5">
 				<div class="col-span-2">
-					<MoneyInput label="Amount" step="0.01" type="number" v-model="transactionIn.amount" />
+					<MoneyInput label="Amount" type="number" v-model="transactionIn.amount" />
 				</div>
 				<div class="col-span-3">
 					<LabelInput
