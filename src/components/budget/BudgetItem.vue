@@ -20,7 +20,7 @@
 					</MButton>
 				</div>
 			</div>
-			<ProgressBar :budget="budget" :transactions="budgetTransactions" />
+			<ProgressBar :budget="budget" :transactions="sortedTransactions" />
 		</div>
 		<Disclosure default-open v-slot="{ open }">
 			<transition
@@ -36,7 +36,7 @@
 						:key="transaction.id"
 						:transaction="transaction"
 						@edit="editTransaction"
-						v-for="transaction in budgetTransactions"
+						v-for="transaction in sortedTransactions"
 					/>
 				</DisclosurePanel>
 			</transition>
@@ -87,6 +87,12 @@ const budgetTransactions = computed(() =>
 			transaction.budget?.id === props.budget.id,
 	),
 )
+
+const sortedTransactions = computed(() => {
+	return [...budgetTransactions.value].sort(
+		(a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+	)
+})
 
 const showForm = ref(false)
 
