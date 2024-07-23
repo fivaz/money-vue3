@@ -22,15 +22,19 @@
 						<ArrowDownAZ class="h-4 w-4" v-if="isSortingAscending" />
 						<ArrowUpZA class="h-4 w-4" v-else />
 					</MButton>
+					<MButton @click="toggleFilterPaid" color="white" size="small" type="button">
+						<Banknote class="h-4 w-4" v-if="isPaidFiltered" />
+						<BlockedCircleDollarSign class="h-4 w-4" v-else />
+					</MButton>
 				</div>
 			</div>
 		</div>
 		<Disclosure default-open v-slot="{ open }">
 			<transition
-				enter-active-class="transition duration-100 ease-out"
+				enter-active-class="transition duration-300 ease-out"
 				enter-from-class="transform scale-95 opacity-0"
 				enter-to-class="transform scale-100 opacity-100"
-				leave-active-class="transition duration-75 ease-out"
+				leave-active-class="transition duration-300 ease-out"
 				leave-from-class="transform scale-100 opacity-100"
 				leave-to-class="transform scale-95 opacity-0"
 			>
@@ -69,6 +73,7 @@
 <script setup lang="ts">
 import type { Budget } from '@/lib/budget'
 
+import BlockedCircleDollarSign from '@/components/BlockedCircleDollarSign.vue'
 import MButton from '@/components/MButton.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import { type Account } from '@/lib/account'
@@ -82,7 +87,7 @@ import { type Transaction, parseAmount } from '@/lib/transaction'
 import { formatMoney, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { isSameMonth, parseISO } from 'date-fns'
-import { ArrowDownAZ, ArrowUpZA, ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
+import { ArrowDownAZ, ArrowUpZA, Banknote, ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
 import AccountTransactionItem from './AccountTransactionItem.vue'
@@ -99,6 +104,8 @@ defineEmits<{ (e: 'editAccount', value: Account): void }>()
 
 const isSortingAscending = ref(true)
 
+const isPaidFiltered = ref(false)
+
 const accountTransactions = computed(() =>
 	props.historicalTransactions.filter(
 		(transaction) =>
@@ -113,8 +120,16 @@ const currentTransactions = computed(() =>
 	),
 )
 
+const filteredCurrentTransaction = computed(() => {
+	if (isPaidFiltered.value) {
+		return currentTransactions.value.filter((transaction) => !transaction.isPaid)
+	} else {
+		return currentTransactions.value
+	}
+})
+
 const sortedCurrentTransactions = computed(() => {
-	return [...currentTransactions.value].sort((a, b) => {
+	return [...filteredCurrentTransaction.value].sort((a, b) => {
 		if (isSortingAscending.value) {
 			return new Date(a.date).getTime() - new Date(b.date).getTime()
 		} else {
@@ -166,5 +181,9 @@ function editTransaction(transaction: Transaction) {
 
 function toggleSorting() {
 	isSortingAscending.value = !isSortingAscending.value
+}
+
+function toggleFilterPaid() {
+	isPaidFiltered.value = !isPaidFiltered.value
 }
 </script>
