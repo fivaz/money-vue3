@@ -114,22 +114,22 @@ const accountTransactions = computed(() =>
 	),
 )
 
+const filteredAccountTransactions = computed(() => {
+	if (isPaidFiltered.value) {
+		return accountTransactions.value.filter((transaction) => !transaction.isPaid)
+	} else {
+		return accountTransactions.value
+	}
+})
+
 const currentTransactions = computed(() =>
-	accountTransactions.value.filter((transaction) =>
+	filteredAccountTransactions.value.filter((transaction) =>
 		isSameMonth(props.currentDate, parseISO(transaction.date)),
 	),
 )
 
-const filteredCurrentTransaction = computed(() => {
-	if (isPaidFiltered.value) {
-		return currentTransactions.value.filter((transaction) => !transaction.isPaid)
-	} else {
-		return currentTransactions.value
-	}
-})
-
 const sortedCurrentTransactions = computed(() => {
-	return [...filteredCurrentTransaction.value].sort((a, b) => {
+	return [...currentTransactions.value].sort((a, b) => {
 		if (isSortingAscending.value) {
 			return new Date(a.date).getTime() - new Date(b.date).getTime()
 		} else {
@@ -139,9 +139,14 @@ const sortedCurrentTransactions = computed(() => {
 })
 
 const balance = computed(() =>
-	accountTransactions.value.reduce((sum, transaction) => {
-		if (transaction.isPaid) {
+	filteredAccountTransactions.value.reduce((sum, transaction) => {
+		if (isPaidFiltered.value) {
 			return sum + parseAmount(transaction, props.account.id)
+		} else {
+			//if not filtering paid transactions, only count the paid ones into the balance
+			if (transaction.isPaid) {
+				return sum + parseAmount(transaction, props.account.id)
+			}
 		}
 		return sum
 	}, 0),
