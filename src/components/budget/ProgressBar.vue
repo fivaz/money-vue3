@@ -8,7 +8,10 @@
 			]"
 			:style="{ width: computedWidth }"
 		>
-			<span class="absolute right-3 text-xs">{{ formatMoney(spent) }}</span>
+			<span class="absolute right-3 flex gap-3 text-xs">
+				<span v-if="percentage > 100">({{ formatMoney(exceedingAmount) }})</span>
+				<span>{{ formatMoney(spent) }}</span>
+			</span>
 		</div>
 	</div>
 </template>
@@ -25,6 +28,8 @@ const props = defineProps<{ budget: Budget; transactions: Transaction[] }>()
 const spent = computed(() =>
 	props.transactions.reduce((sum, transaction) => sum + transaction.amount, 0),
 )
+
+const exceedingAmount = computed(() => spent.value - props.budget.value)
 
 const percentage = computed(() => (spent.value / props.budget.value) * 100)
 
