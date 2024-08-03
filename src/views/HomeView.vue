@@ -98,6 +98,9 @@ const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, A
 const sources = useCollection<Source>(collection(db, USERS, user.value!.uid, SOURCES))
 const allTransactions = useCollection<Transaction>(
 	query(collection(db, USERS, user.value!.uid, TRANSACTIONS), where('isDeleted', '==', null)),
+	{
+		ssrKey: 'not-using-ssr-key-it-will-be-fixed-in-a-newer-version-of-the-lib',
+	},
 )
 
 const historicalTransactions = computed(() =>

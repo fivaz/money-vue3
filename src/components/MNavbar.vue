@@ -6,16 +6,18 @@
 				class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
 			>
 				<div class="flex flex-1">
+					<!-- desktop links-->
 					<div class="hidden lg:flex lg:gap-x-12">
 						<RouterLink
-							:key="item.name"
-							:to="item.href"
+							:key="page.name"
+							:to="page.link"
 							class="text-sm font-semibold leading-6"
-							v-for="item in navigation"
+							v-for="page in pages"
 						>
-							{{ item.name }}
+							{{ page.name }}
 						</RouterLink>
 					</div>
+					<!-- open mobile menu button -->
 					<div class="flex lg:hidden">
 						<button
 							:class="[
@@ -31,7 +33,6 @@
 					</div>
 				</div>
 				<div class="-m-1.5 p-1.5">
-					<span class="sr-only">Money</span>
 					<MLogo class="h-8 w-auto" />
 				</div>
 				<div class="flex flex-1 justify-end gap-5">
@@ -73,9 +74,9 @@
 								'-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7',
 							]"
 							:key="item.name"
-							:to="item.href"
+							:to="item.link"
 							@click="mobileMenuOpen = false"
-							v-for="item in navigation"
+							v-for="item in pages"
 						>
 							{{ item.name }}
 						</RouterLink>
@@ -105,10 +106,10 @@ import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 
-const navigation = [
-	{ href: homeRoute, name: 'Home' },
-	{ href: budgetsRoute, name: 'Budgets' },
-	{ href: sourcesRoute, name: 'Sources' },
+const pages = [
+	{ link: homeRoute, name: 'Home' },
+	{ link: budgetsRoute, name: 'Budgets' },
+	{ link: sourcesRoute, name: 'Sources' },
 ]
 
 const mobileMenuOpen = ref(false)
