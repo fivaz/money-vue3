@@ -36,6 +36,7 @@
 				<div class="col-span-2">
 					<MoneyInput label="Amount" type="number" v-model="transactionIn.amount" />
 				</div>
+
 				<div class="col-span-3">
 					<LabelInput
 						class="col-span-3"
@@ -82,6 +83,7 @@
 					<MToggle v-model="transactionIn.isPaid" />
 				</label>
 			</div>
+
 			<div class="grid grid-cols-2 gap-5" v-if="accounts.length">
 				<MSelect
 					:class="transactionIn.operation === 'transfer' ? 'col-span-1' : 'col-span-2'"
@@ -89,9 +91,16 @@
 					v-model="transactionIn.account"
 				>
 					<template v-slot:placeholder>
-						<span class="block truncate">
-							{{ transactionIn.account?.name || 'no account selected' }}
-						</span>
+						<div class="flex items-center gap-2">
+							<component
+								v-if="transactionIn.account"
+								:is="getIcon(transactionIn.account.icon)"
+								class="h-4 w-4"
+							/>
+							<span class="block truncate">
+								{{ transactionIn.account?.name || 'no account selected' }}
+							</span>
+						</div>
 					</template>
 
 					<SelectItem
@@ -102,7 +111,7 @@
 						v-for="account in accounts"
 					>
 						<component :is="getIcon(account.icon)" class="h-4 w-4" />
-						<span>{{ account.name }}</span>
+						<span class="truncate">{{ account.name }}</span>
 					</SelectItem>
 				</MSelect>
 
@@ -113,9 +122,16 @@
 					v-model="transactionIn.destination"
 				>
 					<template v-slot:placeholder>
-						<span class="block truncate">
-							{{ transactionIn.destination?.name || 'no destination selected' }}
-						</span>
+						<div class="flex items-center gap-2">
+							<component
+								v-if="transactionIn.destination"
+								:is="getIcon(transactionIn.destination.icon)"
+								class="h-4 w-4"
+							/>
+							<span class="block truncate">
+								{{ transactionIn.destination?.name || 'no destination selected' }}
+							</span>
+						</div>
 					</template>
 
 					<SelectItem
@@ -132,12 +148,12 @@
 			</div>
 
 			<div v-else>
-				<span class="block text-sm font-medium leading-6"> Account </span>
+				<span class="block text-sm font-medium leading-6">Account</span>
 				<span class="text-sm text-red-500">no accounts created yet</span>
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium leading-6" for="description"> Description </label>
+				<label class="block text-sm font-medium leading-6" for="description">Description</label>
 				<textarea
 					class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:ring-white/10 dark:focus:ring-indigo-500"
 					id="description"
@@ -149,15 +165,7 @@
 			<div class="flex flex-col gap-2 rounded-lg border p-2">
 				<div class="flex items-center justify-between">
 					<button
-						@click="
-							() => {
-								if (isRecurring) {
-									isRecurringOpen = !isRecurringOpen
-								} else {
-									isRecurring = true
-								}
-							}
-						"
+						@click="() => (isRecurringOpen = !isRecurringOpen)"
 						class="flex flex-grow text-start text-sm font-medium leading-6"
 						type="button"
 					>
@@ -230,18 +238,11 @@ const props = defineProps<{
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
-const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
-
-watch(
-	() => props.transaction,
-	(newValue) => {
-		transactionIn.value = formatDateIn(newValue)
-	},
-)
-
 const user = useCurrentUser()
 const db = useFirestore()
 const store = usePromptStore()
+
+const transactionIn = ref<Transaction>(formatDateIn(props.transaction))
 
 const isRecurring = ref(!!(props.transaction.startDate && props.transaction.endDate))
 const isRecurringOpen = ref(false)
@@ -251,6 +252,13 @@ const operationsObject = [
 	{ icon: ArrowLeftRight, operation: 'transfer' },
 	{ icon: ArrowRightToLine, operation: 'income' },
 ]
+
+watch(
+	() => props.transaction,
+	(newValue) => {
+		transactionIn.value = formatDateIn(newValue)
+	},
+)
 
 watch(
 	() => transactionIn.value.startDate,
@@ -265,6 +273,16 @@ watch(
 		}
 	},
 )
+
+watch(isRecurring, (newValue) => {
+	isRecurringOpen.value = newValue
+})
+
+watch(isRecurringOpen, (newValue) => {
+	if (newValue && !isRecurring.value) {
+		isRecurring.value = true
+	}
+})
 
 function submitForm() {
 	const formattedTransaction = formatDateOut(transactionIn.value)
