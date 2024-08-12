@@ -68,7 +68,7 @@ import BudgetForm from '@/components/budget/BudgetForm.vue'
 import BudgetItem from '@/components/budget/BudgetItem.vue'
 import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getBalance, getHistoricalTransactions } from '@/lib/transaction'
-import { formatMoney, getAmountColor, icons } from '@/lib/utils'
+import { formatMoney, getAmountColor, uniqueIcons } from '@/lib/utils'
 import { isSameMonth, parseISO } from 'date-fns'
 import { collection } from 'firebase/firestore'
 import { PiggyBank, Plus } from 'lucide-vue-next'
@@ -115,7 +115,7 @@ function editBudget(budget: Budget) {
 
 function getEmptyBudget(): Budget {
 	return {
-		icon: icons[0].name,
+		icon: uniqueIcons[0].name,
 		id: '',
 		isDefault: false,
 		name: '',

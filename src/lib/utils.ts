@@ -1,14 +1,24 @@
+import type { FunctionalComponent } from 'vue'
+
 import {
+	Ambulance,
 	Banknote,
 	CalendarFold,
+	Dumbbell,
+	FireExtinguisher,
 	Gift,
+	Globe,
 	HandCoins,
 	HandHeart,
 	Home,
 	Hospital,
 	Landmark,
+	Laptop,
+	PlugZap,
 	ReceiptText,
 	ShoppingCart,
+	Stethoscope,
+	TriangleAlert,
 	Wallet,
 	Wrench,
 } from 'lucide-vue-next'
@@ -24,7 +34,7 @@ export function getAmountColor(amount: number) {
 	else return 'text-red-500'
 }
 
-export const icons = [
+const icons = [
 	{
 		icon: ShoppingCart,
 		name: 'shopping-cart',
@@ -34,8 +44,8 @@ export const icons = [
 		name: 'money coins',
 	},
 	{
-		icon: Hospital,
-		name: 'hospital',
+		icon: Ambulance,
+		name: 'heath ambulance',
 	},
 	{
 		icon: ReceiptText,
@@ -73,7 +83,52 @@ export const icons = [
 		icon: Landmark,
 		name: 'bank',
 	},
-]
+	{
+		icon: Dumbbell,
+		name: 'gym',
+	},
+	{
+		icon: PlugZap,
+		name: 'electricity',
+	},
+	{
+		icon: Laptop,
+		name: 'computer',
+	},
+	{
+		icon: Globe,
+		name: 'internet',
+	},
+	{
+		icon: Stethoscope,
+		name: 'heath',
+	},
+	{
+		icon: TriangleAlert,
+		name: 'accident',
+	},
+	{
+		icon: FireExtinguisher,
+		name: 'fire',
+	},
+] as const
+
+export const uniqueIcons: UniqueArray<typeof icons> = icons
+
+// guarantee that the key name is always unique
+type UniqueArray<T> = T extends readonly [infer X, ...infer Rest]
+	? X extends { name: infer N }
+		? InArray<Rest, N> extends true
+			? ['Encountered value with duplicates:', N]
+			: readonly [X, ...UniqueArray<Rest>]
+		: never
+	: T
+
+type InArray<T, X> = T extends readonly [{ name: infer N }, ...infer Rest]
+	? X extends N
+		? true
+		: InArray<Rest, X>
+	: false
 
 export function getIcon(iconName: string) {
 	return (icons.find(({ name }) => name === iconName) || icons[0]).icon

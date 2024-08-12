@@ -21,7 +21,7 @@
 </template>
 <script setup lang="ts">
 import { MAIN_COLORFUL_COLOR_BG } from '@/lib/consts'
-import { icons } from '@/lib/utils'
+import { uniqueIcons } from '@/lib/utils'
 import { computed, ref } from 'vue'
 
 const value = defineModel<string>({ required: true })
@@ -29,6 +29,6 @@ const value = defineModel<string>({ required: true })
 const searchQuery = ref('')
 
 const filteredIcons = computed(() =>
-	icons.filter(({ name }) => name.toLowerCase().includes(searchQuery.value.toLowerCase())),
+	uniqueIcons.filter(({ name }) => name.toLowerCase().includes(searchQuery.value.toLowerCase())),
 )
 </script>

@@ -77,7 +77,7 @@ import AccountItem from '@/components/account/AccountItem.vue'
 import { type Account } from '@/lib/account'
 import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, SOURCES, TRANSACTIONS, USERS } from '@/lib/consts'
 import { type Transaction, getBalance, getHistoricalTransactions } from '@/lib/transaction'
-import { formatMoney, getAmountColor, icons } from '@/lib/utils'
+import { formatMoney, getAmountColor, uniqueIcons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
 import { collection, getDocs, query, where, writeBatch } from 'firebase/firestore'
 import { Plus, Vault } from 'lucide-vue-next'
@@ -122,7 +122,7 @@ function editAccount(account: Account) {
 
 function getEmptyAccount(): Account {
 	return {
-		icon: icons[1].name,
+		icon: uniqueIcons[1].name,
 		id: '',
 		name: '',
 		order: null,
