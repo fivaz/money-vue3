@@ -53,7 +53,12 @@
 			New Budget
 		</MButton>
 
-		<BudgetForm :budget="editingBudget" :show="showForm" @close="showForm = false" />
+		<BudgetForm
+			:budget="editingBudget"
+			:length="budgets.length"
+			:show="showForm"
+			@close="showForm = false"
+		/>
 	</MNavbar>
 </template>
 
@@ -119,6 +124,7 @@ function getEmptyBudget(): Budget {
 		id: '',
 		isDefault: false,
 		name: '',
+		order: null,
 		value: 0,
 	}
 }

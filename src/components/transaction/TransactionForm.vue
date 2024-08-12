@@ -33,18 +33,19 @@
 			</div>
 
 			<div class="grid grid-cols-5 gap-5">
-				<div class="col-span-2">
-					<MoneyInput label="Amount" type="number" v-model="transactionIn.amount" />
-				</div>
+				<MoneyInput
+					class="col-span-2"
+					label="Amount"
+					type="number"
+					v-model="transactionIn.amount"
+				/>
 
-				<div class="col-span-3">
-					<LabelInput
-						class="col-span-3"
-						label="Date"
-						type="datetime-local"
-						v-model="transactionIn.date"
-					/>
-				</div>
+				<LabelInput
+					class="col-span-3"
+					label="Date"
+					type="datetime-local"
+					v-model="transactionIn.date"
+				/>
 			</div>
 
 			<div class="flex items-end gap-5">
@@ -93,9 +94,9 @@
 					<template v-slot:placeholder>
 						<div class="flex items-center gap-2">
 							<component
-								v-if="transactionIn.account"
 								:is="getIcon(transactionIn.account.icon)"
 								class="h-4 w-4"
+								v-if="transactionIn.account"
 							/>
 							<span class="block truncate">
 								{{ transactionIn.account?.name || 'no account selected' }}
@@ -124,9 +125,9 @@
 					<template v-slot:placeholder>
 						<div class="flex items-center gap-2">
 							<component
-								v-if="transactionIn.destination"
 								:is="getIcon(transactionIn.destination.icon)"
 								class="h-4 w-4"
+								v-if="transactionIn.destination"
 							/>
 							<span class="block truncate">
 								{{ transactionIn.destination?.name || 'no destination selected' }}

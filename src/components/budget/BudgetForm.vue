@@ -1,16 +1,36 @@
 <template>
 	<ModalForm :show="show" :title="budget.id ? 'Edit Budget' : 'Add Budget'" @close="$emit('close')">
-		<form @submit.prevent="submitForm" class="flex flex-col gap-5">
-			<LabelInput label="Name" required type="text" v-model="budgetIn.name" />
+		<form @submit.prevent="submitForm" class="flex w-[320px] flex-col gap-5">
+			<div class="grid grid-cols-3 gap-5">
+				<LabelInput class="col-span-2" label="Name" required type="text" v-model="budgetIn.name" />
 
-			<div class="grid grid-cols-4 gap-5">
-				<div class="col-span-3">
-					<MoneyInput label="Value" required type="number" v-model="budgetIn.value" />
-				</div>
 				<label class="cols-span-1 flex flex-col gap-2">
 					is default
 					<MToggle v-model="budgetIn.isDefault" />
 				</label>
+			</div>
+
+			<div :class="[length > 1 ? 'grid-cols-3' : 'grid-cols-2', 'grid gap-5']">
+				<MoneyInput
+					class="col-span-2"
+					label="Value"
+					required
+					type="number"
+					v-model="budgetIn.value"
+				/>
+
+				<MSelect class="col-span-1" label="Order" v-if="length > 1" v-model="budgetIn.order">
+					<template v-slot:placeholder>
+						<span class="block truncate">{{ budgetIn.order || 'no order selected' }}</span>
+					</template>
+					<SelectItem
+						:key="order"
+						:value="order"
+						v-for="order in Array.from({ length }, (_, i) => i + 1)"
+					>
+						{{ order }}
+					</SelectItem>
+				</MSelect>
 			</div>
 
 			<IconSelector v-model="budgetIn.icon" />
@@ -31,13 +51,15 @@ import ModalForm from '@/components/ModalForm.vue'
 import MoneyInput from '@/components/MoneyInput.vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
+import MSelect from '@/components/form/MSelect.vue'
 import MToggle from '@/components/form/MToggle.vue'
+import SelectItem from '@/components/form/SelectItem.vue'
 import { type Budget, addBudget, deleteBudget, editBudget } from '@/lib/budget'
 import { usePromptStore } from '@/lib/promptStore'
 import { ref, watch } from 'vue'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
-const props = defineProps<{ budget: Budget; show: boolean }>()
+const props = defineProps<{ budget: Budget; length: number; show: boolean }>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 

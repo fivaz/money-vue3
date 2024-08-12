@@ -3,10 +3,16 @@
 		<form @submit.prevent="submitForm" class="flex w-[300px] flex-col gap-5">
 			<LabelInput label="Name" required type="text" v-model="sourceIn.name" />
 
-			<div :class="[length > 1 ? 'grid-cols-2' : 'grid-cols-1', 'grid gap-5']">
-				<MoneyInput label="Balance" required type="number" v-model="sourceIn.balance" />
+			<div :class="[length > 1 ? 'grid-cols-3' : 'grid-cols-2', 'grid gap-5']">
+				<MoneyInput
+					class="col-span-2"
+					label="Balance"
+					required
+					type="number"
+					v-model="sourceIn.balance"
+				/>
 
-				<MSelect label="Order" v-if="length > 1" v-model="sourceIn.order">
+				<MSelect class="col-span-1" label="Order" v-if="length > 1" v-model="sourceIn.order">
 					<template v-slot:placeholder>
 						<span class="block truncate">{{ sourceIn.order || 'no order selected' }}</span>
 					</template>

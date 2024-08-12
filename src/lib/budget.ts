@@ -7,6 +7,7 @@ export type Budget = {
 	id: string
 	isDefault: boolean
 	name: string
+	order: null | number
 	value: number
 }
 
