@@ -16,16 +16,20 @@
 		</div>
 
 		<ul class="flex flex-col gap-5" role="list">
-			<BudgetItem
-				:accounts="accounts"
-				:budget="budget"
-				:budgets="budgets"
-				:current-date="currentDate"
+			<li
 				:key="budget.id"
-				:transactions="currentTransactions"
-				@edit-budget="(a) => editBudget(a)"
+				:style="{ order: budget.order || budgets.length }"
 				v-for="budget in budgets"
-			/>
+			>
+				<BudgetItem
+					:accounts="accounts"
+					:budget="budget"
+					:budgets="budgets"
+					:current-date="currentDate"
+					:transactions="currentTransactions"
+					@edit-budget="(a) => editBudget(a)"
+				/>
+			</li>
 		</ul>
 
 		<div class="pt-10 text-center" v-if="budgets.length === 0">
