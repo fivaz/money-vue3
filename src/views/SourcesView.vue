@@ -6,13 +6,13 @@
 		</div>
 
 		<ul class="flex flex-col gap-5" role="list">
-			<li
+			<SourceItem
+				:currentDate="currentDate"
 				:key="source.id"
-				:style="{ order: source.order || sources.length }"
-				v-for="source in sources"
-			>
-				<SourceItem :currentDate="currentDate" :source="source" @edit-source="editSource" />
-			</li>
+				:source="source"
+				@edit-source="editSource"
+				v-for="source in orderedSources"
+			/>
 		</ul>
 
 		<div :class="['pt-10 text-center', SECONDARY_COLOR_TEXT]" v-if="sources.length === 0">
@@ -70,6 +70,10 @@ const db = useFirestore()
 const user = useCurrentUser()
 
 const sources = useCollection<Source>(collection(db, USERS, user.value!.uid, SOURCES))
+
+const orderedSources = computed(() =>
+	[...sources.value].sort((a, b) => (a.order || Infinity) - (b.order || Infinity)),
+)
 
 const editingSource = ref<Source>(getEmptySource())
 

@@ -16,20 +16,16 @@
 		</div>
 
 		<ul class="flex flex-col gap-5" role="list">
-			<li
+			<BudgetItem
+				:accounts="accounts"
+				:budget="budget"
+				:budgets="orderedBudgets"
+				:current-date="currentDate"
 				:key="budget.id"
-				:style="{ order: budget.order || budgets.length }"
-				v-for="budget in budgets"
-			>
-				<BudgetItem
-					:accounts="accounts"
-					:budget="budget"
-					:budgets="budgets"
-					:current-date="currentDate"
-					:transactions="currentTransactions"
-					@edit-budget="(a) => editBudget(a)"
-				/>
-			</li>
+				:transactions="currentTransactions"
+				@edit-budget="(a) => editBudget(a)"
+				v-for="budget in orderedBudgets"
+			/>
 		</ul>
 
 		<div class="pt-10 text-center" v-if="budgets.length === 0">
@@ -97,6 +93,10 @@ const accounts = useCollection<Account>(collection(db, USERS, user.value!.uid, A
 const budgets = useCollection<Budget>(collection(db, USERS, user.value!.uid, BUDGETS))
 const allTransactions = useCollection<Transaction>(
 	collection(db, USERS, user.value!.uid, TRANSACTIONS),
+)
+
+const orderedBudgets = computed(() =>
+	[...budgets.value].sort((a, b) => (a.order || Infinity) - (b.order || Infinity)),
 )
 
 const currentTransactions = computed(() =>

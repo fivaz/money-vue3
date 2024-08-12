@@ -25,7 +25,7 @@
 				<AccountItem
 					:account="account"
 					:accounts="accounts"
-					:budgets="budgets"
+					:budgets="orderedBudgets"
 					:currentDate="currentDate"
 					:historicalTransactions="historicalTransactions"
 					@edit-account="(a) => editAccount(a)"
@@ -114,6 +114,10 @@ const balanceDifferenceSourcesAndTransactions = computed(() => {
 	//Math.abs is necessary cause balance is most likely a negative number when expense transactions surpass income transactions
 	return sumOfSourceBalances - Math.abs(balance.value)
 })
+
+const orderedBudgets = computed(() =>
+	[...budgets.value].sort((a, b) => (a.order || Infinity) - (b.order || Infinity)),
+)
 
 function editAccount(account: Account) {
 	showForm.value = true

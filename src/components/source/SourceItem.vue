@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-hidden rounded-xl border border-gray-200">
+	<li class="overflow-hidden rounded-xl border border-gray-200">
 		<div :class="['p-3', SECONDARY_COLOR_BG]">
 			<div class="flex items-center justify-between gap-x-4">
 				<div class="flex items-center gap-2">
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</li>
 </template>
 
 <script setup lang="ts">
