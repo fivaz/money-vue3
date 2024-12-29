@@ -66,8 +66,8 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 const budgetIn = ref<Budget>({ ...props.budget, id: props.budget.id })
 
 watch(
-	() => props.budget,
-	(newValue) => {
+	[() => props.budget, ()=>props.show],
+	([newValue]) => {
 		budgetIn.value = { ...newValue, id: newValue.id }
 	},
 )

@@ -52,10 +52,11 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 
 const accountIn = ref<Account>({ ...props.account, id: props.account.id })
 
+//()=>props.show is used to refresh accountIn whenever the form is closed
 watch(
-	() => props.account,
-	(newValue) => {
-		accountIn.value = { ...newValue, id: newValue.id }
+	[() => props.account, ()=>props.show],
+	([newAccount]) => {
+		accountIn.value = { ...newAccount, id: newAccount.id }
 	},
 )
 

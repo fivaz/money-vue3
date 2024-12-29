@@ -60,8 +60,8 @@ const db = useFirestore()
 const store = usePromptStore()
 
 watch(
-	() => props.source,
-	(newValue) => {
+	[() => props.source, ()=>props.show],
+	([newValue]) => {
 		sourceIn.value = { ...newValue, id: newValue.id }
 	},
 )

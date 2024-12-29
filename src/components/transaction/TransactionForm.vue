@@ -255,8 +255,8 @@ const operationsObject = [
 ]
 
 watch(
-	() => props.transaction,
-	(newValue) => {
+	[() => props.transaction, ()=>props.show],
+	([newValue]) => {
 		transactionIn.value = formatDateIn(newValue)
 	},
 )
