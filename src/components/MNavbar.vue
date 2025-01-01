@@ -1,5 +1,5 @@
 <template>
-	<div :class="['min-h-screen', MAIN_COLOR_BG, MAIN_COLOR_TEXT]">
+	<div :class="['h-screen overflow-y-auto', MAIN_COLOR_BG, MAIN_COLOR_TEXT]">
 		<header>
 			<nav
 				aria-label="Global"

@@ -79,7 +79,7 @@ import { ACCOUNTS, BUDGETS, SECONDARY_COLOR_TEXT, SOURCES, TRANSACTIONS, USERS }
 import { type Transaction, getBalance, getHistoricalTransactions } from '@/lib/transaction'
 import { formatMoney, getAmountColor, uniqueIcons } from '@/lib/utils'
 import { isSameMonth } from 'date-fns'
-import { collection, getDocs, query, where, writeBatch } from 'firebase/firestore'
+import { collection, query, where } from 'firebase/firestore'
 import { Plus, Vault } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
