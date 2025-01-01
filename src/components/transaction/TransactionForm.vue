@@ -48,18 +48,25 @@
 				/>
 			</div>
 
-			<div class="flex items-end gap-5">
+			<div class="grid grid-cols-5 items-end gap-5">
 				<MSelect
 					by="id"
-					class="grow"
+					class="col-span-3"
 					label="Budgets"
 					v-if="budgets.length"
 					v-model="transactionIn.budget"
 				>
 					<template v-slot:placeholder>
-						<span class="block truncate">
-							{{ transactionIn.budget?.name || 'no budget selected' }}
-						</span>
+						<div class="flex items-center gap-2">
+							<component
+								:is="getIcon(transactionIn.budget.icon)"
+								class="h-4 w-4"
+								v-if="transactionIn.budget"
+							/>
+							<span class="block w-[calc(100%-16px)] truncate">
+								{{ transactionIn.budget?.name || 'no budget selected' }}
+							</span>
+						</div>
 					</template>
 					<SelectItem :value="null" class="flex items-center gap-2">
 						<span>no budget</span>
@@ -71,7 +78,7 @@
 						v-for="budget in budgets"
 					>
 						<component :is="getIcon(budget.icon)" class="h-4 w-4" />
-						<span>{{ budget.name }}</span>
+						<span class="block truncate">{{ budget.name }}</span>
 					</SelectItem>
 				</MSelect>
 				<div v-else>
@@ -79,7 +86,7 @@
 					<span class="text-sm text-red-500">no budgets created yet</span>
 				</div>
 
-				<label class="flex gap-2 pb-2">
+				<label class="col-span-2 flex gap-2 pb-2">
 					is paid
 					<MToggle v-model="transactionIn.isPaid" />
 				</label>
@@ -98,7 +105,7 @@
 								class="h-4 w-4"
 								v-if="transactionIn.account"
 							/>
-							<span class="block truncate">
+							<span class="block w-[calc(100%-16px)] truncate">
 								{{ transactionIn.account?.name || 'no account selected' }}
 							</span>
 						</div>
@@ -125,11 +132,11 @@
 					<template v-slot:placeholder>
 						<div class="flex items-center gap-2">
 							<component
-								:is="getIcon(transactionIn.destination.icon)"
+								:is="getIcon(transactionIn.destination?.icon)"
 								class="h-4 w-4"
 								v-if="transactionIn.destination"
 							/>
-							<span class="block truncate">
+							<span class="block w-[calc(100%-16px)] truncate">
 								{{ transactionIn.destination?.name || 'no destination selected' }}
 							</span>
 						</div>
@@ -254,12 +261,9 @@ const operationsObject = [
 	{ icon: ArrowRightToLine, operation: 'income' },
 ]
 
-watch(
-	[() => props.transaction, ()=>props.show],
-	([newValue]) => {
-		transactionIn.value = formatDateIn(newValue)
-	},
-)
+watch([() => props.transaction, () => props.show], ([newValue]) => {
+	transactionIn.value = formatDateIn(newValue)
+})
 
 watch(
 	() => transactionIn.value.startDate,
