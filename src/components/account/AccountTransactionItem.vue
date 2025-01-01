@@ -37,8 +37,15 @@
 			</div>
 
 			<span class="flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
-				<span v-if="transaction.description">{{ transaction.description }}</span>
-				<span v-else>{{ transaction.budget?.name }}</span>
+				<span v-if="transaction.description">
+					{{ transaction.description }}
+				</span>
+				<span v-else>
+					{{ transaction.budget?.name }}
+				</span>
+				<span v-if="transaction.referenceDate">
+					( {{ format(parse(transaction.referenceDate, DATE, new Date()), 'MM.yy') }} )
+				</span>
 			</span>
 
 			<span
@@ -55,10 +62,15 @@
 </template>
 
 <script setup lang="ts">
-import { MAIN_HOVER_COLOR_BG, MAIN_HOVER_COLOR_TEXT, SECONDARY_COLOR_TEXT } from '@/lib/consts'
+import {
+	DATE,
+	MAIN_HOVER_COLOR_BG,
+	MAIN_HOVER_COLOR_TEXT,
+	SECONDARY_COLOR_TEXT,
+} from '@/lib/consts'
 import { type Transaction, parseAmount } from '@/lib/transaction'
 import { getAmountColor, getIcon } from '@/lib/utils'
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 import { ArrowRightLeft, CalendarCheck, Clock } from 'lucide-vue-next'
 
 const props = defineProps<{ accountId: string; transaction: Transaction }>()
