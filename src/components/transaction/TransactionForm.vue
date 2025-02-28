@@ -78,7 +78,7 @@
 						v-for="budget in budgets"
 					>
 						<component :is="getIcon(budget.icon)" class="h-4 w-4" />
-						<span class="block truncate">{{ budget.name }}</span>
+						<span class="flex-1 truncate">{{ budget.name }}</span>
 					</SelectItem>
 				</MSelect>
 				<div v-else>
