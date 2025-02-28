@@ -2,7 +2,6 @@
 	<span class="sr-only">Money</span>
 	<MTooltip :text="commitHash">
 		<svg
-			ref="reference"
 			v-bind="$attrs"
 			class="fill-indigo-600"
 			viewBox="0 0 512 512"

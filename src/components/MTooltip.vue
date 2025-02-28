@@ -1,5 +1,5 @@
 <template>
-	<div class="relative inline-block" ref="triggerRef">
+	<div :class="props.class" class="relative inline-block" ref="triggerRef">
 		<slot></slot>
 		<Teleport to="body">
 			<div
@@ -20,29 +20,36 @@
 	</div>
 </template>
 
-<script setup>
-import { arrow, autoUpdate, flip, offset, shift, useFloating } from '@floating-ui/vue'
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+<script setup lang="ts">
+import {
+	type Placement,
+	type Strategy,
+	arrow,
+	autoUpdate,
+	flip,
+	offset,
+	shift,
+	useFloating,
+} from '@floating-ui/vue'
+import { type CSSProperties, computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
-const props = defineProps({
-	offsetDistance: {
-		default: 8,
-		type: Number,
-	},
-	placement: {
-		default: 'top',
-		type: String,
-	},
-	text: {
-		required: true,
-		type: String,
-	},
+interface TooltipProps {
+	class?: string
+	offsetDistance?: number
+	placement?: Placement
+	text: string
+}
+
+const props = withDefaults(defineProps<TooltipProps>(), {
+	class: '',
+	offsetDistance: 8,
+	placement: 'top',
 })
 
 const isOpen = ref(false)
-const triggerRef = ref(null)
-const tooltipRef = ref(null)
-const arrowRef = ref(null)
+const triggerRef = ref<HTMLElement | null>(null)
+const tooltipRef = ref<HTMLElement | null>(null)
+const arrowRef = ref<HTMLElement | null>(null)
 
 const middleware = computed(() => [
 	offset(props.offsetDistance),
@@ -52,23 +59,23 @@ const middleware = computed(() => [
 ])
 
 const { middlewareData, placement, strategy, x, y } = useFloating(triggerRef, tooltipRef, {
-	middleware: middleware,
+	middleware: middleware.value,
 	placement: props.placement,
 	whileElementsMounted: autoUpdate,
 })
 
-const tooltipStyles = computed(() => ({
+const tooltipStyles = computed<CSSProperties>(() => ({
 	left: x.value != null ? `${x.value}px` : '',
-	position: strategy.value,
+	position: strategy.value as Strategy,
 	top: y.value != null ? `${y.value}px` : '',
 }))
 
-const arrowStyles = computed(() => {
+const arrowStyles = computed<CSSProperties>(() => {
 	if (!middlewareData.value.arrow) {
 		return {}
 	}
 
-	const { x, y } = middlewareData.value.arrow
+	const { x, y } = middlewareData.value.arrow as { x: null | number; y: null | number }
 
 	const staticSide = {
 		bottom: 'top',
@@ -79,17 +86,17 @@ const arrowStyles = computed(() => {
 
 	return {
 		left: x != null ? `${x}px` : '',
-		[staticSide]: '-6px',
+		[staticSide as string]: '-6px',
 		top: y != null ? `${y}px` : '',
 		zIndex: -1,
 	}
 })
 
-const showTooltip = () => {
+const showTooltip = (): void => {
 	isOpen.value = true
 }
 
-const hideTooltip = () => {
+const hideTooltip = (): void => {
 	isOpen.value = false
 }
 
