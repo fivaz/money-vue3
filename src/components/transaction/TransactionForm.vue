@@ -119,7 +119,7 @@
 						v-for="account in accounts"
 					>
 						<component :is="getIcon(account.icon)" class="h-4 w-4" />
-						<span class="truncate">{{ account.name }}</span>
+						<span class="flex-1 truncate">{{ account.name }}</span>
 					</SelectItem>
 				</MSelect>
 
@@ -136,7 +136,7 @@
 								class="h-4 w-4"
 								v-if="transactionIn.destination"
 							/>
-							<span class="block w-[calc(100%-16px)] truncate">
+							<span class="flex-1 truncate">
 								{{ transactionIn.destination?.name || 'no destination selected' }}
 							</span>
 						</div>
@@ -150,7 +150,7 @@
 						v-for="account in accounts"
 					>
 						<component :is="getIcon(account.icon)" class="h-4 w-4" />
-						<span>{{ account.name }}</span>
+						<span class="flex-1 truncate">{{ account.name }}</span>
 					</SelectItem>
 				</MSelect>
 			</div>
