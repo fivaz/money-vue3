@@ -2,7 +2,7 @@
 	<span class="sr-only">Money</span>
 	<MTooltip :text="commitHash">
 		<svg
-			v-bind="$attrs"
+			:class="$attrs.class"
 			class="fill-indigo-600"
 			viewBox="0 0 512 512"
 			xmlns="http://www.w3.org/2000/svg"
@@ -19,4 +19,9 @@
 import MTooltip from '@/components/MTooltip.vue'
 
 const commitHash = import.meta.env.VITE_COMMIT_HASH
+
+// Disable attribute inheritance
+defineOptions({
+	inheritAttrs: false,
+})
 </script>
