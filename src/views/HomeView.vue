@@ -128,6 +128,7 @@ function getEmptyAccount(): Account {
 	return {
 		icon: uniqueIcons[1].name,
 		id: '',
+		isAnnual: false,
 		name: '',
 		order: null,
 	}

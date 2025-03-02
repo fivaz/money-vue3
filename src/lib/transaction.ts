@@ -1,17 +1,14 @@
 import type { Account } from '@/lib/account'
 import type { Budget } from '@/lib/budget'
 
-import { DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
-import { endOfMonth, format, isBefore, isSameDay, parseISO } from 'date-fns'
-import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
-import { computed } from 'vue'
-import { useFirestore } from 'vuefire'
+import { endOfMonth, isBefore, isSameDay } from 'date-fns'
 
 export type Operation = 'expense' | 'income' | 'transfer'
 
 export type Transaction = {
 	account: Account
 	amount: number
+	annualSource: Account | null
 	budget: Budget | null
 	date: string
 	description: string

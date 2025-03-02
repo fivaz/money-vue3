@@ -102,6 +102,7 @@ function getEmptyTransactionFromBudget(): Transaction {
 	return {
 		account: props.accounts[0],
 		amount: 0,
+		annualSource: null,
 		budget: props.budget,
 		date: props.currentDate.toISOString(),
 		description: '',

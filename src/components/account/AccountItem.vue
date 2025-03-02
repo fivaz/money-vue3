@@ -61,12 +61,21 @@
 		</Disclosure>
 	</div>
 
+	<AnnualTransactionForm
+		:accounts="accounts"
+		:budgets="budgets"
+		:show="showForm"
+		:transaction="editingTransaction"
+		@close="showForm = false"
+		v-if="account.isAnnual"
+	/>
 	<TransactionForm
 		:accounts="accounts"
 		:budgets="budgets"
 		:show="showForm"
 		:transaction="editingTransaction"
 		@close="showForm = false"
+		v-else
 	/>
 </template>
 
@@ -75,6 +84,7 @@ import type { Budget } from '@/lib/budget'
 
 import BlockedCircleDollarSign from '@/components/BlockedCircleDollarSign.vue'
 import MButton from '@/components/MButton.vue'
+import AnnualTransactionForm from '@/components/transaction/AnnualTransactionForm.vue'
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import { type Account } from '@/lib/account'
 import {
@@ -160,6 +170,7 @@ function getEmptyTransactionFromAccount(): Transaction {
 	return {
 		account: props.account,
 		amount: 0,
+		annualSource: null,
 		budget: props.budgets.find((budget) => budget.isDefault) || null,
 		date: props.currentDate.toISOString(),
 		description: '',
