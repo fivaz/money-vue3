@@ -2,9 +2,9 @@
 	<div class="rounded-xl border border-gray-200">
 		<div :class="['sticky top-0 rounded-t-xl border-b border-gray-200 p-3', SECONDARY_COLOR_BG]">
 			<div class="flex items-center justify-between gap-x-4">
-				<div class="flex items-center gap-2">
-					<component :is="getIcon(account.icon)" class="h-4 w-4" />
-					<span class="text-sm font-medium leading-6">
+				<div class="flex items-center gap-2 truncate">
+					<component :is="getIcon(account.icon)" class="size-4 shrink-0" />
+					<span class="truncate text-sm font-medium leading-6">
 						{{ account.name }}
 					</span>
 				</div>
