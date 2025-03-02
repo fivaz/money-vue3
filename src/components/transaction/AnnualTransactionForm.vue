@@ -147,10 +147,24 @@
 			</div>
 
 			<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
-				<MButton @click="handleDelete" color="white" size="big" type="button" v-if="transaction.id">
+				<MButton
+					:disabled="transaction.operation === 'transfer'"
+					@click="handleDelete"
+					color="white"
+					size="big"
+					type="button"
+					v-if="transaction.id"
+				>
 					Delete
 				</MButton>
-				<MButton color="indigo" size="big" type="submit"> Save </MButton>
+				<MButton
+					:disabled="transaction.operation === 'transfer'"
+					color="indigo"
+					size="big"
+					type="submit"
+				>
+					Save
+				</MButton>
 			</div>
 		</form>
 	</ModalForm>
