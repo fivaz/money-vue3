@@ -1,7 +1,8 @@
 import type { Account } from '@/lib/account'
 import type { Budget } from '@/lib/budget'
 
-import { endOfMonth, isBefore, isSameDay } from 'date-fns'
+import { DATE } from '@/lib/consts'
+import { endOfMonth, isBefore, isSameDay, parse } from 'date-fns'
 
 export type Operation = 'expense' | 'income' | 'transfer'
 
@@ -47,9 +48,12 @@ export function getBalance(transactions: Transaction[]): number {
 }
 
 // convert recurring transactions into multiple individual transactions for each date of the month
-function expandTransaction(currentDate: Date, transaction: Transaction) {
+function expandTransaction(
+	currentDate: Date,
+	transaction: { endDate: string; startDate: string } & Transaction,
+): Transaction[] {
 	const transactions: Transaction[] = []
-	const currentOccurrence = new Date(transaction.date)
+	const currentOccurrence = new Date(transaction.startDate)
 
 	while (
 		currentOccurrence <= new Date(transaction.endDate!) &&
@@ -70,10 +74,11 @@ function expandTransaction(currentDate: Date, transaction: Transaction) {
 
 function expandAnnualTransaction(
 	currentDate: Date,
-	transaction: { annualSource: Account } & Omit<Transaction, 'annualSource'>,
+	transaction: { annualSource: Account; endDate: string; startDate: string } & Transaction,
 ) {
 	const transactions: Transaction[] = [transaction]
-	const currentOccurrence = new Date(transaction.date)
+
+	const currentOccurrence = parse(transaction.startDate, DATE, new Date())
 
 	while (
 		currentOccurrence <= new Date(transaction.endDate!) &&
@@ -105,13 +110,16 @@ function convertToTransferTransaction(
 
 export function getExpandedTransactions(currentDate: Date, transactions: Transaction[]) {
 	return transactions.flatMap((transaction) => {
-		if (transaction.annualSource) {
+		if (transaction.annualSource && transaction.startDate && transaction.endDate) {
 			return expandAnnualTransaction(
 				currentDate,
-				transaction as { annualSource: Account } & Omit<Transaction, 'annualSource'>,
+				transaction as { annualSource: Account; endDate: string; startDate: string } & Transaction,
 			)
 		} else if (transaction.startDate && transaction.endDate) {
-			return expandTransaction(currentDate, transaction)
+			return expandTransaction(
+				currentDate,
+				transaction as { endDate: string; startDate: string } & Transaction,
+			)
 		} else {
 			return transaction
 		}
