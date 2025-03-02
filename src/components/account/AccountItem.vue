@@ -88,6 +88,7 @@ import AnnualTransactionForm from '@/components/transaction/AnnualTransactionFor
 import TransactionForm from '@/components/transaction/TransactionForm.vue'
 import { type Account } from '@/lib/account'
 import {
+	DATE,
 	MAIN_HOVER_COLOR_BG,
 	MAIN_HOVER_COLOR_TEXT,
 	SECONDARY_COLOR_BG,
@@ -96,7 +97,7 @@ import {
 import { type Transaction, parseAmount } from '@/lib/transaction'
 import { formatMoney, getIcon } from '@/lib/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import { isSameMonth, parseISO } from 'date-fns'
+import { format, isSameMonth, parseISO, subMonths } from 'date-fns'
 import { ArrowDownAZ, ArrowUpZA, Banknote, ChevronDown, Plus, Settings2 } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
@@ -175,13 +176,13 @@ function getEmptyTransactionFromAccount(): Transaction {
 		date: props.currentDate.toISOString(),
 		description: '',
 		destination: null,
-		endDate: null,
+		endDate: props.account.isAnnual ? format(props.currentDate, DATE) : null,
 		id: '',
 		isDeleted: null,
 		isPaid: true,
 		operation: 'expense',
 		referenceDate: null,
-		startDate: null,
+		startDate: props.account.isAnnual ? format(subMonths(props.currentDate, 12), DATE) : null,
 	}
 }
 
