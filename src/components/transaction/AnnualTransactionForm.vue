@@ -135,10 +135,14 @@
 			</div>
 
 			<div class="flex flex-col gap-2 rounded-lg border p-2">
-				<div class="flex flex-grow gap-1 text-start text-sm font-medium leading-6">
+				<div
+					class="flex flex-grow gap-1 text-start text-sm font-medium leading-6"
+					v-if="transaction.operation === 'expense'"
+				>
 					<span class="text-red-500">{{ formatMoney(transactionIn.amount / 12) }}</span>
 					<span>will be transferred every month</span>
 				</div>
+				<div class="text-sm font-medium leading-6" v-else>Recurring</div>
 
 				<div class="grid grid-cols-2 gap-5">
 					<LabelInput label="From" required type="Date" v-model="transactionIn.startDate" />
