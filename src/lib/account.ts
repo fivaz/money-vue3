@@ -1,4 +1,3 @@
-
 import { ACCOUNTS, TRANSACTIONS, USERS } from '@/lib/consts'
 import {
 	addDoc,
@@ -16,6 +15,7 @@ import { useFirestore } from 'vuefire'
 export type Account = {
 	icon: string
 	id: string
+	isAnnual: boolean
 	name: string
 	order: null | number
 }

@@ -5,10 +5,10 @@
 		@close="$emit('close')"
 	>
 		<form @submit.prevent="submitForm" class="flex w-[300px] flex-col gap-5">
-			<div :class="[length > 1 ? 'grid-cols-2' : 'grid-cols-1', 'grid gap-5']">
-				<LabelInput label="Name" required type="text" v-model="accountIn.name" />
+			<LabelInput autocomplete="off" label="Name" required type="text" v-model="accountIn.name" />
 
-				<MSelect label="Order" v-if="length > 1" v-model="accountIn.order">
+			<div class="flex gap-5">
+				<MSelect class="flex-1" label="Order" v-if="length > 1" v-model="accountIn.order">
 					<template v-slot:placeholder>
 						<span class="block truncate">{{ accountIn.order || 'no order selected' }}</span>
 					</template>
@@ -20,6 +20,10 @@
 						{{ order }}
 					</SelectItem>
 				</MSelect>
+				<label class="flex flex-col gap-2">
+					<span class="text-sm font-medium leading-6">Is annual</span>
+					<MToggle v-model="accountIn.isAnnual"></MToggle>
+				</label>
 			</div>
 
 			<IconSelector v-model="accountIn.icon" />
@@ -40,6 +44,7 @@ import ModalForm from '@/components/ModalForm.vue'
 import IconSelector from '@/components/form/IconSelector.vue'
 import LabelInput from '@/components/form/LabelInput.vue'
 import MSelect from '@/components/form/MSelect.vue'
+import MToggle from '@/components/form/MToggle.vue'
 import SelectItem from '@/components/form/SelectItem.vue'
 import { type Account, addAccount, deleteAccount, editAccount } from '@/lib/account'
 import { usePromptStore } from '@/lib/promptStore'
@@ -53,12 +58,9 @@ const emit = defineEmits<{ (e: 'close'): void }>()
 const accountIn = ref<Account>({ ...props.account, id: props.account.id })
 
 //()=>props.show is used to refresh accountIn whenever the form is closed
-watch(
-	[() => props.account, ()=>props.show],
-	([newAccount]) => {
-		accountIn.value = { ...newAccount, id: newAccount.id }
-	},
-)
+watch([() => props.account, () => props.show], ([newAccount]) => {
+	accountIn.value = { ...newAccount, id: newAccount.id }
+})
 
 const user = useCurrentUser()
 const db = useFirestore()
