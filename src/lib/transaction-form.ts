@@ -1,9 +1,7 @@
-import type { Account } from '@/lib/account'
-import type { Budget } from '@/lib/budget'
 import type { Transaction } from '@/lib/transaction'
 
 import { DATETIME_OUT, TRANSACTIONS, USERS } from '@/lib/consts'
-import { endOfMonth, format, isBefore, isSameDay, parseISO } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 
@@ -31,6 +29,12 @@ export function getData(transaction: Transaction): Omit<Transaction, 'id'> {
 			...transaction.account,
 			id: transaction.account.id,
 		},
+		annualSource: transaction.annualSource
+			? {
+					...transaction.annualSource,
+					id: transaction.annualSource.id,
+				}
+			: null,
 		budget: transaction.budget
 			? {
 					...transaction.budget,

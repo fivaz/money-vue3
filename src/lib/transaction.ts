@@ -46,6 +46,7 @@ export function getBalance(transactions: Transaction[]): number {
 	}, 0)
 }
 
+// convert recurring transactions into multiple individual transactions for each date of the month
 function expandTransaction(currentDate: Date, transaction: Transaction) {
 	const transactions: Transaction[] = []
 	const currentOccurrence = new Date(transaction.date)
@@ -67,9 +68,49 @@ function expandTransaction(currentDate: Date, transaction: Transaction) {
 	return transactions
 }
 
+function expandAnnualTransaction(
+	currentDate: Date,
+	transaction: { annualSource: Account } & Omit<Transaction, 'annualSource'>,
+) {
+	const transactions: Transaction[] = [transaction]
+	const currentOccurrence = new Date(transaction.date)
+
+	while (
+		currentOccurrence <= new Date(transaction.endDate!) &&
+		currentOccurrence <= endOfMonth(currentDate)
+	) {
+		if (currentOccurrence >= new Date(transaction.startDate!)) {
+			transactions.push(convertToTransferTransaction(transaction, currentOccurrence))
+		}
+		currentOccurrence.setMonth(currentOccurrence.getMonth() + 1)
+	}
+
+	return transactions
+}
+
+function convertToTransferTransaction(
+	annualTransaction: { annualSource: Account } & Omit<Transaction, 'annualSource'>,
+	currentOccurrence: Date,
+): Transaction {
+	return {
+		...annualTransaction,
+		account: annualTransaction.annualSource,
+		amount: annualTransaction.amount / 12,
+		date: currentOccurrence.toISOString(),
+		destination: annualTransaction.account,
+		id: annualTransaction.id,
+		operation: 'transfer',
+	}
+}
+
 export function getExpandedTransactions(currentDate: Date, transactions: Transaction[]) {
 	return transactions.flatMap((transaction) => {
-		if (transaction.startDate && transaction.endDate) {
+		if (transaction.annualSource) {
+			return expandAnnualTransaction(
+				currentDate,
+				transaction as { annualSource: Account } & Omit<Transaction, 'annualSource'>,
+			)
+		} else if (transaction.startDate && transaction.endDate) {
 			return expandTransaction(currentDate, transaction)
 		} else {
 			return transaction
@@ -77,6 +118,8 @@ export function getExpandedTransactions(currentDate: Date, transactions: Transac
 	})
 }
 
+// filter only the transactions in this month and the previous months, don't count the future transactions
+// this is important because the balance is calculated with this
 export function getHistoricalTransactions(
 	currentDate: Date,
 	transactions: Transaction[],
