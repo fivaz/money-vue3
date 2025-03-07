@@ -199,20 +199,14 @@
 
 			<LabelInput label="Reference date" type="date" v-model="transactionIn.referenceDate" />
 
-			<div :class="['flex', transaction.id ? 'justify-between' : 'justify-end']">
-				<MButton
-					:disabled="transaction.annualSource"
-					@click="handleDelete"
-					color="white"
-					size="big"
-					type="button"
-					v-if="transaction.id"
-				>
+			<div
+				:class="['flex', transaction.id ? 'justify-between' : 'justify-end']"
+				v-if="!transaction.annualSource"
+			>
+				<MButton @click="handleDelete" color="white" size="big" type="button" v-if="transaction.id">
 					Delete
 				</MButton>
-				<MButton :disabled="transaction.annualSource" color="indigo" size="big" type="submit">
-					Save
-				</MButton>
+				<MButton color="indigo" size="big" type="submit"> Save </MButton>
 			</div>
 		</form>
 	</ModalForm>
