@@ -3,6 +3,7 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestor
 import { useFirestore } from 'vuefire'
 
 export type Budget = {
+	createdAt: string
 	icon: string
 	id: string
 	isDefault: boolean

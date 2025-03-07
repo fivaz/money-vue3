@@ -124,6 +124,7 @@ function editBudget(budget: Budget) {
 
 function getEmptyBudget(): Budget {
 	return {
+		createdAt: new Date().toISOString(),
 		icon: uniqueIcons[0].name,
 		id: '',
 		isDefault: false,

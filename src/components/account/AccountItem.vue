@@ -173,6 +173,7 @@ function getEmptyTransactionFromAccount(): Transaction {
 		amount: 0,
 		annualSource: null,
 		budget: props.budgets.find((budget) => budget.isDefault) || null,
+		createdAt: new Date().toISOString(),
 		date: props.currentDate.toISOString(),
 		description: '',
 		destination: null,

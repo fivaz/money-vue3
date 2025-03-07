@@ -104,6 +104,7 @@ function getEmptyTransactionFromBudget(): Transaction {
 		amount: 0,
 		annualSource: null,
 		budget: props.budget,
+		createdAt: new Date().toISOString(),
 		date: props.currentDate.toISOString(),
 		description: '',
 		destination: null,

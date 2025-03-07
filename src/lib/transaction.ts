@@ -11,6 +11,7 @@ export type Transaction = {
 	amount: number
 	annualSource: Account | null
 	budget: Budget | null
+	createdAt: string
 	date: string
 	description: string
 	destination: Account | null

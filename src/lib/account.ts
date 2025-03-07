@@ -13,6 +13,7 @@ import {
 import { useFirestore } from 'vuefire'
 
 export type Account = {
+	createdAt: string
 	icon: string
 	id: string
 	isAnnual: boolean

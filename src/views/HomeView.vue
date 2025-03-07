@@ -126,6 +126,7 @@ function editAccount(account: Account) {
 
 function getEmptyAccount(): Account {
 	return {
+		createdAt: new Date().toISOString(),
 		icon: uniqueIcons[1].name,
 		id: '',
 		isAnnual: false,
