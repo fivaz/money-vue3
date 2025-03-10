@@ -2,7 +2,7 @@
 import { DisclosureButton } from '@headlessui/vue'
 import { computed } from 'vue'
 import DarkMode from './dark-mode.vue'
-import NLogo from '@/components/navbar/n-logo.vue'
+import { CircleUserIcon } from 'lucide-vue-next'
 
 type NavigationItem = { name: string; href?: string; onClick?: () => void }
 
@@ -31,7 +31,7 @@ function handleItemClick(item: NavigationItem) {
     <div class="flex items-center px-4">
       <div class="shrink-0">
         <img v-if="user.imageUrl" class="size-10 rounded-full" :src="user.imageUrl" alt="" />
-        <n-logo class="size-8" v-else />
+        <CircleUserIcon class="size-8 text-yellow-500" v-else />
       </div>
       <div class="ml-3">
         <div class="text-base font-medium text-gray-800 dark:text-gray-200">{{ user.name }}</div>

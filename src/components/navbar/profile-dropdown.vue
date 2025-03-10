@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import NLogo from '@/components/navbar/n-logo.vue'
+import { CircleUserIcon } from 'lucide-vue-next'
 
 type NavigationItem = { name: string; path?: string; onClick?: () => void }
 
@@ -25,9 +25,7 @@ function handleItemClick(item: NavigationItem) {
         <span class="absolute -inset-1.5" />
         <span class="sr-only">Open user menu</span>
         <img v-if="user.imageUrl" class="size-8 rounded-full" :src="user.imageUrl" alt="" />
-        <div v-else class="size-9 rounded-full border-2 border-gray-500 p-1">
-          <n-logo class="size-6" />
-        </div>
+        <CircleUserIcon class="size-7 text-yellow-500" v-else />
       </MenuButton>
     </div>
     <transition
