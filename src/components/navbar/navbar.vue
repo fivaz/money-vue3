@@ -18,7 +18,7 @@ const router = useRouter()
 // Get the current authenticated user
 const user = useCurrentUser()
 
-const commitHash = import.meta.env.VITE_COMMIT_HASH
+const commitHash = `current commit: ${import.meta.env.VITE_COMMIT_HASH}`
 
 // Define user navigation
 const userNavigation = [

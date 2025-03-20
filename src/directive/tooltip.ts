@@ -10,10 +10,10 @@ import {
 
 // Tailwind color classes
 const tailwindColor = {
-  green: 'text-green-500 bg-green-50',
-  red: 'text-red-500 bg-red-50',
-  indigo: 'text-indigo-500 bg-indigo-50',
-  yellow: 'text-yellow-500 bg-yellow-50',
+  green: 'text-green-500 bg-green-50 dark:bg-green-600 dark:text-green-50',
+  red: 'text-red-500 bg-red-50 dark:bg-red-600 dark:text-red-50',
+  indigo: 'text-indigo-500 bg-indigo-50 dark:bg-indigo-600 dark:text-indigo-50',
+  yellow: 'text-yellow-500 bg-yellow-50 dark:bg-yellow-600 dark:text-yellow-50',
 } as const
 
 // Type definitions
