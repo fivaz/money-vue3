@@ -18,7 +18,8 @@ import {
   Stethoscope,
   TriangleAlert,
   FireExtinguisher,
-  CircleAlert, // Default icon
+  CircleAlert,
+  ScanIcon, // Default icon
 } from 'lucide-vue-next'
 
 import type { Component } from 'vue'
@@ -43,8 +44,9 @@ export const iconComponents: Record<string, Component> = {
   heath: Stethoscope,
   accident: TriangleAlert,
   fire: FireExtinguisher,
+  empty: ScanIcon,
 } as const
 
 export function getIcon(name: string = ''): Component {
-  return (iconComponents[name] as Component) || iconComponents['accident']
+  return (iconComponents[name] as Component) || iconComponents['empty']
 }

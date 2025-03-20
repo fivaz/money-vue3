@@ -109,6 +109,10 @@ function closeDialog() {
             </div>
             <span v-else>Select a budget</span>
           </template>
+          <select-item class="flex items-center gap-2" :value="null">
+            <span class="size-4 flex-shrink-0" />
+            <span class="truncate">No budget</span>
+          </select-item>
           <select-item
             class="flex items-center gap-2"
             v-for="budget in budgetsStore.value"
