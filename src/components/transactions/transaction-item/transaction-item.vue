@@ -51,7 +51,7 @@ const shouldShowAnnualTransactionPayment = computed(() => {
       <transaction-item-date>{{ transaction.date }}</transaction-item-date>
       <div class="flex items-center gap-2 truncate">
         <NText>
-          <IconRenderer class="size-4 text-yellow-500" :name="transaction.budget?.icon" />
+          <IconRenderer class="size-4 shrink-0 text-yellow-500" :name="transaction.budget?.icon" />
         </NText>
         <NText class="truncate font-medium" v-if="transaction.description">
           {{ transaction.description }}
@@ -64,13 +64,13 @@ const shouldShowAnnualTransactionPayment = computed(() => {
     </div>
     <div class="flex items-center gap-2">
       <NText v-if="transaction.annualSource?.id === account.id">
-        <CombineIcon class="size-4 text-yellow-500" />
+        <CombineIcon class="size-4 shrink-0 text-yellow-500" />
       </NText>
       <NText v-if="transaction.operation === 'transfer'">
-        <ArrowLeftRightIcon class="size-4 text-yellow-500" />
+        <ArrowLeftRightIcon class="size-4 shrink-0 text-yellow-500" />
       </NText>
       <NText v-if="isAnnualOriginal">
-        <Grid2x2Icon class="size-4 text-yellow-500" />
+        <Grid2x2Icon class="size-4 shrink-0 text-yellow-500" />
       </NText>
       <TransactionItemAmount
         :isAnnualOriginal="isAnnualOriginal"
@@ -78,7 +78,7 @@ const shouldShowAnnualTransactionPayment = computed(() => {
         :account-id="account.id"
       />
       <TransactionForm :transaction="transaction" :is-account-annual="account.isAnnual">
-        <CogIcon class="size-4" />
+        <CogIcon class="size-4 shrink-0" />
       </TransactionForm>
     </div>
   </li>

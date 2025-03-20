@@ -52,12 +52,13 @@ function getSlotValue(vnode?: VNode): Date | null {
 
 <template>
   <div class="flex gap-2">
-    <NText size="sm" class="flex items-center">
-      <Calendar1Icon class="mr-2 hidden size-4 md:block" />
-      {{ day }}<span class="hidden md:block">.{{ month }}</span>
+    <NText size="sm" class="flex w-4 items-center md:w-16">
+      <Calendar1Icon class="mr-2 hidden size-4 shrink-0 md:block" />
+      {{ day }}
+      <span class="hidden md:block">.{{ month }}</span>
     </NText>
-    <NText size="sm" class="hidden items-center gap-2 md:flex">
-      <ClockIcon class="size-4" />
+    <NText size="sm" class="hidden w-16 items-center gap-2 md:flex">
+      <ClockIcon class="size-4 shrink-0" />
       {{ hours }}
     </NText>
   </div>
