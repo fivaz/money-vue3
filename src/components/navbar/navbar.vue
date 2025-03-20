@@ -18,6 +18,8 @@ const router = useRouter()
 // Get the current authenticated user
 const user = useCurrentUser()
 
+const commitHash = import.meta.env.VITE_COMMIT_HASH
+
 // Define user navigation
 const userNavigation = [
   ROUTES.PROFILE,
@@ -44,7 +46,7 @@ function handleSignOut() {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 justify-between">
         <div class="flex">
-          <n-logo class="size-10 self-center" />
+          <n-logo v-tooltip="commitHash" class="size-10 self-center" />
           <NavLinks />
         </div>
         <div class="hidden sm:ml-6 sm:flex sm:items-center">

@@ -18,6 +18,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.13",
     "@headlessui/vue": "^1.7.23",
     "@tailwindcss/vite": "^4.0.12",
     "@vite-pwa/assets-generator": "^0.2.6",
