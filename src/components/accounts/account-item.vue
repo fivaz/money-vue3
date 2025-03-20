@@ -3,13 +3,20 @@ import { computed, defineProps, ref, watch } from 'vue'
 import { type Account, findTransactionsByAccount } from '@/components/accounts/service.ts'
 import { getEmptyTransaction, type Transaction } from '@/components/transactions/service.ts'
 import NText from '@/components/base/n-text.vue'
-import { CogIcon, PlusIcon, ChevronUpIcon } from 'lucide-vue-next'
+import {
+  CogIcon,
+  PlusIcon,
+  ChevronUpIcon,
+  ArrowDownNarrowWideIcon,
+  ArrowDownWideNarrowIcon,
+} from 'lucide-vue-next'
 import AccountForm from '@/components/accounts/account-form.vue'
 import TransactionItem from '@/components/transactions/transaction-item/transaction-item.vue'
 import TransactionForm from '@/components/transactions/transaction-form/transaction-form.vue'
 import { useTransactionsStore } from '@/components/transactions/store'
 import { useDateStore } from '@/store/date.ts'
 import IconRenderer from '@/components/base/Icon/icon-renderer.vue'
+import NButton from '@/components/base/n-button.vue'
 
 const props = defineProps<{
   account: Account
@@ -34,6 +41,12 @@ const transactionStore = useTransactionsStore()
 const accountTransactions = computed(() =>
   findTransactionsByAccount(transactionStore.value, props.account, dateStore.selectedDate),
 )
+
+const isAscending = ref(false)
+
+const sortedTransactions = computed(() =>
+  isAscending.value ? accountTransactions.value : [...accountTransactions.value].reverse(),
+)
 </script>
 
 <template>
@@ -48,6 +61,10 @@ const accountTransactions = computed(() =>
         <NText size="lg" class="font-medium">{{ account.name }}</NText>
       </div>
       <div class="flex gap-2">
+        <n-button @click="isAscending = !isAscending">
+          <ArrowDownNarrowWideIcon v-if="isAscending" class="size-4" />
+          <ArrowDownWideNarrowIcon v-else class="size-4" />
+        </n-button>
         <TransactionForm
           color="primary"
           :transaction="newTransaction"
@@ -63,7 +80,7 @@ const accountTransactions = computed(() =>
 
     <ul role="list" class="divide-y divide-gray-300 dark:divide-gray-600">
       <TransactionItem
-        v-for="transaction in accountTransactions"
+        v-for="transaction in sortedTransactions"
         :key="transaction.id"
         :transaction="transaction"
         :account="account"
