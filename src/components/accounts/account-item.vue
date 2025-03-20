@@ -56,7 +56,7 @@ const sortedTransactions = computed(() =>
     >
       <div class="flex items-center gap-2">
         <NText>
-          <IconRenderer class="size-5">{{ account.icon }}</IconRenderer>
+          <IconRenderer class="size-5" :name="account.icon" />
         </NText>
         <NText size="lg" class="font-medium">{{ account.name }}</NText>
       </div>
