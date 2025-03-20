@@ -55,7 +55,7 @@ watch(selectedValue, (newValue) => {
         leave-to-class="opacity-0"
       >
         <ListboxOptions
-          class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm dark:bg-gray-800 dark:ring-white/10"
+          class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm dark:bg-gray-800 dark:text-white dark:scheme-dark dark:ring-white/10"
         >
           <slot />
         </ListboxOptions>
