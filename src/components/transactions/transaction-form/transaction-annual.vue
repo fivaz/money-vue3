@@ -5,6 +5,7 @@ import type { Transaction } from '@/components/transactions/service.ts'
 import { computed, defineEmits, ref } from 'vue'
 import NText from '@/components/base/n-text.vue'
 import { differenceInMonths, isValid, parseISO } from 'date-fns'
+import { nParseDate } from '@/lib/const.ts'
 
 const props = defineProps<{
   modelValue: Transaction
@@ -31,8 +32,8 @@ function calculateMonthsBetween(startDateStr: string, endDateStr: string): numbe
     return 0
   }
 
-  const startDate = parseISO(startDateStr)
-  const endDate = parseISO(endDateStr)
+  const startDate = nParseDate(startDateStr)
+  const endDate = nParseDate(endDateStr)
 
   // Check if the parsed dates are valid
   if (!isValid(startDate)) {
@@ -45,10 +46,12 @@ function calculateMonthsBetween(startDateStr: string, endDateStr: string): numbe
   // Ensure the end date is not before the start date
   if (endDate < startDate) {
     errors.value = 'End date must be after start date'
+    return 0
   }
 
-  // Use date-fns to calculate the difference in months
-  return differenceInMonths(endDate, startDate)
+  // Calculate number of months between dates
+  // Adding 1 to include both start and end months
+  return differenceInMonths(endDate, startDate) + 1
 }
 
 const numberOfMonths = computed(() =>

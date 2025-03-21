@@ -25,8 +25,15 @@ const dayOfMonthPercentage = computed(() => {
 
 // Calculate total spent from transactions
 const totalSpent = computed(() => {
-  return props.transactions.reduce((sum, transaction) => sum + transaction.amount, 0)
+  return props.transactions
+    .map((transaction) => {
+      if (transaction.annualSource) {
+      }
+    })
+    .reduce((sum, transaction) => sum + transaction.amount, 0)
 })
+
+function getAnnualTransactionAmount(trasaction: Transaction) {}
 
 // Calculate actual percentage (can exceed 100%)
 const actualPercentage = computed(() => {

@@ -1,7 +1,7 @@
-import { nFormatDate } from '@/lib/const.ts'
+import { nFormatDate, nParseDate } from '@/lib/const.ts'
 import type { Budget } from '@/components/budgets/service.ts'
 import type { Account } from '@/components/accounts/service.ts'
-import { addMonths } from 'date-fns'
+import { addMonths, differenceInMonths, isValid } from 'date-fns'
 
 export type Operation = 'expense' | 'income' | 'transfer'
 
@@ -45,4 +45,34 @@ export function getEmptyTransaction(account: Account, date: string): Transaction
     endDate: account.isAnnual ? nFormatDate(addMonths(new Date(), 12)) : '',
     annualSource: null,
   }
+}
+
+export function getMonthlyAmount(transaction: Transaction): number {
+  // Parse string dates to Date objects
+  const start = nParseDate(transaction.startDate)
+  const end = nParseDate(transaction.endDate)
+
+  // Check if the parsed dates are valid
+  if (!isValid(start)) {
+    return 0
+  }
+  if (!isValid(end)) {
+    return 0
+  }
+
+  // Calculate number of months between dates
+  // Adding 1 to include both start and end months
+  const months = differenceInMonths(end, start) + 1
+
+  // Handle case where dates are invalid or endDate is before startDate
+  if (months <= 0) {
+    const errorMessage = `End date must be after start date in transaction.id: ${transaction.id}`
+    console.log(errorMessage)
+    Sentry.captureException(new Error(errorMessage))
+
+    return transaction.amount
+  }
+
+  // Calculate and return monthly amount
+  return transaction.amount / months
 }
