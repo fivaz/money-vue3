@@ -29,3 +29,5 @@ coverage
 
 *.tsbuildinfo
 dev-dist
+# Sentry Config File
+.env.sentry-build-plugin

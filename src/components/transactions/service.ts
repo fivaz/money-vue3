@@ -2,6 +2,7 @@ import { nFormatDate, nParseDate } from '@/lib/const.ts'
 import type { Budget } from '@/components/budgets/service.ts'
 import type { Account } from '@/components/accounts/service.ts'
 import { addMonths, differenceInMonths, isValid } from 'date-fns'
+import * as Sentry from '@sentry/vue'
 
 export type Operation = 'expense' | 'income' | 'transfer'
 

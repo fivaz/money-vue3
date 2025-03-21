@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -38,10 +39,19 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,png,svg}'], // Cache these file types
       },
     }),
+    sentryVitePlugin({
+      org: 'fivaz-lb',
+      project: 'money',
+    }),
   ],
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+
+  build: {
+    sourcemap: true,
   },
 })
