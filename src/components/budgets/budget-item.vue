@@ -2,7 +2,7 @@
 import { computed, defineProps } from 'vue'
 import { type Budget, findTransactionsByBudget } from '@/components/budgets/service.ts'
 import NText from '@/components/base/n-text.vue'
-import { ChevronDownIcon, ChevronUpIcon, CogIcon } from 'lucide-vue-next'
+import { ChevronDownIcon, CogIcon } from 'lucide-vue-next'
 import BudgetForm from '@/components/budgets/budget-form.vue'
 import NMoney from '@/components/base/n-money.vue'
 import IconRenderer from '@/components/base/Icon/icon-renderer.vue'
@@ -64,14 +64,16 @@ const budgetTransactions = computed(() =>
               v-for="transaction in budgetTransactions"
               :key="transaction.id"
               :transaction="transaction"
-              :account="transaction.account"
+              :account="transaction.annualSource || transaction.account"
             />
           </ul>
         </DisclosurePanel>
       </transition>
 
       <DisclosureButton class="flex w-full justify-center p-2">
-        <n-text><ChevronDownIcon :class="open && 'rotate-180 transform'" /></n-text>
+        <n-text>
+          <ChevronDownIcon :class="open && 'rotate-180 transform'" />
+        </n-text>
       </DisclosureButton>
     </li>
   </Disclosure>

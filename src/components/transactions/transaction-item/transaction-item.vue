@@ -53,6 +53,7 @@ const shouldShowAnnualTransactionPayment = computed(() => {
         <NText>
           <IconRenderer class="size-4 shrink-0 text-yellow-500" :name="transaction.budget?.icon" />
         </NText>
+
         <NText class="truncate font-medium" v-if="transaction.description">
           {{ transaction.description }}
         </NText>
@@ -62,21 +63,26 @@ const shouldShowAnnualTransactionPayment = computed(() => {
         </NText>
       </div>
     </div>
+
     <div class="flex items-center gap-2">
       <NText v-if="transaction.annualSource?.id === account.id">
         <CombineIcon class="size-4 shrink-0 text-yellow-500" />
       </NText>
+
       <NText v-if="transaction.operation === 'transfer'">
         <ArrowLeftRightIcon class="size-4 shrink-0 text-yellow-500" />
       </NText>
+
       <NText v-if="isAnnualOriginal">
         <Grid2x2Icon class="size-4 shrink-0 text-yellow-500" />
       </NText>
+
       <TransactionItemAmount
         :isAnnualOriginal="isAnnualOriginal"
         :transaction="transaction"
         :account-id="account.id"
       />
+
       <TransactionForm :transaction="transaction" :is-account-annual="account.isAnnual">
         <CogIcon class="size-4 shrink-0" />
       </TransactionForm>
