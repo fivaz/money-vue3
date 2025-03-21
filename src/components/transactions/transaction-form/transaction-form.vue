@@ -158,11 +158,11 @@ const errors = ref('')
       <NInput name="Reference date" type="date" v-model="transactionIn.referenceDate" />
 
       <div class="flex justify-between gap-2">
-        <NButton @click="handleDelete" color="error">Delete</NButton>
+        <n-button @click="handleDelete" color="error">Delete</n-button>
 
         <div class="flex gap-2">
-          <NButton type="submit" color="primary">Save</NButton>
-          <NButton @click="closeDialog" color="secondary">Cancel</NButton>
+          <n-button type="submit" color="primary">Save</n-button>
+          <n-button @click="closeDialog" color="secondary">Cancel</n-button>
         </div>
       </div>
     </form>

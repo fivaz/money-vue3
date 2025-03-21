@@ -37,7 +37,9 @@ function updateValue(value: string) {
     >
       <div
         :class="[
-          checked ? 'bg-yellow-500 text-white' : 'text-gray-500',
+          checked
+            ? 'bg-yellow-500 text-white dark:bg-yellow-600 dark:text-yellow-50'
+            : 'text-gray-600 dark:text-gray-300',
           'flex cursor-pointer items-center justify-center gap-1 rounded-full px-2.5 py-1',
         ]"
       >

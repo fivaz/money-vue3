@@ -42,7 +42,7 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 scheme-light dark:scheme-dark">
+  <div class="flex flex-col gap-2">
     <label
       v-if="name"
       :for="idName"
@@ -58,7 +58,7 @@ const handleInput = (event: Event) => {
         autocomplete="off"
         :value="formattedValue"
         :placeholder="placeholder"
-        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-yellow-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500"
+        class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 scheme-light outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-yellow-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:scheme-dark dark:outline-white/10 dark:placeholder:text-gray-500"
         @input="handleInput"
       />
     </div>

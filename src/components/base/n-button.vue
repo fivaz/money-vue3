@@ -25,10 +25,11 @@ function getButtonClasses(
 
   const colorClasses: Record<ButtonColor, string> = {
     default:
-      'bg-white text-amber-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-white/10 dark:text-yellow-500 dark:ring-0 dark:hover:bg-white/20',
+      'border border-gray-200 dark:border-gray-400 bg-white text-amber-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-white/10 dark:text-yellow-500 dark:ring-0 dark:hover:bg-white/20',
     primary:
-      'bg-yellow-500 text-white hover:bg-yellow-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500',
-    secondary: 'bg-yellow-50 text-yellow-600 hover:bg-yellow-100',
+      'border border-gray-200 dark:border-gray-400 bg-yellow-500 text-white hover:bg-yellow-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500',
+    secondary:
+      'border border-gray-200 dark:border-gray-400 bg-yellow-50 text-yellow-600 hover:bg-yellow-100',
     error:
       'bg-red-500 text-white hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500',
   }

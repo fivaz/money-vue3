@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Budget } from '@/components/budgets/service.ts'
-import type { Transaction } from '@/components/transactions/service.ts'
+import { getMonthlyAmount, type Transaction } from '@/components/transactions/service.ts'
 import NMoney from '@/components/base/n-money.vue'
 import { getDate, getDaysInMonth, startOfDay } from 'date-fns'
 import NText from '@/components/base/n-text.vue'
@@ -25,17 +25,12 @@ const dayOfMonthPercentage = computed(() => {
 
 // Calculate total spent from transactions
 const totalSpent = computed(() => {
-  return (
-    props.transactions
-      // .map((transaction) => {
-      //   if (transaction.annualSource) {
-      //   }
-      // })
-      .reduce((sum, transaction) => sum + transaction.amount, 0)
-  )
-})
+  return props.transactions.reduce((sum, transaction) => {
+    const amount = transaction.annualSource ? getMonthlyAmount(transaction) : transaction.amount
 
-function getAnnualTransactionAmount(trasaction: Transaction) {}
+    return sum + amount
+  }, 0)
+})
 
 // Calculate actual percentage (can exceed 100%)
 const actualPercentage = computed(() => {
