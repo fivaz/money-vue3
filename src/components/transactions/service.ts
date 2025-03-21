@@ -48,22 +48,29 @@ export function getEmptyTransaction(account: Account, date: string): Transaction
   }
 }
 
-export function getMonthlyAmount(transaction: Transaction): number {
-  // Parse string dates to Date objects
-  const start = nParseDate(transaction.startDate)
-  const end = nParseDate(transaction.endDate)
+export function calculateMonthsInAnnual(transaction: Transaction): number {
+  if (!transaction.startDate || !transaction.endDate) {
+    return 0
+  }
+
+  const startDate = nParseDate(transaction.startDate)
+  const endDate = nParseDate(transaction.endDate)
 
   // Check if the parsed dates are valid
-  if (!isValid(start)) {
+  if (!isValid(startDate)) {
     return 0
   }
-  if (!isValid(end)) {
+  if (!isValid(endDate)) {
     return 0
   }
 
+  return differenceInMonths(endDate, startDate) + 1
+}
+
+export function getMonthlyAmount(transaction: Transaction): number {
   // Calculate number of months between dates
   // Adding 1 to include both start and end months
-  const months = differenceInMonths(end, start) + 1
+  const months = calculateMonthsInAnnual(transaction)
 
   // Handle case where dates are invalid or endDate is before startDate
   if (months <= 0) {

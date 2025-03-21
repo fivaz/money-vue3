@@ -21,6 +21,7 @@ import TransactionOperation from '@/components/transactions/transaction-form/tra
 import IconRenderer from '@/components/base/Icon/icon-renderer.vue'
 import AccountSelect from '@/components/transactions/transaction-form/account-select.vue'
 import TransactionAnnual from '@/components/transactions/transaction-form/transaction-annual.vue'
+import NAlert from '@/components/base/n-alert.vue'
 
 const props = defineProps<{
   transaction: Transaction
@@ -72,6 +73,8 @@ function handleDelete() {
 function closeDialog() {
   isOpen.value = false
 }
+
+const errors = ref('')
 </script>
 
 <template>
@@ -83,6 +86,8 @@ function closeDialog() {
     <n-text size="lg" class="font-semibold">
       {{ transactionIn.id ? 'Edit Transaction' : 'Add Transaction' }}
     </n-text>
+
+    <n-alert v-if="errors" v-model="errors" />
 
     <form @submit.prevent="handleSubmit" class="z-20 mt-4 space-y-4">
       <TransactionOperation v-if="!isAnAnnualTransaction" v-model="transactionIn.operation" />
@@ -144,7 +149,11 @@ function closeDialog() {
         />
       </div>
 
-      <transaction-annual v-if="isAnAnnualTransaction" v-model="transactionIn" />
+      <transaction-annual
+        v-if="isAnAnnualTransaction"
+        v-model="transactionIn"
+        v-model:errors="errors"
+      />
 
       <NInput name="Reference date" type="date" v-model="transactionIn.referenceDate" />
 

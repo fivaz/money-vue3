@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import NInput from '@/components/base/n-input.vue'
 import NMoney from '@/components/base/n-money.vue'
-import type { Transaction } from '@/components/transactions/service.ts'
-import { computed, defineEmits, ref } from 'vue'
+import { calculateMonthsInAnnual, type Transaction } from '@/components/transactions/service.ts'
+import { computed, defineEmits, watch } from 'vue'
 import NText from '@/components/base/n-text.vue'
-import { differenceInMonths, isValid, parseISO } from 'date-fns'
-import { nParseDate } from '@/lib/const.ts'
 
 const props = defineProps<{
   modelValue: Transaction
+  errors: string
 }>()
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Transaction): void // For v-model support
+  (e: 'update:errors', value: string): void
 }>()
 
 // Computed property to handle two-way binding with v-model
@@ -25,38 +25,15 @@ const transactionIn = computed({
   },
 })
 
-const errors = ref('')
+const numberOfMonths = computed(() => calculateMonthsInAnnual(transactionIn.value))
 
-function calculateMonthsBetween(startDateStr: string, endDateStr: string): number {
-  if (!startDateStr || !endDateStr) {
-    return 0
+watch(numberOfMonths, (newValue) => {
+  if (newValue <= 0) {
+    emit('update:errors', 'End date must be after start date')
+  } else {
+    emit('update:errors', '')
   }
-
-  const startDate = nParseDate(startDateStr)
-  const endDate = nParseDate(endDateStr)
-
-  // Check if the parsed dates are valid
-  if (!isValid(startDate)) {
-    return 0
-  }
-  if (!isValid(endDate)) {
-    return 0
-  }
-
-  // Ensure the end date is not before the start date
-  if (endDate < startDate) {
-    errors.value = 'End date must be after start date'
-    return 0
-  }
-
-  // Calculate number of months between dates
-  // Adding 1 to include both start and end months
-  return differenceInMonths(endDate, startDate) + 1
-}
-
-const numberOfMonths = computed(() =>
-  calculateMonthsBetween(transactionIn.value.startDate, transactionIn.value.endDate),
-)
+})
 </script>
 
 <template>
