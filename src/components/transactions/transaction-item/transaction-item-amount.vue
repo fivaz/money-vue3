@@ -48,7 +48,7 @@ const amountColor = computed(() => {
 </script>
 
 <template>
-  <NMoney :class="amountColor">
+  <NMoney :class="amountColor" :sign="true">
     {{ isAnnualTransactionMonthlyContribution ? formatAmount / 12 : formatAmount }}
   </NMoney>
 </template>

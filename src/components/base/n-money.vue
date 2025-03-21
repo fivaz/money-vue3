@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { computed, useSlots, type VNode } from 'vue'
 
+const props = defineProps<{
+  sign?: boolean
+}>()
+
+// Set default value for noSign
+const sign = computed(() => props.sign ?? false)
+
 const slots = useSlots()
 
 // Extract date from slot content
@@ -46,8 +53,9 @@ function formatToDollars(cents: number): string {
   // Format the number (convert cents to francs/dollars)
   const formatted = formatter.format(cents / 100)
 
-  // Replace CHF with $
-  return formatted.replace('CHF', '$')
+  // Replace CHF with $ and add + for positive values
+  const dollarFormatted = formatted.replace('CHF', '$')
+  return cents > 0 && sign.value ? `+${dollarFormatted}` : dollarFormatted
 }
 </script>
 
