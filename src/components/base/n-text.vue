@@ -7,6 +7,7 @@ type TextSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
 const props = defineProps<{
   size?: TextSize
   class?: string
+  tooltip?: string
 }>()
 
 function getSizeClass(size: TextSize | undefined): string {
@@ -27,7 +28,14 @@ const customClass = computed(() => props.class || '')
 </script>
 
 <template>
-  <span :class="[getSizeClass(size), 'text-gray-700 dark:text-gray-300', customClass]">
+  <span
+    v-if="tooltip"
+    v-tooltip="tooltip"
+    :class="[getSizeClass(size), 'text-gray-700 dark:text-gray-300', customClass]"
+  >
+    <slot />
+  </span>
+  <span v-else :class="[getSizeClass(size), 'text-gray-700 dark:text-gray-300', customClass]">
     <slot />
   </span>
 </template>

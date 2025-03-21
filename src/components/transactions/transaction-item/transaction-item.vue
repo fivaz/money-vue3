@@ -65,15 +65,15 @@ const shouldShowAnnualTransactionPayment = computed(() => {
     </div>
 
     <div class="flex items-center gap-2">
-      <NText v-if="transaction.annualSource?.id === account.id">
+      <NText v-if="transaction.annualSource?.id === account.id" tooltip="recurring transaction">
         <CombineIcon class="size-4 shrink-0 text-yellow-500" />
       </NText>
 
-      <NText v-if="transaction.operation === 'transfer'">
+      <NText v-if="transaction.operation === 'transfer'" tooltip="transfer">
         <ArrowLeftRightIcon class="size-4 shrink-0 text-yellow-500" />
       </NText>
 
-      <NText v-if="isAnnualOriginal">
+      <NText v-if="isAnnualOriginal" tooltip="payment of recurring transaction">
         <Grid2x2Icon class="size-4 shrink-0 text-yellow-500" />
       </NText>
 
