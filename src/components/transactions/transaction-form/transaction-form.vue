@@ -16,17 +16,15 @@ import NSwitch from '@/components/base/n-switch.vue'
 import NSelect from '@/components/base/Select/n-select.vue'
 import SelectItem from '@/components/base/Select/select-item.vue'
 import { useBudgetsStore } from '@/components/budgets/store.ts'
-import { useAccountsStore } from '@/components/accounts/store.ts'
 import NText from '@/components/base/n-text.vue'
 import TransactionOperation from '@/components/transactions/transaction-form/transaction-operation.vue'
-import NMoney from '@/components/base/n-money.vue'
 import IconRenderer from '@/components/base/Icon/icon-renderer.vue'
 import AccountSelect from '@/components/transactions/transaction-form/account-select.vue'
 import TransactionAnnual from '@/components/transactions/transaction-form/transaction-annual.vue'
 
 const props = defineProps<{
   transaction: Transaction
-  isAccountAnnual: boolean
+  isAccountAnnual?: boolean
 }>()
 
 const transactionIn = ref<Transaction>(deepCopy(props.transaction))

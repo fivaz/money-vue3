@@ -48,7 +48,9 @@ export function transactionBelongsToBudget(
 
   // Regular transactions - check if date is in the same month
   if (!transaction.startDate || !transaction.endDate) {
-    const transactionDate = parseISO(transaction.date)
+    const transactionDate = transaction.referenceDate
+      ? nParseDate(transaction.referenceDate)
+      : parseISO(transaction.date)
     return isSameMonth(transactionDate, currentDate)
   }
 
