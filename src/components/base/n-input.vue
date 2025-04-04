@@ -1,6 +1,7 @@
 <!--n-input-->
 <script setup lang="ts">
 import { computed } from 'vue'
+import { format, parseISO, formatISO } from 'date-fns'
 
 const props = defineProps<{
   name?: string // Optional, defaults to id
@@ -16,25 +17,38 @@ const emit = defineEmits<{
 const inputType = computed(() => props.type || 'text')
 const idName = computed(() => props.name || Math.random().toString())
 
-// Format ISO date to 'YYYY-MM-DDTHH:MM' for datetime-local inputs
+// Format ISO date to 'yyyy-MM-ddTHH:mm' for datetime-local inputs
 const formattedValue = computed(() => {
   if (inputType.value === 'datetime-local' && typeof props.modelValue === 'string') {
-    const date = new Date(props.modelValue)
-    if (!isNaN(date.getTime())) {
-      return date.toISOString().slice(0, 16) // Convert to 'YYYY-MM-DDTHH:MM'
+    try {
+      const date = parseISO(props.modelValue)
+      if (!isNaN(date.getTime())) {
+        // Format to datetime-local compatible string while preserving timezone
+        return format(date, "yyyy-MM-dd'T'HH:mm")
+      }
+    } catch (e) {
+      console.error('Invalid date format:', e)
     }
   }
   return props.modelValue
 })
 
-// Handle input updates correctly
+// Handle input updates
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement
   let value: string | number = target.value
 
-  // Convert back to full ISO string when it's a datetime-local input
   if (inputType.value === 'datetime-local') {
-    value = new Date(value).toISOString()
+    try {
+      // Parse the datetime-local input and convert to ISO with timezone
+      const date = new Date(value)
+      if (!isNaN(date.getTime())) {
+        // Use formatISO to preserve timezone information
+        value = formatISO(date)
+      }
+    } catch (e) {
+      console.error('Error parsing date:', e)
+    }
   }
 
   emit('update:modelValue', value)

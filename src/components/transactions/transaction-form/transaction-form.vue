@@ -97,7 +97,12 @@ const errors = ref('')
       </div>
 
       <div class="grid grid-cols-3 gap-4">
-        <NInput class="col-span-2" type="datetime-local" name="Date" v-model="transactionIn.date" />
+        <NInput
+          class="col-span-2"
+          type="datetime-local"
+          :name="transactionIn.date"
+          v-model="transactionIn.date"
+        />
         <MoneyInput class="col-span-1" name="Amount" v-model="transactionIn.amount" />
       </div>
 
