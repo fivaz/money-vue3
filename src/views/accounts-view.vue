@@ -7,6 +7,7 @@ import { useAccountsStore } from '@/components/accounts/store'
 import { VaultIcon } from 'lucide-vue-next'
 import TransactionSearchList from '@/components/transactions/transaction-search-list.vue'
 import SearchInput from '@/components/base/search-input.vue'
+import NText from '@/components/base/n-text.vue'
 
 const accountsStore = useAccountsStore()
 
@@ -30,7 +31,7 @@ const searchQuery = ref<string>('')
         <AccountItem v-for="account in accountsStore.value" :key="account.id" :account="account" />
       </ul>
     </div>
-    <div v-else>Loading accounts...</div>
+    <NText v-else>Loading accounts...</NText>
 
     <Teleport to="#header-right" v-if="isMounted">
       <div class="flex flex-col items-end gap-2 md:flex-row-reverse md:items-center md:gap-4">

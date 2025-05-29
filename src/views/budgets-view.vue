@@ -38,7 +38,7 @@ const totalSpent = computed(() =>
         <BudgetItem v-for="budget in budgetsStore.value" :key="budget.id" :budget="budget" />
       </ul>
     </div>
-    <div v-else>Loading budgets...</div>
+    <NText v-else>Loading budgets...</NText>
 
     <Teleport to="#header-right" v-if="isMounted">
       <div class="flex flex-col items-end gap-2 md:flex-row-reverse md:items-center md:gap-4">

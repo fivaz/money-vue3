@@ -5,6 +5,7 @@ import SourceItem from '@/components/sources/source-item.vue'
 import SourceForm from '@/components/sources/source-form.vue'
 import { useSourcesStore } from '@/components/sources/store.ts'
 import { LandmarkIcon } from 'lucide-vue-next'
+import NText from '@/components/base/n-text.vue'
 
 const sourcesStore = useSourcesStore()
 
@@ -21,7 +22,7 @@ onMounted(() => (isMounted.value = true))
         <SourceItem v-for="source in sourcesStore.value" :key="source.id" :source="source" />
       </ul>
     </div>
-    <div v-else>Loading sources...</div>
+    <NText v-else>Loading sources...</NText>
 
     <Teleport to="#header-right" v-if="isMounted">
       <SourceForm :source="newSource">
