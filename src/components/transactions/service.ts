@@ -84,3 +84,7 @@ export function getMonthlyAmount(transaction: Transaction): number {
   // Calculate and return monthly amount
   return transaction.amount / months
 }
+
+export function getTransactionsSum(transactions: Transaction[]): number {
+  return transactions.reduce((sum, transaction) => sum + transaction.amount, 0)
+}

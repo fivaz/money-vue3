@@ -1,8 +1,6 @@
-import { collection, addDoc, updateDoc, doc } from 'firebase/firestore'
-import { useFirestore, useCurrentUser } from 'vuefire'
 import { DB_PATH, nParseDate } from '@/lib/const.ts'
 import { parseISO, isSameMonth, addMonths } from 'date-fns'
-import type { Transaction } from '@/components/transactions/service.ts'
+import { getTransactionsSum, type Transaction } from '@/components/transactions/service.ts'
 
 export type Budget = {
   id: string
@@ -94,4 +92,22 @@ export function findTransactionsByBudget(
   return transactions.filter((transaction) =>
     transactionBelongsToBudget(transaction, budget, currentDate),
   )
+}
+
+export function getBudgetsSum(budgets: Budget[]): number {
+  return budgets.reduce((total, budget) => total + budget.value, 0)
+}
+
+export function getBudgetsSpent(
+  budgets: Budget[],
+  transactions: Transaction[],
+  currentDate: Date,
+): number {
+  return budgets.reduce((total, budget) => {
+    const budgetTransactions = findTransactionsByBudget(transactions, budget, currentDate)
+    const budgetSpent = getTransactionsSum(budgetTransactions)
+    const x = total + budgetSpent
+    console.log('x', x)
+    return x
+  }, 0)
 }
