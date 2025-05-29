@@ -16,7 +16,7 @@ onMounted(() => (isMounted.value = true))
 
 <template>
   <div>
-    <div v-if="sourcesStore.value">
+    <div v-if="sourcesStore.value.length">
       <ul class="mt-4 space-y-2">
         <SourceItem v-for="source in sourcesStore.value" :key="source.id" :source="source" />
       </ul>

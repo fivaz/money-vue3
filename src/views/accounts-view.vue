@@ -25,7 +25,7 @@ const searchQuery = ref<string>('')
   <div>
     <transaction-search-list v-if="searchQuery" :searchQuery="searchQuery" />
 
-    <div v-else-if="accountsStore.value">
+    <div v-else-if="accountsStore.value.length">
       <ul class="mt-4 space-y-2">
         <AccountItem v-for="account in accountsStore.value" :key="account.id" :account="account" />
       </ul>

@@ -20,9 +20,6 @@ export const useDateStore = defineStore('date', () => {
   }
 
   function getFormattedDate(): string {
-    const browserYear = new Date().getFullYear() // Current year from browser
-    const currentYear = selectedDate.value.getFullYear()
-
     if (isSameYear(selectedDate.value, new Date())) {
       // Same year as browser: show only month
       return format(selectedDate.value, 'MMMM') // e.g., "March"

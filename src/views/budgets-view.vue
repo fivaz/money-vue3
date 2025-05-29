@@ -16,7 +16,7 @@ onMounted(() => (isMounted.value = true))
 
 <template>
   <div>
-    <div v-if="budgetsStore.value">
+    <div v-if="budgetsStore.value.length">
       <ul class="mt-4 space-y-2">
         <BudgetItem v-for="budget in budgetsStore.value" :key="budget.id" :budget="budget" />
       </ul>
