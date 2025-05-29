@@ -1,7 +1,3 @@
-import { collection, addDoc, updateDoc, doc } from 'firebase/firestore'
-import { useFirestore, useCurrentUser } from 'vuefire'
-import { DB_PATH } from '@/lib/const.ts'
-
 export type Source = {
   id: string
   name: string

@@ -93,7 +93,9 @@ function closeDialog() {
       </div>
 
       <div class="flex justify-between gap-2">
-        <NButton @click="handleDelete" color="error">Delete</NButton>
+        <div>
+          <NButton v-if="accountIn.id" @click="handleDelete" color="error">Delete</NButton>
+        </div>
 
         <div class="flex gap-2">
           <NButton type="submit" color="primary">Save</NButton>
