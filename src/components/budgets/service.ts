@@ -106,8 +106,6 @@ export function getBudgetsSpent(
   return budgets.reduce((total, budget) => {
     const budgetTransactions = findTransactionsByBudget(transactions, budget, currentDate)
     const budgetSpent = getTransactionsSum(budgetTransactions)
-    const x = total + budgetSpent
-    console.log('x', x)
-    return x
+    return total + budgetSpent
   }, 0)
 }
