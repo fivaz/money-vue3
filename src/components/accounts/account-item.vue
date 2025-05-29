@@ -52,9 +52,11 @@ const sortedTransactions = computed(() =>
 
 <template>
   <Disclosure defaultOpen v-slot="{ open }">
-    <li class="rounded-lg border border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800">
+    <li
+      class="relative rounded-lg border border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800"
+    >
       <div
-        class="rounded-x-lg flex items-center justify-between rounded-t-lg border-b border-gray-300 p-3 dark:border-gray-600"
+        class="sticky top-0 z-10 flex items-center justify-between rounded-t-lg border-b border-gray-300 bg-gray-100 p-3 dark:border-gray-600 dark:bg-gray-800"
       >
         <div class="flex items-center gap-2">
           <NText>
