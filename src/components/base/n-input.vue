@@ -1,6 +1,5 @@
-<!--n-input-->
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { format, parseISO, formatISO } from 'date-fns'
 
 const props = defineProps<{
@@ -8,6 +7,7 @@ const props = defineProps<{
   type?: string // Defaults to 'text'
   placeholder?: string
   modelValue: string | number // For v-model support
+  autofocus?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -16,6 +16,24 @@ const emit = defineEmits<{
 
 const inputType = computed(() => props.type || 'text')
 const idName = computed(() => props.name || Math.random().toString())
+
+const inputRef = ref<HTMLInputElement | null>(null)
+
+onMounted(() => {
+  if (props.autofocus && inputRef.value) {
+    inputRef.value.focus()
+  }
+})
+
+// Optional: focus again if autofocus is changed dynamically
+watch(
+  () => props.autofocus,
+  (newVal) => {
+    if (newVal && inputRef.value) {
+      inputRef.value.focus()
+    }
+  },
+)
 
 // Format ISO date to 'yyyy-MM-ddTHH:mm' for datetime-local inputs
 const formattedValue = computed(() => {
@@ -66,6 +84,7 @@ const handleInput = (event: Event) => {
     </label>
     <div>
       <input
+        ref="inputRef"
         :id="idName"
         :type="inputType"
         :name="idName"
